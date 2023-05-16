@@ -84,7 +84,8 @@ export class CytoscapeComponent implements OnChanges, OnDestroy {
     this.instance.on('tap', 'node', e => {
       const currentTapStamp = e.timeStamp;
       const msFromLastTap = currentTapStamp - this.previousTapStamp;
-      const node: SingularData = e.target;
+      //const node: SingularData = e.target;
+      const node = e.target;
 
       if (msFromLastTap < this.doubleClickDelay) {
         localDoubleClick.emit(node.data());
