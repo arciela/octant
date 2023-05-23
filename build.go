@@ -396,7 +396,7 @@ func webLint() {
 func serve() {
 	var wg sync.WaitGroup
 
-	uiVars := map[string]string{"API_BASE": "http://localhost:7777"}
+	/*uiVars := map[string]string{"API_BASE": "http://localhost:7777"}
 	uiCmd := newCmd("npm", uiVars, "run", "start")
 	uiCmd.Stdout = os.Stdout
 	uiCmd.Stderr = os.Stderr
@@ -412,7 +412,7 @@ func serve() {
 		if err := uiCmd.Wait(); err != nil {
 			log.Fatalf("serve: npm run: %s", err)
 		}
-	}()
+	}()*/
 
 	serverVars := map[string]string{
 		"OCTANT_DISABLE_OPEN_BROWSER": "true",
@@ -444,7 +444,7 @@ func serve() {
 	go func() {
 		defer wg.Done()
 		<-sigc
-		uiCmd.Process.Signal(syscall.SIGQUIT)
+		//uiCmd.Process.Signal(syscall.SIGQUIT)
 		serverCmd.Process.Signal(syscall.SIGQUIT)
 	}()
 
