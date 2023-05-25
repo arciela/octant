@@ -17,7 +17,7 @@ import {
 
 import cytoscape, { NodeCollection, SingularData, Stylesheet } from 'cytoscape';
 import dagre from 'cytoscape-dagre';
-import nodeHtmlLabel from 'cytoscape-node-html-label';
+const nodeHtmlLabel = require('cytoscape-node-html-label');
 
 cytoscape.use(dagre);
 nodeHtmlLabel(cytoscape);
