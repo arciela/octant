@@ -1,10 +1,8 @@
-import {
+import cytoscape, {
   AnimatedLayoutOptions,
   BaseLayoutOptions,
   NodeSingular,
 } from 'cytoscape';
-import cytoscape from 'cytoscape';
-import { isFunction } from 'rxjs/internal-compatibility';
 
 export interface OctantLayoutOptions
   extends BaseLayoutOptions,
@@ -66,7 +64,7 @@ OctantLayout.prototype.run = function () {
   const eles = options.eles;
 
   const nodes = eles.nodes();
-  const posIsFn = isFunction(options.positions);
+  const posIsFn = typeof options.positions === 'function';
 
   function getPosition(node) {
     if (options.positions == null) {

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, merge, Observable, timer } from 'rxjs';
 import {
   distinctUntilChanged,
-  mapTo,
+  map,
   startWith,
   takeUntil,
 } from 'rxjs/operators';
@@ -18,8 +18,6 @@ import {
 export class LoadingService {
   public requestComplete = new BehaviorSubject<boolean>(false);
 
-  constructor() {}
-
   withDelay(
     watch: Observable<boolean>,
     after: number,
@@ -27,10 +25,9 @@ export class LoadingService {
   ): Observable<boolean> {
     const loadingTimer = timer(after).pipe(takeUntil(watch));
     const holdTimer = timer(after + atLeast);
-
-    return merge<boolean>(
-      loadingTimer.pipe(mapTo(true)),
-      combineLatest([watch, holdTimer]).pipe(mapTo(false))
+    return merge(
+      loadingTimer.pipe(map(() => true)),
+      combineLatest([watch, holdTimer]).pipe(map(() => false))
     ).pipe(startWith(false), distinctUntilChanged());
   }
 }

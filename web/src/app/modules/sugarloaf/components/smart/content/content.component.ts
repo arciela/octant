@@ -48,7 +48,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   private loadingSubscription: Subscription;
   public showSpinner = false;
   currentPath = '';
-  // https://github.com/KingSora/OverlayScrollbars/issues/257
+  // TODO: fix this
+  /*// https://github.com/KingSora/OverlayScrollbars/issues/257
   options: OverlayScrollbars.Options = {
     callbacks: {
       onScroll: () => {
@@ -57,7 +58,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         );
       },
     },
-  };
+  };*/
 
   constructor(
     private router: Router,
