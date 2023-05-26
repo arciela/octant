@@ -19,7 +19,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../shared/shared.module';
 import { ContentComponent } from './components/smart/content/content.component';
 import { FilterTextPipe } from './pipes/filtertext/filtertext.pipe';
-import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
 
 const routes: Routes = [
   {
@@ -58,7 +57,6 @@ export class UnstripTrailingSlashLocation extends Location {
     HttpClientModule,
     FormsModule,
     NgSelectModule,
-    OverlayscrollbarsModule,
     SharedModule,
 
     // routing must come last

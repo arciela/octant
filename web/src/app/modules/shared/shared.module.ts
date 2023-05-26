@@ -86,7 +86,6 @@ import { MissingComponentComponent } from './components/missing-component/missin
 import { OctantTooltipComponent } from './components/presentation/octant-tooltip/octant-tooltip';
 import { BottomPanelComponent } from './components/smart/bottom-panel/bottom-panel.component';
 import { DataModule } from '../../data/data.module';
-import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
 import { StringEscapePipe } from './pipes/stringEscape/string.escape.pipe';
 import { IconComponent } from './components/presentation/icon/icon.component';
 import { FormViewContainerComponent } from './components/form-view-container/form-view-container.component';
@@ -186,7 +185,6 @@ import { JoinPipe } from './pipes/join/join.pipe';
     FormsModule,
     HighlightModule,
     MonacoEditorModule,
-    OverlayscrollbarsModule,
     ReactiveFormsModule,
     ResizableModule,
     RouterModule,

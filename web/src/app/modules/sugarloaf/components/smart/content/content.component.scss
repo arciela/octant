@@ -3,7 +3,8 @@
  */
 
 .content-component {
-  height: 100%;
+  height: 100vh;
+  overflow: scroll;
   padding: 0.6rem 1rem 1rem 1rem;
 
   &.loading-content {

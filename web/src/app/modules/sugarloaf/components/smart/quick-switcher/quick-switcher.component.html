@@ -24,7 +24,6 @@
         <th>Searching Namespaces</th>
       </tr>
       </thead>
-      <overlay-scrollbars>
         <tbody>
         <tr
           *ngFor="
@@ -33,7 +32,7 @@
             index as index
           "
           (mouseover)="activeIndex = index"
-          (click)="onEnter($event)"
+          (click)="onEnter()"
           [class.destination-active]="index == activeIndex"
           [attr.aria-label]="destination.title"
         >
@@ -41,7 +40,6 @@
           <td>{{ destination.type }}</td>
         </tr>
         </tbody>
-      </overlay-scrollbars>
     </table>
   </cds-modal-content>
   <cds-modal-actions>

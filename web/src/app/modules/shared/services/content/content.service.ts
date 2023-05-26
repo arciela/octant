@@ -175,8 +175,4 @@ export class ContentService {
       path: response.contentPath,
     });
   }
-
-  setScrollPos(pos: number) {
-    this.viewScrollPos.next(pos);
-  }
 }
