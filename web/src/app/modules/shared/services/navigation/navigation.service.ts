@@ -6,13 +6,10 @@
 import { Injectable } from '@angular/core';
 import { WebsocketService } from '../../../../data/services/websocket/websocket.service';
 import { BehaviorSubject } from 'rxjs';
-import {
-  Navigation,
-  NavigationChild,
-} from '../../../sugarloaf/models/navigation';
+import { Navigation, NavigationChild } from '../../../sugarloaf/models/navigation';
 import { ContentService } from '../content/content.service';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { LoadingService } from '../loading/loading.service';
 import { ClarityIcons } from '@cds/core/icon';
 import { isSvg } from '../../../../util/isSvg';
@@ -72,12 +69,16 @@ export class NavigationService {
     });
 
     router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((event: RouterEvent) => {
-        this.loadingService.requestComplete.next(false);
-        this.activeUrl.next(event.url);
-        this.updateLastSelection();
-      });
+      .pipe(
+        tap(event => {
+          if (event instanceof NavigationEnd && event instanceof RouterEvent) {
+            this.loadingService.requestComplete.next(false);
+            this.activeUrl.next(event.url);
+            this.updateLastSelection();
+          }
+        })
+      )
+      .subscribe();
   }
 
   updateLastSelection() {
