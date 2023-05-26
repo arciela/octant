@@ -19,7 +19,6 @@ export class IconService {
       return '';
     }
 
-    // tslint:disable:no-string-literal
     const clarityIcons = window['ClarityIcons'];
 
     if (!clarityIcons.has(item.iconName)) {
