@@ -19,7 +19,7 @@
     "!_config.yml",
     "!karma.conf.js",
     "!tsconfig.json",
-    "!tslint.json"
+    "!eslintrc.js"
   ],
   "nsis": {
     "differentialPackage": false
