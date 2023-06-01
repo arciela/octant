@@ -1,6 +1,6 @@
 {
   "name": "octant",
-  "description": "Octant is an extensible platform that provides modules that help developers better understand their Kuberenetes resources.",
+  "description": "Octant is an extensible platform that provides modules that help developers better understand their Kubernetes resources.",
   "author": "The Octant Team",
   "version": "0.25.1",
   "homepage": "https://octant.dev",
