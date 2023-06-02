@@ -1,12 +1,7 @@
 // Copyright (c) 2019 the Octant contributors. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  SecurityContext,
-} from '@angular/core'
+import { ChangeDetectorRef, Component, SecurityContext } from '@angular/core'
 import '@cds/core/button/register'
 import { ClarityIcons, clipboardIcon } from '@cds/core/icon'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
@@ -17,12 +12,9 @@ import { parse } from 'marked'
 @Component({
   selector: 'app-view-text',
   templateUrl: './text.component.html',
-  styleUrls: ['./text.component.scss'],
+  styleUrls: ['./text.component.scss']
 })
-export class TextComponent
-  extends AbstractViewComponent<TextView>
-  implements OnInit
-{
+export class TextComponent extends AbstractViewComponent<TextView> {
   value: string | SafeHtml
   clipboardValue: string
   copied: boolean
@@ -32,8 +24,8 @@ export class TextComponent
   hasStatus = false
 
   constructor(
-    private readonly sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef
+      private readonly sanitizer: DomSanitizer,
+      private cdr: ChangeDetectorRef
   ) {
     super()
     ClarityIcons.addIcons(clipboardIcon)
@@ -47,8 +39,8 @@ export class TextComponent
     if (view.config.isMarkdown) {
       const html = parse(view.config.value)
       this.value = view.config.trustedContent
-        ? this.sanitizer.bypassSecurityTrustHtml(html)
-        : this.sanitizer.sanitize(SecurityContext.HTML, html)
+          ? this.sanitizer.bypassSecurityTrustHtml(html)
+          : this.sanitizer.sanitize(SecurityContext.HTML, html)
     } else {
       this.value = view.config.value
     }

@@ -2,15 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  isDevMode,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core'
+import { Component, ElementRef, EventEmitter, isDevMode, Output, ViewChild } from '@angular/core'
 import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 import { SelectFileView } from '../../../models/content'
 import { ActionService } from '../../../services/action/action.service'
@@ -26,12 +18,9 @@ type File = {
 
 @Component({
   selector: 'app-view-select-file',
-  templateUrl: './select-file.component.html',
+  templateUrl: './select-file.component.html'
 })
-export class SelectFileComponent
-  extends AbstractViewComponent<SelectFileView>
-  implements OnInit
-{
+export class SelectFileComponent extends AbstractViewComponent<SelectFileView> {
   label: string
   multiple: boolean
   layout: string
@@ -43,8 +32,8 @@ export class SelectFileComponent
   @Output() fileChanged: EventEmitter<any> = new EventEmitter<any>()
 
   constructor(
-    private actionService: ActionService,
-    private electronService: ElectronService
+      private actionService: ActionService,
+      private electronService: ElectronService
   ) {
     super()
   }
@@ -75,11 +64,11 @@ export class SelectFileComponent
           name: file.name,
           type: file.type,
           lastModified: file.lastModified,
-          size: file.size,
+          size: file.size
         }
 
         if (this.electronService.isElectron()) {
-          fileMetadata = { ...fileMetadata, ...{ path: file.path } }
+          fileMetadata = {...fileMetadata, ...{path: file.path}}
         }
         fileList.push(fileMetadata)
       }
@@ -87,7 +76,7 @@ export class SelectFileComponent
       if (this.action) {
         this.actionService.perform({
           action: this.action,
-          files: fileList,
+          files: fileList
         })
       }
     }
