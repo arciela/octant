@@ -1,7 +1,6 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "files": [
-    "src//types/index.d.ts",
     "src//app/app-routing.module.ts",
     "src//app/util/includesArray.ts",
     "src//app/util/trackBy/trackByIdentity.ts",
