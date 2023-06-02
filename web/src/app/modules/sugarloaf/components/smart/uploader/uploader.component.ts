@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { WebsocketService } from '../../../../../data/services/websocket/websocket.service';
-import { Subscription } from 'rxjs';
-import { WindowToken } from '../../../../../window';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
+import { WebsocketService } from '../../../../../data/services/websocket/websocket.service'
+import { Subscription } from 'rxjs'
+import { WindowToken } from '../../../../../window'
 
 @Component({
   selector: 'app-uploader',
@@ -13,10 +13,10 @@ import { WindowToken } from '../../../../../window';
   styleUrls: ['./uploader.component.scss'],
 })
 export class UploaderComponent implements OnInit, OnDestroy {
-  inputValue: string;
-  showModal: boolean;
+  inputValue: string
+  showModal: boolean
 
-  private contentSubscription: Subscription;
+  private contentSubscription: Subscription
 
   constructor(
     private websocketService: WebsocketService,
@@ -25,34 +25,34 @@ export class UploaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.websocketService.registerHandler('event.octant.dev/loading', () => {
-      this.showModal = true;
-    });
+      this.showModal = true
+    })
     this.websocketService.registerHandler('event.octant.dev/refresh', () => {
-      setTimeout(this.window.location.reload.bind(this.window.location), 1000);
-    });
+      setTimeout(this.window.location.reload.bind(this.window.location), 1000)
+    })
 
     this.websocketService.sendMessage('action.octant.dev/loading', {
       loading: true,
-    });
+    })
   }
 
   ngOnDestroy(): void {
     if (this.contentSubscription) {
-      this.contentSubscription.unsubscribe();
+      this.contentSubscription.unsubscribe()
     }
   }
 
   upload() {
     this.websocketService.sendMessage('action.octant.dev/uploadKubeConfig', {
       kubeConfig: window.btoa(this.inputValue),
-    });
+    })
   }
 
   updateInput(event: HTMLInputElement) {
-    this.inputValue = String(event);
+    this.inputValue = String(event)
   }
 
   hasInput(): boolean {
-    return !this.inputValue || this.inputValue.length === 0;
+    return !this.inputValue || this.inputValue.length === 0
   }
 }

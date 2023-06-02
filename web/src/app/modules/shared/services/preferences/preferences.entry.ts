@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { PreferencesService } from './preferences.service';
-import { Preferences } from '../../models/preference';
+import { BehaviorSubject, Subscription } from 'rxjs'
+import { PreferencesService } from './preferences.service'
+import { Preferences } from '../../models/preference'
 
 export class PreferencesEntry<T> {
-  private subscription: Subscription;
-  public subject: BehaviorSubject<T>;
+  private subscription: Subscription
+  public subject: BehaviorSubject<T>
 
   constructor(
     private preferencesService: PreferencesService,
@@ -23,43 +23,43 @@ export class PreferencesEntry<T> {
         JSON.parse(
           preferencesService.getStoredValue(this.id, this.defaultValue)
         )
-      );
+      )
     } else {
       this.subject = new BehaviorSubject<T>(
         preferencesService.getStoredValue(this.id, this.defaultValue)
-      );
+      )
     }
 
     this.subscription = this.subject.subscribe(val => {
-      preferencesService.setStoredValue(this.id, val);
-    });
+      preferencesService.setStoredValue(this.id, val)
+    })
   }
 
   public preferencesChanged(update: Preferences) {
     switch (typeof this.defaultValue) {
       case 'boolean':
-        const val = (update[this.id] === this.defaultText) as unknown;
+        const val = (update[this.id] === this.defaultText) as unknown
         if (this.subject.value !== (val as T)) {
-          this.subject.next(val as T);
-          return true;
+          this.subject.next(val as T)
+          return true
         }
-        break;
+        break
       default:
-        const newValue = update[this.id];
+        const newValue = update[this.id]
         if (newValue && this.subject.value !== newValue) {
-          this.subject.next(newValue);
-          return true;
+          this.subject.next(newValue)
+          return true
         }
-        break;
+        break
     }
-    return false;
+    return false
   }
 
   public setDefaultValue() {
-    this.subject.next(this.defaultValue);
+    this.subject.next(this.defaultValue)
   }
 
   public destroy() {
-    this.subscription?.unsubscribe();
+    this.subscription?.unsubscribe()
   }
 }

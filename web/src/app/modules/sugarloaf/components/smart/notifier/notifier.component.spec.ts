@@ -2,34 +2,34 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import {
   OverlayScrollbarsComponent,
   OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx';
+} from 'overlayscrollbars-ngx'
 
-import { NotifierComponent } from './notifier.component';
+import { NotifierComponent } from './notifier.component'
 
 describe('NotifierComponent', () => {
-  let component: NotifierComponent;
-  let fixture: ComponentFixture<NotifierComponent>;
+  let component: NotifierComponent
+  let fixture: ComponentFixture<NotifierComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [NotifierComponent, OverlayScrollbarsComponent],
         imports: [OverlayscrollbarsModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NotifierComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(NotifierComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

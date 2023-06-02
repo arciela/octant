@@ -3,24 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing'
 
-import { NavigationService } from './navigation.service';
+import { NavigationService } from './navigation.service'
 import {
   BackendService,
   WebsocketService,
-} from '../../../../data/services/websocket/websocket.service';
-import { WebsocketServiceMock } from '../../../../data/services/websocket/mock';
-import { Navigation } from '../../../sugarloaf/models/navigation';
-import { ContentService } from '../content/content.service';
+} from '../../../../data/services/websocket/websocket.service'
+import { WebsocketServiceMock } from '../../../../data/services/websocket/mock'
+import { Navigation } from '../../../sugarloaf/models/navigation'
+import { ContentService } from '../content/content.service'
 import {
   expectedSelection,
   NAVIGATION_MOCK_DATA,
   NAVIGATION_WITH_INVALID_CUSTOM_SVG,
   NAVIGATION_WITH_VALID_CUSTOM_SVG,
-} from './navigation.test.data';
-import { BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
+} from './navigation.test.data'
+import { BehaviorSubject } from 'rxjs'
+import { take } from 'rxjs/operators'
 
 describe('NavigationService', () => {
   beforeEach(() =>
@@ -34,12 +34,12 @@ describe('NavigationService', () => {
         ContentService,
       ],
     })
-  );
+  )
 
   it('should be created', () => {
-    const service: NavigationService = TestBed.inject(NavigationService);
-    expect(service).toBeTruthy();
-  });
+    const service: NavigationService = TestBed.inject(NavigationService)
+    expect(service).toBeTruthy()
+  })
 
   describe('namespace update', () => {
     it('triggers the current subject', inject(
@@ -52,12 +52,12 @@ describe('NavigationService', () => {
         const update: Navigation = {
           sections: [],
           defaultPath: 'path',
-        };
+        }
 
-        backendService.triggerHandler('event.octant.dev/navigation', update);
-        svc.current.subscribe(current => expect(current).toEqual(update));
+        backendService.triggerHandler('event.octant.dev/navigation', update)
+        svc.current.subscribe(current => expect(current).toEqual(update))
       }
-    ));
+    ))
 
     it('verify nav selection is correct after going to new URL', inject(
       [NavigationService, WebsocketService, ContentService],
@@ -65,31 +65,31 @@ describe('NavigationService', () => {
         const currentNavigation: Navigation = {
           sections: NAVIGATION_MOCK_DATA,
           defaultPath: '',
-        };
+        }
 
         backendService.triggerHandler(
           'event.octant.dev/navigation',
           currentNavigation
-        );
+        )
 
         currentNavigation.sections.map((section, index) => {
-          verifySelection(section.path, svc, index, '');
+          verifySelection(section.path, svc, index, '')
 
           if (section.children) {
             section.children.map(child => {
-              verifySelection(child.path, svc, index, 'child');
+              verifySelection(child.path, svc, index, 'child')
               if (child.children) {
                 child.children.map(grandchild => {
-                  verifySelection(grandchild.path, svc, index, 'grandchild');
-                });
+                  verifySelection(grandchild.path, svc, index, 'grandchild')
+                })
               }
-            });
+            })
           }
-        });
-        svc.activeUrl.unsubscribe();
-        svc.selectedItem.unsubscribe();
+        })
+        svc.activeUrl.unsubscribe()
+        svc.selectedItem.unsubscribe()
       }
-    ));
+    ))
 
     it('verify nav selection reverse lookup is correct', inject(
       [NavigationService, WebsocketService, ContentService],
@@ -97,31 +97,31 @@ describe('NavigationService', () => {
         const currentNavigation: Navigation = {
           sections: NAVIGATION_MOCK_DATA,
           defaultPath: '',
-        };
+        }
 
         backendService.triggerHandler(
           'event.octant.dev/navigation',
           currentNavigation
-        );
+        )
 
         for (const path of Object.keys(expectedSelection)) {
-          const prefixedPath = path.startsWith('/') ? path : '/' + path;
-          svc.activeUrl.next(prefixedPath);
-          svc.updateLastSelection();
+          const prefixedPath = path.startsWith('/') ? path : '/' + path
+          svc.activeUrl.next(prefixedPath)
+          svc.updateLastSelection()
 
           svc.selectedItem.pipe(take(1)).subscribe(selection => {
             expect(selection.index)
               .withContext(`reverse lookup index navigation for ${path}`)
-              .toEqual(expectedSelection[path].index);
+              .toEqual(expectedSelection[path].index)
             expect(selection.module)
               .withContext(`reverse lookup module navigation for ${path}`)
-              .toEqual(expectedSelection[path].module);
-          });
+              .toEqual(expectedSelection[path].module)
+          })
         }
 
-        svc.selectedItem.unsubscribe();
+        svc.selectedItem.unsubscribe()
       }
-    ));
+    ))
 
     function verifySelection(
       path: string,
@@ -129,24 +129,24 @@ describe('NavigationService', () => {
       index: number,
       descriptor: string
     ) {
-      const prefixedPath = path.startsWith('/') ? path : '/' + path;
-      svc.activeUrl.next(prefixedPath);
-      svc.updateLastSelection();
+      const prefixedPath = path.startsWith('/') ? path : '/' + path
+      svc.activeUrl.next(prefixedPath)
+      svc.updateLastSelection()
 
       svc.selectedItem.pipe(take(1)).subscribe(selection => {
-        const expected = expectedSelection[path];
+        const expected = expectedSelection[path]
 
         expect(selection.index)
           .withContext(
             `navigation selected ${descriptor} index ${index} ${path}`
           )
-          .toEqual(expected.index);
+          .toEqual(expected.index)
         expect(selection.module)
           .withContext(
             `navigation selected ${descriptor} module ${index} ${path}`
           )
-          .toEqual(expected.module);
-      });
+          .toEqual(expected.module)
+      })
 
       svc.activeUrl
         .pipe(take(1))
@@ -154,7 +154,7 @@ describe('NavigationService', () => {
           expect(url)
             .withContext(`url path for ${descriptor} index ${index}`)
             .toEqual(prefixedPath)
-        );
+        )
     }
 
     const routerLinkCases = [
@@ -185,19 +185,19 @@ describe('NavigationService', () => {
         namespace: 'test',
         result: '/overview/namespace/test',
       },
-    ];
+    ]
 
     routerLinkCases.forEach((test, index) => {
       it(`generates correct routerLink based on url ${test.url}`, inject(
         [NavigationService],
         (svc: NavigationService) => {
-          svc.activeUrl = new BehaviorSubject<string>(test.url);
-          const result = svc.redirect(test.namespace);
-          expect(test.result).toEqual(result);
+          svc.activeUrl = new BehaviorSubject<string>(test.url)
+          const result = svc.redirect(test.namespace)
+          expect(test.result).toEqual(result)
         }
-      ));
-    });
-  });
+      ))
+    })
+  })
 
   describe('custom icon svgs', () => {
     describe('with valid custom svg', () => {
@@ -207,19 +207,19 @@ describe('NavigationService', () => {
           const currentNavigation: Navigation = {
             sections: NAVIGATION_WITH_VALID_CUSTOM_SVG,
             defaultPath: '',
-          };
+          }
 
           backendService.triggerHandler(
             'event.octant.dev/navigation',
             currentNavigation
-          );
+          )
 
           svc.current.subscribe(_ => {
-            expect(svc.modules.value[0].icon).toEqual('custom');
-          });
+            expect(svc.modules.value[0].icon).toEqual('custom')
+          })
         }
-      ));
-    });
+      ))
+    })
 
     describe('with invalid custom svg', () => {
       it('uses the default icon', inject(
@@ -228,18 +228,18 @@ describe('NavigationService', () => {
           const currentNavigation: Navigation = {
             sections: NAVIGATION_WITH_INVALID_CUSTOM_SVG,
             defaultPath: '',
-          };
+          }
 
           backendService.triggerHandler(
             'event.octant.dev/navigation',
             currentNavigation
-          );
+          )
 
           svc.current.subscribe(_ => {
-            expect(svc.modules.value[0].icon).toEqual('times');
-          });
+            expect(svc.modules.value[0].icon).toEqual('times')
+          })
         }
-      ));
-    });
-  });
-});
+      ))
+    })
+  })
+})

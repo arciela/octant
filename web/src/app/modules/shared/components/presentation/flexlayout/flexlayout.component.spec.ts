@@ -2,29 +2,29 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FlexlayoutComponent } from './flexlayout.component';
-import { SharedModule } from '../../../shared.module';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { FlexlayoutComponent } from './flexlayout.component'
+import { SharedModule } from '../../../shared.module'
 
 describe('FlexlayoutComponent', () => {
-  let component: FlexlayoutComponent;
-  let fixture: ComponentFixture<FlexlayoutComponent>;
+  let component: FlexlayoutComponent
+  let fixture: ComponentFixture<FlexlayoutComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [SharedModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FlexlayoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(FlexlayoutComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

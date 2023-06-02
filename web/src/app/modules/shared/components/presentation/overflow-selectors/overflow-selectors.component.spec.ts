@@ -2,15 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SharedModule } from '../../../shared.module';
-import { OctantTooltipComponent } from '../octant-tooltip/octant-tooltip';
-import { OverflowSelectorsComponent } from './overflow-selectors.component';
-import { windowProvider, WindowToken } from '../../../../../window';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { SharedModule } from '../../../shared.module'
+import { OctantTooltipComponent } from '../octant-tooltip/octant-tooltip'
+import { OverflowSelectorsComponent } from './overflow-selectors.component'
+import { windowProvider, WindowToken } from '../../../../../window'
 
 describe('OverflowSelectorsComponent', () => {
-  let component: OverflowSelectorsComponent;
-  let fixture: ComponentFixture<OverflowSelectorsComponent>;
+  let component: OverflowSelectorsComponent
+  let fixture: ComponentFixture<OverflowSelectorsComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -18,18 +18,18 @@ describe('OverflowSelectorsComponent', () => {
         declarations: [OverflowSelectorsComponent, OctantTooltipComponent],
         imports: [SharedModule],
         providers: [{ provide: WindowToken, useFactory: windowProvider }],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverflowSelectorsComponent);
-    component = fixture.componentInstance;
-  });
+    fixture = TestBed.createComponent(OverflowSelectorsComponent)
+    component = fixture.componentInstance
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('should display only two selectors with a +1 badge', () => {
     component.selectors = [
@@ -60,15 +60,15 @@ describe('OverflowSelectorsComponent', () => {
           value: 'valueThree',
         },
       },
-    ];
+    ]
 
-    fixture.detectChanges();
-    const renderedSelectors = document.getElementsByClassName('label');
+    fixture.detectChanges()
+    const renderedSelectors = document.getElementsByClassName('label')
 
-    expect(component.overflowSelectors.length).toEqual(1);
-    expect(component.showSelectors.length).toEqual(2);
-    expect(renderedSelectors.length).toEqual(2);
-  });
+    expect(component.overflowSelectors.length).toEqual(1)
+    expect(component.showSelectors.length).toEqual(2)
+    expect(renderedSelectors.length).toEqual(2)
+  })
 
   it('should display all selectors if the number is less or equal than the number to display', () => {
     component.selectors = [
@@ -81,14 +81,14 @@ describe('OverflowSelectorsComponent', () => {
           value: 'valueOne',
         },
       },
-    ];
-    fixture.detectChanges();
-    const renderedSelectors = document.getElementsByClassName('label-orange');
+    ]
+    fixture.detectChanges()
+    const renderedSelectors = document.getElementsByClassName('label-orange')
 
-    expect(component.overflowSelectors).toBeUndefined();
-    expect(component.showSelectors.length).toEqual(1);
-    expect(renderedSelectors.length).toEqual(1);
-  });
+    expect(component.overflowSelectors).toBeUndefined()
+    expect(component.showSelectors.length).toEqual(1)
+    expect(renderedSelectors.length).toEqual(1)
+  })
 
   it('should display expression selector', () => {
     component.selectors = [
@@ -102,12 +102,12 @@ describe('OverflowSelectorsComponent', () => {
           values: ['valueOne'],
         },
       },
-    ];
-    fixture.detectChanges();
-    const renderedSelectors = document.getElementsByClassName('label-purple');
+    ]
+    fixture.detectChanges()
+    const renderedSelectors = document.getElementsByClassName('label-purple')
 
-    expect(component.overflowSelectors).toBeUndefined();
-    expect(component.showSelectors.length).toEqual(1);
-    expect(renderedSelectors.length).toEqual(1);
-  });
-});
+    expect(component.overflowSelectors).toBeUndefined()
+    expect(component.showSelectors.length).toEqual(1)
+    expect(renderedSelectors.length).toEqual(1)
+  })
+})

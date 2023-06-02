@@ -2,36 +2,36 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ResourceViewerComponent } from './resource-viewer.component';
-import { SharedModule } from '../../../shared.module';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
-import { ResourceViewerView } from '../../../models/content';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { ResourceViewerComponent } from './resource-viewer.component'
+import { SharedModule } from '../../../shared.module'
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx'
+import { ResourceViewerView } from '../../../models/content'
+import { DebugElement } from '@angular/core'
+import { By } from '@angular/platform-browser'
 
 describe('ResourceViewerComponent', () => {
-  let component: ResourceViewerComponent;
-  let fixture: ComponentFixture<ResourceViewerComponent>;
+  let component: ResourceViewerComponent
+  let fixture: ComponentFixture<ResourceViewerComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [OverlayScrollbarsComponent],
         imports: [SharedModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResourceViewerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ResourceViewerComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('should show node labels', done => {
     component.view = {
@@ -62,17 +62,17 @@ describe('ResourceViewerComponent', () => {
           },
         },
       },
-    } as unknown as ResourceViewerView;
+    } as unknown as ResourceViewerView
 
-    fixture.detectChanges();
+    fixture.detectChanges()
 
     setTimeout(() => {
       const header: DebugElement[] = fixture.debugElement.queryAll(
         By.css('.label1')
-      );
-      expect(header.length).toEqual(1);
+      )
+      expect(header.length).toEqual(1)
 
-      done();
-    }, 100); // wait for cytoscape to update the view
-  });
-});
+      done()
+    }, 100) // wait for cytoscape to update the view
+  })
+})

@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { SingleStatComponent } from './single-stat.component';
-import { SingleStatView } from '../../../models/content';
+import { SingleStatComponent } from './single-stat.component'
+import { SingleStatView } from '../../../models/content'
 
 describe('SingleStatComponent', () => {
-  let component: SingleStatComponent;
-  let fixture: ComponentFixture<SingleStatComponent>;
+  let component: SingleStatComponent
+  let fixture: ComponentFixture<SingleStatComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [SingleStatComponent],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SingleStatComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(SingleStatComponent)
+    component = fixture.componentInstance
     const view: SingleStatView = {
       metadata: {
         type: 'singleStat',
@@ -29,12 +29,12 @@ describe('SingleStatComponent', () => {
           text: 'text',
         },
       },
-    };
-    component.view = view;
-    fixture.detectChanges();
-  });
+    }
+    component.view = view
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

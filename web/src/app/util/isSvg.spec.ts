@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import { isSvg } from './isSvg';
+import _ from 'lodash'
+import { isSvg } from './isSvg'
 
 describe('isSvg', () => {
   const validSvgs = [
@@ -27,23 +27,23 @@ describe('isSvg', () => {
       </g>
       Sorry, your browser does not support inline SVG.
     </svg>`,
-  ];
+  ]
 
   const invalidSvgs = [
     `<svg></sv>`,
     `<svg><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red"></svg>`,
     `<svg><polygon points="100,10 40,198 190,78 10,78 160,198"style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;"/></svg>`,
-  ];
+  ]
 
   it('should return false when svg string is invalid', () => {
     invalidSvgs.forEach(svg => {
-      expect(isSvg(svg)).toBe(false);
-    });
-  });
+      expect(isSvg(svg)).toBe(false)
+    })
+  })
 
   it('should return true when svg string is valid', () => {
     validSvgs.forEach(svg => {
-      expect(isSvg(svg)).toBe(true);
-    });
-  });
-});
+      expect(isSvg(svg)).toBe(true)
+    })
+  })
+})

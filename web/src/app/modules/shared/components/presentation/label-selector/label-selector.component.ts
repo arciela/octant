@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component } from '@angular/core';
-import { LabelSelectorView } from 'src/app/modules/shared/models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component } from '@angular/core'
+import { LabelSelectorView } from 'src/app/modules/shared/models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-view-label-selector',
@@ -12,15 +12,15 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   styleUrls: ['./label-selector.component.scss'],
 })
 export class LabelSelectorComponent extends AbstractViewComponent<LabelSelectorView> {
-  key: string;
-  value: string;
+  key: string
+  value: string
 
   constructor() {
-    super();
+    super()
   }
 
   update() {
-    this.key = this.v.config.key;
-    this.value = this.v.config.value;
+    this.key = this.v.config.key
+    this.value = this.v.config.value
   }
 }

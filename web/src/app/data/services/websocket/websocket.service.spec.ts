@@ -3,25 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { WebsocketService } from './websocket.service';
+import { WebsocketService } from './websocket.service'
 import {
   NotifierService,
   NotifierSession,
   NotifierSignal,
-} from '../../../modules/shared/notifier/notifier.service';
-import uniqueId from 'lodash/uniqueId';
-import { BehaviorSubject } from 'rxjs';
-import { WindowToken } from '../../../window';
-import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
+} from '../../../modules/shared/notifier/notifier.service'
+import uniqueId from 'lodash/uniqueId'
+import { BehaviorSubject } from 'rxjs'
+import { WindowToken } from '../../../window'
+import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx'
 
 class NotifierServiceMock {
-  private signalsStream: BehaviorSubject<NotifierSignal[]>;
+  private signalsStream: BehaviorSubject<NotifierSignal[]>
 
   createSession = (): NotifierSession => {
-    return new NotifierSession(this.signalsStream, uniqueId('signalSession'));
-  };
+    return new NotifierSession(this.signalsStream, uniqueId('signalSession'))
+  }
 }
 
 interface Location {
@@ -35,8 +35,8 @@ describe('WebsocketService', () => {
     protocol: 'http',
     host: 'example.com',
     pathname: '/path/',
-  };
-  let service: WebsocketService;
+  }
+  let service: WebsocketService
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -54,33 +54,33 @@ describe('WebsocketService', () => {
           },
         },
       ],
-    });
+    })
 
-    service = TestBed.inject(WebsocketService);
-  });
+    service = TestBed.inject(WebsocketService)
+  })
 
   describe('websocketURI', () => {
     describe('with http location', () => {
       beforeEach(() => {
-        location.protocol = 'http:';
-      });
+        location.protocol = 'http:'
+      })
 
       it('returns a http websocket uri', () => {
         expect(service.websocketURI()).toEqual(
           'ws://example.com/path/api/v1/stream'
-        );
-      });
-    });
+        )
+      })
+    })
     describe('with https location', () => {
       beforeEach(() => {
-        location.protocol = 'https:';
-      });
+        location.protocol = 'https:'
+      })
 
       it('returns a https websocket uri', () => {
         expect(service.websocketURI()).toEqual(
           'wss://example.com/path/api/v1/stream'
-        );
-      });
-    });
-  });
-});
+        )
+      })
+    })
+  })
+})

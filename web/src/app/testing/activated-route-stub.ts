@@ -7,8 +7,8 @@ import {
   ParamMap,
   Params,
   UrlSegment,
-} from '@angular/router';
-import { ReplaySubject } from 'rxjs';
+} from '@angular/router'
+import { ReplaySubject } from 'rxjs'
 
 /**
  * An ActivateRoute test double with a `paramMap` observable.
@@ -16,23 +16,23 @@ import { ReplaySubject } from 'rxjs';
  */
 export class ActivatedRouteStub {
   constructor(initialParams?: Params) {
-    this.setParamMap(initialParams);
+    this.setParamMap(initialParams)
   }
   // Use a ReplaySubject to share previous values with subscribers
   // and pump new values into the `paramMap` observable
-  private subject = new ReplaySubject<ParamMap>();
+  private subject = new ReplaySubject<ParamMap>()
 
   /** The mock paramMap observable */
-  readonly paramMap = this.subject.asObservable();
+  readonly paramMap = this.subject.asObservable()
 
-  private urlSubject = new ReplaySubject<UrlSegment[]>();
-  readonly url = this.urlSubject.asObservable();
+  private urlSubject = new ReplaySubject<UrlSegment[]>()
+  readonly url = this.urlSubject.asObservable()
 
-  private queryParamsSubject = new ReplaySubject<Params>();
-  readonly queryParams = this.queryParamsSubject.asObservable();
+  private queryParamsSubject = new ReplaySubject<Params>()
+  readonly queryParams = this.queryParamsSubject.asObservable()
 
   /** Set the paramMap observable's next value */
   setParamMap(params?: Params) {
-    this.subject.next(convertToParamMap(params));
+    this.subject.next(convertToParamMap(params))
   }
 }

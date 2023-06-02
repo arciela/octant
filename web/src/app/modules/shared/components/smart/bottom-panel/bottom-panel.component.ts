@@ -1,17 +1,17 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { ResizeEvent } from 'angular-resizable-element';
+import { Component, ElementRef, OnInit } from '@angular/core'
+import { ResizeEvent } from 'angular-resizable-element'
 import {
   animate,
   state,
   style,
   transition,
   trigger,
-} from '@angular/animations';
+} from '@angular/animations'
 
-export const minimizedHeight = '2rem';
-export const sliderHeightPropKey = '--slider-height';
+export const minimizedHeight = '2rem'
+export const sliderHeightPropKey = '--slider-height'
 
-const transitionExpr = (from: string, to: string): string => `${from} => ${to}`;
+const transitionExpr = (from: string, to: string): string => `${from} => ${to}`
 
 export enum PanelState {
   Open = 'open',
@@ -38,19 +38,19 @@ export enum PanelState {
   ],
 })
 export class BottomPanelComponent implements OnInit {
-  open = false;
-  toggleState = PanelState.Closed;
-  previousOpenHeight = '50vh';
-  resizeEdges = { top: true };
+  open = false
+  toggleState = PanelState.Closed
+  previousOpenHeight = '50vh'
+  resizeEdges = { top: true }
 
   constructor(private elRef: ElementRef) {}
 
   ngOnInit() {
-    this.setHeight(minimizedHeight);
+    this.setHeight(minimizedHeight)
   }
 
   parentHeight() {
-    return this.elRef.nativeElement.parentNode.offsetHeight + 'px';
+    return this.elRef.nativeElement.parentNode.offsetHeight + 'px'
   }
 
   resizeCursors() {
@@ -61,33 +61,33 @@ export class BottomPanelComponent implements OnInit {
       bottomRight: 'se-resize',
       leftOrRight: 'col-resize',
       topOrBottom: this.open ? 'ns-resize' : 'default',
-    };
+    }
   }
 
   updateSliderPosition(event: ResizeEvent) {
     if (!this.open) {
-      return;
+      return
     }
 
-    const panelTop = event.rectangle.top;
-    const height = `calc(${this.parentHeight()} - ${panelTop}px)`;
-    this.setHeight(height);
-    this.previousOpenHeight = height;
+    const panelTop = event.rectangle.top
+    const height = `calc(${this.parentHeight()} - ${panelTop}px)`
+    this.setHeight(height)
+    this.previousOpenHeight = height
   }
 
   setHeight(height: string) {
-    this.elRef.nativeElement.style.setProperty(sliderHeightPropKey, height);
+    this.elRef.nativeElement.style.setProperty(sliderHeightPropKey, height)
   }
 
   toggle() {
-    this.open = !this.open;
-    this.toggleState = this.open ? PanelState.Open : PanelState.Closed;
-    this.setHeight(this.open ? this.previousOpenHeight : minimizedHeight);
+    this.open = !this.open
+    this.toggleState = this.open ? PanelState.Open : PanelState.Closed
+    this.setHeight(this.open ? this.previousOpenHeight : minimizedHeight)
   }
 
   gutterClass() {
     return {
       open: this.open,
-    };
+    }
   }
 }

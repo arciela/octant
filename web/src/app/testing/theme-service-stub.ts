@@ -4,8 +4,8 @@
 import {
   ThemeService,
   ThemeType,
-} from '../modules/shared/services/theme/theme.service';
-import { BehaviorSubject } from 'rxjs';
+} from '../modules/shared/services/theme/theme.service'
+import { BehaviorSubject } from 'rxjs'
 
 export const themeServiceStub: Partial<ThemeService> = {
   loadCSS: () => void 0,
@@ -13,4 +13,4 @@ export const themeServiceStub: Partial<ThemeService> = {
   isLightThemeEnabled: () => true,
   switchTheme: () => void 0,
   themeType: new BehaviorSubject<ThemeType>('light'),
-};
+}

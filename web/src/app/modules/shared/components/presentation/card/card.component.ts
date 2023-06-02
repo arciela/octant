@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core'
 import {
   Action,
   CardView,
   TitleView,
   View,
   Alert,
-} from '../../../models/content';
-import { ActionService } from '../../../services/action/action.service';
-import { FormComponent } from '../form/form.component';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+} from '../../../models/content'
+import { ActionService } from '../../../services/action/action.service'
+import { FormComponent } from '../form/form.component'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-view-card',
@@ -16,42 +16,42 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent extends AbstractViewComponent<CardView> {
-  @ViewChild('appForm') appForm: FormComponent;
+  @ViewChild('appForm') appForm: FormComponent
 
-  title: TitleView[];
+  title: TitleView[]
 
-  body: View;
+  body: View
 
-  currentAction: Action;
+  currentAction: Action
 
-  alert: Alert;
+  alert: Alert
 
   constructor(private actionService: ActionService) {
-    super();
+    super()
   }
 
   update() {
-    this.title = this.v.metadata.title as TitleView[];
-    this.body = this.v.config.body;
-    this.alert = this.v.config.alert;
+    this.title = this.v.metadata.title as TitleView[]
+    this.body = this.v.config.body
+    this.alert = this.v.config.alert
   }
 
   onActionSubmit() {
     if (this.appForm?.formGroup && this.appForm?.formGroup.value) {
-      this.actionService.perform(this.appForm.formGroup.value);
-      this.currentAction = undefined;
+      this.actionService.perform(this.appForm.formGroup.value)
+      this.currentAction = undefined
     }
   }
 
   onActionCancel() {
-    this.currentAction = undefined;
+    this.currentAction = undefined
   }
 
   setAction(action: Action) {
-    this.currentAction = action;
+    this.currentAction = action
   }
 
   trackByFn(index, _) {
-    return index;
+    return index
   }
 }

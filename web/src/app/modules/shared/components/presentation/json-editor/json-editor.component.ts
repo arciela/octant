@@ -8,10 +8,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
-} from '@angular/core';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
-import JSONEditor from 'jsoneditor';
-import { JSONEditorView } from '../../../models/content';
+} from '@angular/core'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
+import JSONEditor from 'jsoneditor'
+import { JSONEditorView } from '../../../models/content'
 
 @Component({
   selector: 'app-view-json',
@@ -24,49 +24,49 @@ export class JSONEditorComponent
   extends AbstractViewComponent<JSONEditorView>
   implements AfterViewChecked
 {
-  container: HTMLElement;
-  id: string;
+  container: HTMLElement
+  id: string
   options = {
     mode: '',
     mainMenuBar: false,
     navigationBar: false,
-  };
-  content: any;
+  }
+  content: any
 
   constructor() {
-    super();
-    this.id = Math.random().toString(36).substring(2, 15);
+    super()
+    this.id = Math.random().toString(36).substring(2, 15)
   }
 
   ngAfterViewChecked() {
-    this.container = document.getElementById(this.id);
+    this.container = document.getElementById(this.id)
     if (this.container) {
-      const editor = new JSONEditor(this.container, this.options);
-      editor.set(this.content);
+      const editor = new JSONEditor(this.container, this.options)
+      editor.set(this.content)
 
       if (this.v?.config?.collapsed) {
-        editor.collapseAll();
+        editor.collapseAll()
       }
     }
   }
 
   update() {
-    const view = this.v;
-    this.options.mode = view.config.mode;
+    const view = this.v
+    this.options.mode = view.config.mode
 
-    this.isValidJson(view.config.content);
+    this.isValidJson(view.config.content)
   }
 
   isValidJson(content: string): any {
     try {
-      this.content = JSON.parse(content);
-      return this.content;
+      this.content = JSON.parse(content)
+      return this.content
     } catch (e) {
-      this.options.mode = 'preview';
+      this.options.mode = 'preview'
       this.content = {
         error: 'cannot parse json',
-      };
-      return this.content;
+      }
+      return this.content
     }
   }
 }

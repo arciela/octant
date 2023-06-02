@@ -12,15 +12,15 @@ import {
   Renderer2,
   SimpleChanges,
   ViewChild,
-} from '@angular/core';
+} from '@angular/core'
 
-import cytoscape, { NodeSingular, SingularData, Stylesheet } from 'cytoscape';
-import { hideChildren, positionChildren } from './octant.layout';
-import coseBilkent from 'cytoscape-cose-bilkent';
-import octant from './octant.layout';
+import cytoscape, { NodeSingular, SingularData, Stylesheet } from 'cytoscape'
+import { hideChildren, positionChildren } from './octant.layout'
+import coseBilkent from 'cytoscape-cose-bilkent'
+import octant from './octant.layout'
 
-cytoscape.use(coseBilkent);
-cytoscape('layout', 'octant', octant);
+cytoscape.use(coseBilkent)
+cytoscape('layout', 'octant', octant)
 
 @Component({
   selector: 'app-cytoscape2',
@@ -38,43 +38,43 @@ cytoscape('layout', 'octant', octant);
   ],
 })
 export class Cytoscape2Component implements OnChanges {
-  @ViewChild('cy', { static: true }) private cy: ElementRef;
-  @Input() public elements: any;
-  @Input() public style: Stylesheet[];
-  @Input() public layout: any;
-  @Input() public zoom: any;
+  @ViewChild('cy', { static: true }) private cy: ElementRef
+  @Input() public elements: any
+  @Input() public style: Stylesheet[]
+  @Input() public layout: any
+  @Input() public zoom: any
 
-  @Output() select: EventEmitter<any> = new EventEmitter<any>();
+  @Output() select: EventEmitter<any> = new EventEmitter<any>()
 
-  cytoscape: cytoscape.Core;
-  applied = false;
-  moveStarted = false;
+  cytoscape: cytoscape.Core
+  applied = false
+  moveStarted = false
 
   constructor(private renderer: Renderer2) {
     this.layout = this.layout || {
       name: 'grid',
       directed: true,
-    };
+    }
 
     this.zoom = this.zoom || {
       min: 0.1,
       max: 1.5,
-    };
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.elements && this.cytoscape) {
-      this.applied = false;
+      this.applied = false
       this.cytoscape.nodes('[hasChildren]').forEach(node => {
-        hideChildren(this.cytoscape, node);
-      });
+        hideChildren(this.cytoscape, node)
+      })
     }
-    this.render();
+    this.render()
   }
 
   public render() {
-    const cyContainer = this.renderer.selectRootElement(this.cy.nativeElement);
-    const localSelect = this.select;
+    const cyContainer = this.renderer.selectRootElement(this.cy.nativeElement)
+    const localSelect = this.select
     const options: cytoscape.CytoscapeOptions = {
       container: cyContainer,
       layout: this.layout,
@@ -82,37 +82,37 @@ export class Cytoscape2Component implements OnChanges {
       maxZoom: this.zoom.max,
       style: this.style,
       elements: this.elements,
-    };
-    this.cytoscape = cytoscape(options);
+    }
+    this.cytoscape = cytoscape(options)
 
     this.cytoscape.on('tap', 'node', e => {
       //const node: SingularData = e.target;
-      const node = e.target;
-      localSelect.emit(node.data());
-    });
+      const node = e.target
+      localSelect.emit(node.data())
+    })
 
     this.cytoscape.on('layoutstop', _ => {
       if (!this.applied) {
-        this.applied = true;
+        this.applied = true
         this.cytoscape
           .nodes('[hasChildren]')
-          .forEach(node => positionChildren(this.cytoscape, node));
-        this.cytoscape.fit();
+          .forEach(node => positionChildren(this.cytoscape, node))
+        this.cytoscape.fit()
       }
-    });
+    })
 
     this.cytoscape.on('drag', 'node', e => {
-      const node: NodeSingular = e.target;
+      const node: NodeSingular = e.target
       if (!this.moveStarted) {
-        this.moveStarted = true;
-        hideChildren(this.cytoscape, node);
+        this.moveStarted = true
+        hideChildren(this.cytoscape, node)
       }
-    });
+    })
 
     this.cytoscape.on('dragfree', 'node', e => {
-      const node: NodeSingular = e.target;
-      positionChildren(this.cytoscape, node);
-      this.moveStarted = false;
-    });
+      const node: NodeSingular = e.target
+      positionChildren(this.cytoscape, node)
+      this.moveStarted = false
+    })
   }
 }

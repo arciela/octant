@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { TextView, View } from '../../models/content';
+import { Injectable } from '@angular/core'
+import { TextView, View } from '../../models/content'
 
 @Injectable({
   providedIn: 'root',
@@ -9,16 +9,16 @@ export class ViewService {
 
   titleAsText(titleViews: View[]): string {
     if (!titleViews) {
-      return '';
+      return ''
     }
 
     // assume it's a text title
     return titleViews
       .map((titleView: TextView) => titleView.config.value)
-      .join(' / ');
+      .join(' / ')
   }
 
   viewTitleAsText(view: View): string {
-    return this.titleAsText(view.metadata.title);
+    return this.titleAsText(view.metadata.title)
   }
 }

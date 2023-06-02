@@ -1,15 +1,15 @@
 // Copyright (c) 2019 the Octant contributors. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { EditorComponent } from '../../components/smart/editor/editor.component';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { IconService } from './icon.service';
-import { SharedModule } from '../../shared.module';
+import { TestBed, waitForAsync } from '@angular/core/testing'
+import { EditorComponent } from '../../components/smart/editor/editor.component'
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
+import { IconService } from './icon.service'
+import { SharedModule } from '../../shared.module'
 import {
   OverlayScrollbarsComponent,
   OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx';
+} from 'overlayscrollbars-ngx'
 
 describe('IconService', () => {
   beforeEach(
@@ -28,12 +28,12 @@ describe('IconService', () => {
             },
           },
         ],
-      });
+      })
     })
-  );
+  )
 
   it('should be created', () => {
-    const service: IconService = TestBed.inject(IconService);
-    expect(service).toBeTruthy();
-  });
-});
+    const service: IconService = TestBed.inject(IconService)
+    expect(service).toBeTruthy()
+  })
+})

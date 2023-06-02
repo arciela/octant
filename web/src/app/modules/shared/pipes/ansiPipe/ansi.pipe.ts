@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 import {
   DomSanitizer,
   SafeHtml,
@@ -6,14 +6,14 @@ import {
   SafeScript,
   SafeStyle,
   SafeUrl,
-} from '@angular/platform-browser';
-import { default as AnsiUp } from 'ansi_up';
+} from '@angular/platform-browser'
+import { default as AnsiUp } from 'ansi_up'
 
 @Pipe({
   name: 'ansipipe',
 })
 export class AnsiPipe implements PipeTransform {
-  ansiUp = new AnsiUp();
+  ansiUp = new AnsiUp()
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -24,8 +24,8 @@ export class AnsiPipe implements PipeTransform {
       // ANSI string
       return this.sanitizer.bypassSecurityTrustHtml(
         this.ansiUp.ansi_to_html(value)
-      );
+      )
     }
-    return value;
+    return value
   }
 }

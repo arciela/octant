@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import * as dagreD3 from 'dagre-d3';
+import * as dagreD3 from 'dagre-d3'
 
 export interface ResourceObject {
   name: string;
@@ -19,9 +19,9 @@ export class ResourceNode {
   ) {}
 
   toDescriptor(): dagreD3.Label {
-    let nodeClass = `node-${this.object.status}`;
+    let nodeClass = `node-${this.object.status}`
     if (this.isSelected) {
-      nodeClass += ` selected`;
+      nodeClass += ` selected`
     }
 
     return {
@@ -29,14 +29,14 @@ export class ResourceNode {
       label: `${this.title()}${this.subTitle()}`,
       labelType: 'html',
       class: `${nodeClass}`,
-    };
+    }
   }
 
   title(): string {
-    return `<div class="resource-name">${this.object.name}</div>`;
+    return `<div class="resource-name">${this.object.name}</div>`
   }
 
   subTitle(): string {
-    return `<div class="resource-type">${this.object.apiVersion} ${this.object.kind}</div>`;
+    return `<div class="resource-type">${this.object.apiVersion} ${this.object.kind}</div>`
   }
 }

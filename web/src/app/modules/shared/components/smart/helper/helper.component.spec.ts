@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { HelperComponent } from './helper.component';
-import { HelperService } from '../../../services/helper/helper.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { windowProvider, WindowToken } from '../../../../../window';
+import { HelperComponent } from './helper.component'
+import { HelperService } from '../../../services/helper/helper.service'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { windowProvider, WindowToken } from '../../../../../window'
 
 describe('HelperComponent', () => {
-  let component: HelperComponent;
-  let fixture: ComponentFixture<HelperComponent>;
+  let component: HelperComponent
+  let fixture: ComponentFixture<HelperComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -22,17 +22,17 @@ describe('HelperComponent', () => {
           { provide: WindowToken, useFactory: windowProvider },
         ],
         imports: [BrowserAnimationsModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HelperComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(HelperComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

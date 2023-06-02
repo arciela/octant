@@ -1,7 +1,7 @@
 // Copyright (c) 2019 the Octant contributors. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({
   name: 'default',
@@ -9,6 +9,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DefaultPipe implements PipeTransform {
   transform(value: any, defaultValue: any): any {
-    return value || defaultValue;
+    return value || defaultValue
   }
 }

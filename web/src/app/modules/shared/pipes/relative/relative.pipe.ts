@@ -9,20 +9,20 @@ import {
   OnDestroy,
   Pipe,
   PipeTransform,
-} from '@angular/core';
+} from '@angular/core'
 
 const changeDetectionFrequency = (seconds: number) => {
   switch (true) {
     case seconds < 60:
-      return 1;
+      return 1
     case seconds < 3600:
-      return 60;
+      return 60
     case seconds < 86400:
-      return 600;
+      return 600
     default:
-      return 3600;
+      return 3600
   }
-};
+}
 
 @Pipe({
   name: 'relative',
@@ -37,7 +37,7 @@ const changeDetectionFrequency = (seconds: number) => {
  * @param base optional date to calculate from
  */
 export class RelativePipe implements PipeTransform, OnDestroy {
-  private timer: number;
+  private timer: number
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -45,51 +45,51 @@ export class RelativePipe implements PipeTransform, OnDestroy {
   ) {}
 
   transform(ts: number, base?: Date): string {
-    this.removeTimer();
+    this.removeTimer()
 
-    let now: Date;
+    let now: Date
     if (base) {
-      now = base;
+      now = base
     } else {
-      now = new Date();
+      now = new Date()
     }
 
-    const then = now.getTime() / 1000 - ts;
+    const then = now.getTime() / 1000 - ts
 
-    const updateInterval = changeDetectionFrequency(then) * 1000;
+    const updateInterval = changeDetectionFrequency(then) * 1000
 
     this.timer = this.ngZone.runOutsideAngular(() => {
       if (typeof window !== 'undefined') {
         return window.setTimeout(() => {
           this.ngZone.run(() => {
             if (this.changeDetectorRef) {
-              this.changeDetectorRef.markForCheck();
+              this.changeDetectorRef.markForCheck()
             }
-          });
-        }, updateInterval);
+          })
+        }, updateInterval)
       }
-      return null;
-    });
+      return null
+    })
 
     if (then > 86400) {
-      return `${Math.floor(then / 86400)}d`;
+      return `${Math.floor(then / 86400)}d`
     } else if (then > 3600) {
-      return `${Math.floor(then / 3600)}h`;
+      return `${Math.floor(then / 3600)}h`
     } else if (then > 60) {
-      return `${Math.floor(then / 60)}m`;
+      return `${Math.floor(then / 60)}m`
     } else {
-      return `${Math.floor(then)}s`;
+      return `${Math.floor(then)}s`
     }
   }
 
   ngOnDestroy(): void {
-    this.removeTimer();
+    this.removeTimer()
   }
 
   private removeTimer() {
     if (this.timer) {
-      window.clearTimeout(this.timer);
-      this.timer = null;
+      window.clearTimeout(this.timer)
+      this.timer = null
     }
   }
 }

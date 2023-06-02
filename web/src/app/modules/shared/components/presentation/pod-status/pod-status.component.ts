@@ -7,10 +7,10 @@ import {
   ElementRef,
   ViewChild,
   ViewEncapsulation,
-} from '@angular/core';
-import { PodStatusView } from '../../../models/content';
-import { PodStatus } from '../../../models/pod-status';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+} from '@angular/core'
+import { PodStatusView } from '../../../models/content'
+import { PodStatus } from '../../../models/pod-status'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-pod-status',
@@ -19,18 +19,18 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   encapsulation: ViewEncapsulation.None,
 })
 export class PodStatusComponent extends AbstractViewComponent<PodStatusView> {
-  @ViewChild('container') private container: ElementRef;
+  @ViewChild('container') private container: ElementRef
 
-  edgeLength = 7;
+  edgeLength = 7
 
-  podStatuses: PodStatus[] = [];
+  podStatuses: PodStatus[] = []
 
   constructor() {
-    super();
+    super()
   }
 
   update() {
-    const pods = this.v.config.pods;
+    const pods = this.v.config.pods
 
     if (pods) {
       this.podStatuses = Object.keys(pods)
@@ -39,8 +39,8 @@ export class PodStatusComponent extends AbstractViewComponent<PodStatusView> {
           return {
             name: podName,
             status: pods[podName].status,
-          };
-        });
+          }
+        })
     }
   }
 }

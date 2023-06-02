@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HeptagonGridComponent } from '../heptagon-grid/heptagon-grid.component';
-import { PodStatusComponent } from './pod-status.component';
-import { Component, Input } from '@angular/core';
-import { PodStatus } from '../../../models/pod-status';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { HeptagonGridComponent } from '../heptagon-grid/heptagon-grid.component'
+import { PodStatusComponent } from './pod-status.component'
+import { Component, Input } from '@angular/core'
+import { PodStatus } from '../../../models/pod-status'
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 
 @Component({
   selector: 'app-heptagon-grid',
@@ -15,15 +15,15 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 })
 class TestGridComponent {
   @Input()
-  podStatuses: PodStatus[] = [];
+  podStatuses: PodStatus[] = []
 
   @Input()
-  edgeLength: number;
+  edgeLength: number
 }
 
 describe('PodStatusComponent', () => {
-  let component: PodStatusComponent;
-  let fixture: ComponentFixture<PodStatusComponent>;
+  let component: PodStatusComponent
+  let fixture: ComponentFixture<PodStatusComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -42,17 +42,17 @@ describe('PodStatusComponent', () => {
             },
           },
         ],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PodStatusComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PodStatusComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

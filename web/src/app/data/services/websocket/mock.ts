@@ -3,31 +3,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BackendService, HandlerFunc } from './websocket.service';
+import { BackendService, HandlerFunc } from './websocket.service'
 
 export class WebsocketServiceMock implements BackendService {
-  private handlers: { [key: string]: HandlerFunc } = {};
+  private handlers: { [key: string]: HandlerFunc } = {}
 
-  isOpen = false;
+  isOpen = false
 
-  sendMessage = (messageType: string, payload: {}) => {};
+  sendMessage = (messageType: string, payload: {}) => {}
 
   close() {
-    this.isOpen = false;
+    this.isOpen = false
   }
 
   open() {
-    this.isOpen = true;
+    this.isOpen = true
   }
 
   registerHandler(name: string, handler: HandlerFunc) {
-    this.handlers[name] = handler;
+    this.handlers[name] = handler
   }
 
   triggerHandler(name: string, payload: {}) {
     if (!this.handlers[name]) {
-      throw new Error(`handler ${name} was not found`);
+      throw new Error(`handler ${name} was not found`)
     }
-    this.handlers[name](payload);
+    this.handlers[name](payload)
   }
 }

@@ -21,7 +21,7 @@ export default function fixPassiveEvents() {
     'mouseenter',
     'mousewheel',
     'mouseover',
-  ];
+  ]
 
   const overwriteAddEvent = superMethod => {
     EventTarget.prototype.addEventListener = function (
@@ -30,19 +30,19 @@ export default function fixPassiveEvents() {
       options: any
     ) {
       if (relevantEvents.includes(type)) {
-        let newCapture = false;
+        let newCapture = false
         if (options) {
           if (typeof options === 'object') {
-            newCapture = options.capture || false;
+            newCapture = options.capture || false
           } else {
-            newCapture = options || false;
+            newCapture = options || false
           }
         }
-        options = { passive: false, capture: newCapture };
+        options = { passive: false, capture: newCapture }
       }
-      superMethod.call(this, type, listener, options);
-    };
-  };
+      superMethod.call(this, type, listener, options)
+    }
+  }
 
-  overwriteAddEvent(EventTarget.prototype.addEventListener);
+  overwriteAddEvent(EventTarget.prototype.addEventListener)
 }

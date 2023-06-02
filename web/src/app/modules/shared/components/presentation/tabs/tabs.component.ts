@@ -7,13 +7,13 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { View } from 'src/app/modules/shared/models/content';
-import { SliderService } from 'src/app/modules/shared/slider/slider.service';
-import { ViewService } from '../../../services/view/view.service';
-import { ActionService } from '../../../services/action/action.service';
-import trackByIndex from 'src/app/util/trackBy/trackByIndex';
+} from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { View } from 'src/app/modules/shared/models/content'
+import { SliderService } from 'src/app/modules/shared/slider/slider.service'
+import { ViewService } from '../../../services/view/view.service'
+import { ActionService } from '../../../services/action/action.service'
+import trackByIndex from 'src/app/util/trackBy/trackByIndex'
 
 interface Tab {
   name: string;
@@ -28,20 +28,20 @@ interface Tab {
   styleUrls: ['./tabs.component.scss'],
 })
 export class TabsComponent implements OnChanges, OnInit {
-  @Input() title: View[];
-  @Input() views: View[];
-  @Input() titleComponents: View[];
-  @Input() payloads: [{ [key: string]: string }];
-  @Input() iconName: string;
-  @Input() closable: boolean;
-  @Input() extView: boolean;
+  @Input() title: View[]
+  @Input() views: View[]
+  @Input() titleComponents: View[]
+  @Input() payloads: [{ [key: string]: string }]
+  @Input() iconName: string
+  @Input() closable: boolean
+  @Input() extView: boolean
 
-  tabs: Tab[] = [];
-  activeTab: string;
-  activeTabIndex: number;
-  closingTab: boolean;
-  view: View;
-  trackByIndex = trackByIndex;
+  tabs: Tab[] = []
+  activeTab: string
+  activeTabIndex: number
+  closingTab: boolean
+  view: View
+  trackByIndex = trackByIndex
 
   constructor(
     private router: Router,
@@ -52,131 +52,131 @@ export class TabsComponent implements OnChanges, OnInit {
   ) {}
 
   ngOnInit() {
-    const { fragment } = this.activatedRoute.snapshot;
+    const { fragment } = this.activatedRoute.snapshot
     if (fragment) {
-      this.activeTab = fragment;
+      this.activeTab = fragment
     } else {
-      this.activeTab = this.tabs[0]?.accessor;
+      this.activeTab = this.tabs[0]?.accessor
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.views.currentValue) {
-      const views = changes.views.currentValue as View[];
+      const views = changes.views.currentValue as View[]
       this.tabs = views.map(view => {
-        const title = this.viewService.viewTitleAsText(view);
+        const title = this.viewService.viewTitleAsText(view)
         return {
           name: title,
           view,
           accessor: view.metadata.accessor,
-        };
-      });
+        }
+      })
 
       if (views.length === 1) {
-        this.view = views[0];
+        this.view = views[0]
         if (this.title == null) {
-          this.title = this.view.metadata.title;
+          this.title = this.view.metadata.title
         }
       }
 
       if (this.extView && this.tabs.length > 0) {
         this.sliderService.activeTab.subscribe(index => {
-          this.activeTabIndex = index;
-        });
+          this.activeTabIndex = index
+        })
 
         // Initial load if there are existing tabs
         if (this.activeTabIndex === null) {
-          this.activeTabIndex = this.tabs.length - 1;
+          this.activeTabIndex = this.tabs.length - 1
         }
 
         if (!changes.views.isFirstChange()) {
-          const preViews = changes.views.previousValue as View[];
+          const preViews = changes.views.previousValue as View[]
           // Focus new tab
           if (views.length > preViews.length && !this.closingTab) {
-            this.activeTabIndex = this.tabs.length - 1;
+            this.activeTabIndex = this.tabs.length - 1
           }
-          this.closingTab = false;
+          this.closingTab = false
         }
-        this.sliderService.activeTab.next(this.activeTabIndex);
-        this.activeTab = this.tabs[this.activeTabIndex].accessor;
-        this.setMarker(this.activeTab);
+        this.sliderService.activeTab.next(this.activeTabIndex)
+        this.activeTab = this.tabs[this.activeTabIndex].accessor
+        this.setMarker(this.activeTab)
       }
     }
   }
 
   identifyTab(index: number, item: Tab): string {
-    return item.name;
+    return item.name
   }
 
   clickTab(tabAccessor: string) {
     if (this.activeTab === tabAccessor) {
-      return;
+      return
     }
-    this.activeTab = tabAccessor;
-    this.setMarker(tabAccessor);
+    this.activeTab = tabAccessor
+    this.setMarker(tabAccessor)
     if (this.extView) {
-      const tabIndex = this.tabs.findIndex(tab => tab.accessor === tabAccessor);
-      this.sliderService.activeTab.next(tabIndex);
+      const tabIndex = this.tabs.findIndex(tab => tab.accessor === tabAccessor)
+      this.sliderService.activeTab.next(tabIndex)
     }
   }
 
   closeTab(tabAccessor: string) {
-    const tabIndex = this.tabs.findIndex(tab => tab.accessor === tabAccessor);
+    const tabIndex = this.tabs.findIndex(tab => tab.accessor === tabAccessor)
     if (tabIndex > -1) {
       if (this.payloads[tabIndex]) {
-        const payload = this.payloads[tabIndex];
-        this.actionService.perform(payload);
+        const payload = this.payloads[tabIndex]
+        this.actionService.perform(payload)
       }
 
       this.tabs = [
         ...this.tabs.slice(0, tabIndex),
         ...this.tabs.slice(tabIndex + 1),
-      ];
+      ]
 
-      this.closingTab = true;
+      this.closingTab = true
 
       switch (this.tabs.length > 0) {
         // Closed active tab
         case tabIndex === this.activeTabIndex:
           // Closed right most active tab
           if (tabIndex === this.tabs.length) {
-            this.activeTabIndex -= 1;
+            this.activeTabIndex -= 1
           } else {
-            this.activeTabIndex = tabIndex;
+            this.activeTabIndex = tabIndex
           }
-          break;
+          break
         // Closed left of active tab
         case tabIndex < this.activeTabIndex:
-          this.activeTabIndex -= 1;
-          break;
+          this.activeTabIndex -= 1
+          break
         // Closed right of active tab
         case tabIndex > this.activeTabIndex:
           // no-op
-          break;
+          break
         default:
         // no-op
       }
 
       // Closed remaining tab
       if (this.tabs.length === 0) {
-        this.sliderService.activeTab.next(null);
-        return;
+        this.sliderService.activeTab.next(null)
+        return
       }
     }
-    this.sliderService.activeTab.next(this.activeTabIndex);
-    this.activeTab = this.tabs[this.activeTabIndex].accessor;
-    this.setMarker(this.activeTab);
+    this.sliderService.activeTab.next(this.activeTabIndex)
+    this.activeTab = this.tabs[this.activeTabIndex].accessor
+    this.setMarker(this.activeTab)
   }
 
   private setMarker(tabAccessor: string) {
     // TODO: Manage active tab state in backend
     if (!this.iconName) {
-      return;
+      return
     }
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       replaceUrl: true,
       fragment: tabAccessor,
-    });
+    })
   }
 }

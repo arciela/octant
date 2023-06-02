@@ -4,14 +4,14 @@
  *
  */
 
-import { app, Menu, shell } from 'electron';
-import { errLogPath } from './paths';
+import { app, Menu, shell } from 'electron'
+import { errLogPath } from './paths'
 
 export class ApplicationMenu {
-  public readonly menu: Menu;
+  public readonly menu: Menu
 
   constructor() {
-    this.menu = this.createMenu();
+    this.menu = this.createMenu()
   }
 
   createMenu() {
@@ -28,7 +28,7 @@ export class ApplicationMenu {
             label: 'Quit Octant',
             accelerator: 'CommandOrControl+q',
             click() {
-              app.quit();
+              app.quit()
             },
           },
         ],
@@ -56,7 +56,7 @@ export class ApplicationMenu {
           {
             label: 'View Logs',
             click() {
-              shell.showItemInFolder(errLogPath);
+              shell.showItemInFolder(errLogPath)
             },
           },
         ],
@@ -67,14 +67,14 @@ export class ApplicationMenu {
           {
             label: 'octant.dev',
             click() {
-              shell.openExternal('https://octant.dev/');
+              shell.openExternal('https://octant.dev/')
             },
           },
         ],
       },
-    ];
+    ]
 
-    const menu = Menu.buildFromTemplate(template);
-    return menu;
+    const menu = Menu.buildFromTemplate(template)
+    return menu
   }
 }

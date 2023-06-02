@@ -1,13 +1,13 @@
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { inject, TestBed } from '@angular/core/testing';
-import { StringEscapePipe } from './string.escape.pipe';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser'
+import { inject, TestBed } from '@angular/core/testing'
+import { StringEscapePipe } from './string.escape.pipe'
 
 describe('StringEscapePipe', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [BrowserModule],
-    });
-  });
+    })
+  })
 
   const testCases = [
     {
@@ -27,18 +27,18 @@ describe('StringEscapePipe', () => {
       input: 'Message\n More \n...',
       expected: 'Message\\n More \\n...',
     },
-  ];
+  ]
 
   it('Input strings are escaped properly', inject(
     [DomSanitizer],
     (domSanitizer: DomSanitizer) => {
-      const pipe = new StringEscapePipe(domSanitizer);
-      expect(pipe).toBeTruthy();
+      const pipe = new StringEscapePipe(domSanitizer)
+      expect(pipe).toBeTruthy()
 
       testCases.forEach(testCase => {
-        const sanitizedValue = pipe.transform(testCase.input);
-        expect(sanitizedValue).toBe(testCase.expected);
-      });
+        const sanitizedValue = pipe.transform(testCase.input)
+        expect(sanitizedValue).toBe(testCase.expected)
+      })
     }
-  ));
-});
+  ))
+})

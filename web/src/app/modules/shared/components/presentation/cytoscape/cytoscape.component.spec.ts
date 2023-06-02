@@ -2,32 +2,32 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { CytoscapeComponent } from './cytoscape.component';
+import { CytoscapeComponent } from './cytoscape.component'
 
 describe('CytoscapeComponent', () => {
-  let component: CytoscapeComponent;
-  let fixture: ComponentFixture<CytoscapeComponent>;
+  let component: CytoscapeComponent
+  let fixture: ComponentFixture<CytoscapeComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [CytoscapeComponent],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CytoscapeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(CytoscapeComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-    expect(component.nodes.length).toEqual(0);
-  });
+    expect(component).toBeTruthy()
+    expect(component.nodes.length).toEqual(0)
+  })
 
   it('should select first node', done => {
     component.elements = {
@@ -44,21 +44,21 @@ describe('CytoscapeComponent', () => {
         },
       ],
       edges: [],
-    };
+    }
 
-    component.selectedNodeId = '16428c94-a848-47d5-b1e3-c8245b57959b';
-    component.render();
-    fixture.detectChanges();
+    component.selectedNodeId = '16428c94-a848-47d5-b1e3-c8245b57959b'
+    component.render()
+    fixture.detectChanges()
 
     setTimeout(() => {
-      expect(component.nodes().length).toEqual(1);
-      const node = component.nodes()[0];
+      expect(component.nodes().length).toEqual(1)
+      const node = component.nodes()[0]
 
-      expect(node).not.toBeNull();
-      expect(node.id()).toEqual('16428c94-a848-47d5-b1e3-c8245b57959b');
-      expect(node.isNode()).toBeTrue();
-      expect(node.selected()).toBeTrue();
-      done();
-    }, 100); // wait for cytoscape to update the view
-  });
-});
+      expect(node).not.toBeNull()
+      expect(node.id()).toEqual('16428c94-a848-47d5-b1e3-c8245b57959b')
+      expect(node.isNode()).toBeTrue()
+      expect(node.selected()).toBeTrue()
+      done()
+    }, 100) // wait for cytoscape to update the view
+  })
+})

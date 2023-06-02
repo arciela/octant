@@ -1,29 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { PreferencesComponent } from './preferences.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PreferencesComponent } from './preferences.component'
+import { BrowserModule } from '@angular/platform-browser'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 describe('PreferencesComponent', () => {
-  let component: PreferencesComponent;
-  let fixture: ComponentFixture<PreferencesComponent>;
+  let component: PreferencesComponent
+  let fixture: ComponentFixture<PreferencesComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [PreferencesComponent],
         imports: [BrowserModule, ReactiveFormsModule, FormsModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PreferencesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PreferencesComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

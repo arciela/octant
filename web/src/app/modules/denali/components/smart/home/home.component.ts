@@ -1,8 +1,8 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core'
 import {
   darkTheme,
   ThemeService,
-} from '../../../../shared/services/theme/theme.service';
+} from '../../../../shared/services/theme/theme.service'
 
 @Component({
   selector: 'app-root',
@@ -16,12 +16,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadTheme();
+    this.loadTheme()
   }
 
   loadTheme() {
     // TODO: enable theme switching or denali
-    this.themeService.loadCSS(darkTheme.assetPath);
-    this.renderer.addClass(document.body, 'dark');
+    this.themeService.loadCSS(darkTheme.assetPath)
+    this.renderer.addClass(document.body, 'dark')
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'app-missing-component',
@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./missing-component.component.sass'],
 })
 export class MissingComponentComponent {
-  @Input() name: string;
+  @Input() name: string
 
   constructor() {}
 }

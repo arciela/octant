@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ButtonGroupView } from '../../../models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component, EventEmitter, Output } from '@angular/core'
+import { ButtonGroupView } from '../../../models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-button-group',
@@ -8,15 +8,15 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   styleUrls: ['./button-group.component.scss'],
 })
 export class ButtonGroupComponent extends AbstractViewComponent<ButtonGroupView> {
-  @Output() buttonLoad: EventEmitter<boolean> = new EventEmitter(true);
+  @Output() buttonLoad: EventEmitter<boolean> = new EventEmitter(true)
 
   constructor() {
-    super();
+    super()
   }
 
   update() {}
 
   trackByFn(index) {
-    return index;
+    return index
   }
 }

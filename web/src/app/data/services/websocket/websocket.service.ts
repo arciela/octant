@@ -3,23 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Inject, Injectable } from '@angular/core'
+import { Router } from '@angular/router'
 import {
   BehaviorSubject,
   ObjectUnsubscribedError,
   Observable,
   Subject,
-} from 'rxjs';
+} from 'rxjs'
 import {
   NotifierService,
   NotifierSession,
   NotifierSignalType,
-} from '../../../modules/shared/notifier/notifier.service';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { delay, retryWhen, take, tap } from 'rxjs/operators';
-import { WindowToken } from '../../../window';
-import { ElectronService } from 'src/app/modules/shared/services/electron/electron.service';
+} from '../../../modules/shared/notifier/notifier.service'
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
+import { delay, retryWhen, take, tap } from 'rxjs/operators'
+import { WindowToken } from '../../../window'
+import { ElectronService } from 'src/app/modules/shared/services/electron/electron.service'
 
 interface WebsocketPayload {
   type: string;
@@ -46,15 +46,15 @@ interface Alert {
   providedIn: 'root',
 })
 export class WebsocketService implements BackendService {
-  handlers: { [key: string]: ({}) => void } = {};
-  reconnected = new Subject<Event>();
+  handlers: { [key: string]: ({}) => void } = {}
+  reconnected = new Subject<Event>()
 
-  private notifierSession: NotifierSession;
-  private subject: WebSocketSubject<unknown>;
-  private connectSignalID = new BehaviorSubject<string>('');
-  private opened = false;
+  private notifierSession: NotifierSession
+  private subject: WebSocketSubject<unknown>
+  private connectSignalID = new BehaviorSubject<string>('')
+  private opened = false
 
-  private router: Router;
+  private router: Router
 
   constructor(
     private electronService: ElectronService,
@@ -62,46 +62,46 @@ export class WebsocketService implements BackendService {
     router: Router,
     @Inject(WindowToken) private window: Window
   ) {
-    this.notifierSession = notifierService.createSession();
-    this.router = router;
+    this.notifierSession = notifierService.createSession()
+    this.router = router
 
     this.registerHandler('event.octant.dev/alert', data => {
-      const alert = data as Alert;
-      const id = this.notifierSession.pushSignal(alert.type, alert.message);
+      const alert = data as Alert
+      const id = this.notifierSession.pushSignal(alert.type, alert.message)
       if (alert.expiration) {
-        const expiration = new Date(alert.expiration);
-        const diff = expiration.getTime() - Date.now();
+        const expiration = new Date(alert.expiration)
+        const diff = expiration.getTime() - Date.now()
 
         setTimeout(() => {
-          this.notifierSession.removeSignal(id);
-        }, diff);
+          this.notifierSession.removeSignal(id)
+        }, diff)
       }
-    });
+    })
 
     this.registerHandler('event.octant.dev/contentPath', data => {
-      const payload = data as { contentPath: string };
-      const contentPath = payload.contentPath || '/';
+      const payload = data as { contentPath: string }
+      const contentPath = payload.contentPath || '/'
       if (this.router.url !== contentPath) {
-        this.router.navigateByUrl(contentPath);
+        this.router.navigateByUrl(contentPath)
       }
-    });
+    })
   }
 
   registerHandler(name: string, handler: (data: {}) => void): () => void {
-    this.handlers[name] = handler;
-    return () => delete this.handlers[name];
+    this.handlers[name] = handler
+    return () => delete this.handlers[name]
   }
 
   triggerHandler(name: string, payload: {}) {
     if (!this.handlers[name]) {
-      throw new Error(`handler ${name} was not found`);
+      throw new Error(`handler ${name} was not found`)
     }
-    this.handlers[name](payload);
+    this.handlers[name](payload)
   }
 
   open() {
     if (this.opened) {
-      return;
+      return
     }
     this.createWebSocket()
       .pipe(
@@ -111,8 +111,8 @@ export class WebsocketService implements BackendService {
               const id = this.notifierSession.pushSignal(
                 NotifierSignalType.ERROR,
                 'Lost connection to Octant service. Retrying...'
-              );
-              this.connectSignalID.next(id);
+              )
+              this.connectSignalID.next(id)
             }),
             delay(1000)
           )
@@ -122,55 +122,55 @@ export class WebsocketService implements BackendService {
         data => {
           this.connectSignalID.pipe(take(1)).subscribe(id => {
             if (id !== '') {
-              this.notifierSession.removeAllSignals();
-              this.connectSignalID.next('');
+              this.notifierSession.removeAllSignals()
+              this.connectSignalID.next('')
             }
-          });
+          })
 
-          this.parseWebsocketMessage(data);
+          this.parseWebsocketMessage(data)
         },
         err => console.error(err),
         () => {
-          console.log('web socket is closing');
+          console.log('web socket is closing')
         }
-      );
+      )
 
-    this.opened = true;
+    this.opened = true
   }
 
   close() {
     if (!this.opened) {
-      this.opened = false;
+      this.opened = false
     }
-    this.subject.unsubscribe();
+    this.subject.unsubscribe()
   }
 
   private createWebSocket() {
-    const uri = this.websocketURI();
+    const uri = this.websocketURI()
     return new Observable(observer => {
       try {
         const subject = webSocket({
           url: uri,
           deserializer: ({ data }) => JSON.parse(data),
           openObserver: this.reconnected,
-        });
+        })
 
         const subscription = subject.asObservable().subscribe(
           data => observer.next(data),
           error => observer.error(error),
           () => observer.complete()
-        );
+        )
 
-        this.subject = subject;
+        this.subject = subject
         return () => {
           if (!subscription.closed) {
-            subscription.unsubscribe();
+            subscription.unsubscribe()
           }
-        };
+        }
       } catch (error) {
-        observer.error(error);
+        observer.error(error)
       }
-    });
+    })
   }
 
   sendMessage(messageType: string, payload: {}) {
@@ -178,43 +178,43 @@ export class WebsocketService implements BackendService {
       const data = {
         type: messageType,
         payload,
-      };
-      this.subject.next(data);
+      }
+      this.subject.next(data)
     }
   }
 
   private parseWebsocketMessage(data: {}) {
     try {
-      const payload = data as WebsocketPayload;
+      const payload = data as WebsocketPayload
       if (this.handlers.hasOwnProperty(payload.type)) {
-        const handler = this.handlers[payload.type];
-        handler(payload.data);
+        const handler = this.handlers[payload.type]
+        handler(payload.data)
       } else {
         console.warn(
           `received websocket unknown message of type ${payload.type} with`,
           payload.data
-        );
+        )
       }
     } catch (err) {
       if (!(err instanceof ObjectUnsubscribedError)) {
-        console.error('parse websocket', err, data);
+        console.error('parse websocket', err, data)
       }
     }
   }
 
   websocketURI(): string {
     if (this.electronService.isElectron()) {
-      const port = this.electronService.port();
-      return 'ws://localhost:' + port + '/api/v1/stream';
+      const port = this.electronService.port()
+      return 'ws://localhost:' + port + '/api/v1/stream'
     }
 
-    const loc = this.window.location;
-    let newURI = 'ws:';
+    const loc = this.window.location
+    let newURI = 'ws:'
     if (loc.protocol === 'https:') {
-      newURI = 'wss:';
+      newURI = 'wss:'
     }
-    newURI += '//' + loc.host;
-    newURI += loc.pathname + 'api/v1/stream';
-    return newURI;
+    newURI += '//' + loc.host
+    newURI += loc.pathname + 'api/v1/stream'
+    return newURI
   }
 }

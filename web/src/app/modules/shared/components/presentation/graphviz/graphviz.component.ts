@@ -8,11 +8,11 @@ import {
   ElementRef,
   ViewChild,
   ViewEncapsulation,
-} from '@angular/core';
+} from '@angular/core'
 
-import { GraphvizView } from 'src/app/modules/shared/models/content';
-import { D3GraphvizService } from '../../../services/d3/d3graphviz.service';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { GraphvizView } from 'src/app/modules/shared/models/content'
+import { D3GraphvizService } from '../../../services/d3/d3graphviz.service'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-view-graphviz',
@@ -22,16 +22,16 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GraphvizComponent extends AbstractViewComponent<GraphvizView> {
-  @ViewChild('viewer', { static: true }) private viewer: ElementRef;
+  @ViewChild('viewer', { static: true }) private viewer: ElementRef
 
   constructor(private d3GraphvizService: D3GraphvizService) {
-    super();
+    super()
   }
 
   update() {
-    const current = this.v.config.dot;
+    const current = this.v.config.dot
     if (current) {
-      this.d3GraphvizService.render(this.viewer, current);
+      this.d3GraphvizService.render(this.viewer, current)
     }
   }
 }

@@ -4,21 +4,21 @@
  *
  */
 
-import { app } from 'electron';
-import * as path from 'path';
-import * as os from 'os';
+import { app } from 'electron'
+import * as path from 'path'
+import * as os from 'os'
 
-let date: string = new Date().toISOString().split(':').join('_');
+let date: string = new Date().toISOString().split(':').join('_')
 
-export const tmpPath = path.join(os.tmpdir(), 'octant');
-export const apiLogPath = path.join(tmpPath, 'api.out-' + date + '.log');
-export const errLogPath = path.join(tmpPath, 'api.err-' + date + '.log');
+export const tmpPath = path.join(os.tmpdir(), 'octant')
+export const apiLogPath = path.join(tmpPath, 'api.out-' + date + '.log')
+export const errLogPath = path.join(tmpPath, 'api.err-' + date + '.log')
 export const iconPath = path.join(
   app.getAppPath(),
   'dist/octant/assets/icons/icon.png'
-);
+)
 
 export const greyIconPath = path.join(
   app.getAppPath(),
   'dist/octant/assets/icons/icon-grey.png'
-);
+)

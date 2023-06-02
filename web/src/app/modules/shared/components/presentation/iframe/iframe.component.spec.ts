@@ -1,27 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { SafePipe } from '../../../pipes/safe/safe.pipe';
-import { IFrameComponent } from './iframe.component';
+import { SafePipe } from '../../../pipes/safe/safe.pipe'
+import { IFrameComponent } from './iframe.component'
 
 describe('IFrameComponent', () => {
-  let component: IFrameComponent;
-  let fixture: ComponentFixture<IFrameComponent>;
+  let component: IFrameComponent
+  let fixture: ComponentFixture<IFrameComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [IFrameComponent, SafePipe],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IFrameComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(IFrameComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

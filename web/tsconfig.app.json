@@ -6,8 +6,8 @@
   },
   "files": [
     "src/main.ts",
-    "polyfills.ts",
-    "../node_modules/electron/electron.d.ts"
+    "src/polyfills.ts",
+    "node_modules/electron/electron.d.ts"
   ],
   "exclude": [
     "**/*.stories.ts"

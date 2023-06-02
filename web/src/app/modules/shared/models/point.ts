@@ -2,27 +2,27 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Vector } from './vector';
+import { Vector } from './vector'
 
 export class Point {
   constructor(public x: number, public y: number) {}
 
   toString() {
-    return `${this.x},${this.y}`;
+    return `${this.x},${this.y}`
   }
 
   project(vector: Vector) {
-    const radian = (Math.PI / 180) * vector.angle;
-    const newX = this.x + Math.cos(radian) * vector.magnitude;
-    const newY = this.y + Math.sin(radian) * vector.magnitude;
+    const radian = (Math.PI / 180) * vector.angle
+    const newX = this.x + Math.cos(radian) * vector.magnitude
+    const newY = this.y + Math.sin(radian) * vector.magnitude
 
-    return new Point(newX, newY);
+    return new Point(newX, newY)
   }
 
   projectRadian(vector: Vector): Point {
-    const newX = this.x + Math.cos(vector.angle) * vector.magnitude;
-    const newY = this.y + Math.sin(vector.angle) * vector.magnitude;
+    const newX = this.x + Math.cos(vector.angle) * vector.magnitude
+    const newY = this.y + Math.sin(vector.angle) * vector.magnitude
 
-    return new Point(newX, newY);
+    return new Point(newX, newY)
   }
 }

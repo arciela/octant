@@ -6,7 +6,7 @@ export function viewServiceStubFactory() {
   return {
     titleAsText: () => '',
     viewTitleAsText: () => 'Just a title',
-  };
+  }
 }
 
-export const viewServiceStub = viewServiceStubFactory();
+export const viewServiceStub = viewServiceStubFactory()

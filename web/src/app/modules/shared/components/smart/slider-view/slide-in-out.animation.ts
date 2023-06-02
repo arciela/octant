@@ -10,11 +10,11 @@ import {
   style,
   transition,
   trigger,
-} from '@angular/animations';
+} from '@angular/animations'
 
 // This value should match the value used for the Status View styles in 'status.component.scss'
-const statusViewBottomOut = '-10.5rem';
-const statusViewBottomIn = 0;
+const statusViewBottomOut = '-10.5rem'
+const statusViewBottomIn = 0
 
 export const SlideInOutAnimation: AnimationTriggerMetadata = trigger(
   'SlideInOutAnimation',
@@ -48,4 +48,4 @@ export const SlideInOutAnimation: AnimationTriggerMetadata = trigger(
       ),
     ]),
   ]
-);
+)

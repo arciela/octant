@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import '@cds/core/icon/register.js';
-import { ClarityIcons, clusterIcon } from '@cds/core/icon';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import '@cds/core/icon/register.js'
+import { ClarityIcons, clusterIcon } from '@cds/core/icon'
 import {
   ContextDescription,
   KubeContextService,
-} from '../../../services/kube-context/kube-context.service';
-import { Subscription } from 'rxjs';
+} from '../../../services/kube-context/kube-context.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-context-selector',
@@ -17,40 +17,40 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./context-selector.component.scss'],
 })
 export class ContextSelectorComponent implements OnInit, OnDestroy {
-  contexts: ContextDescription[];
-  selected: string;
+  contexts: ContextDescription[]
+  selected: string
 
-  private kubeContextSubscription: Subscription;
+  private kubeContextSubscription: Subscription
 
   constructor(private kubeContext: KubeContextService) {
-    ClarityIcons.addIcons(clusterIcon);
+    ClarityIcons.addIcons(clusterIcon)
   }
 
   ngOnInit() {
     this.kubeContextSubscription = this.kubeContext
       .contexts()
-      .subscribe(contexts => (this.contexts = contexts));
+      .subscribe(contexts => (this.contexts = contexts))
     this.kubeContextSubscription = this.kubeContext
       .selected()
-      .subscribe(selected => (this.selected = selected));
+      .subscribe(selected => (this.selected = selected))
   }
 
   ngOnDestroy(): void {
     if (this.kubeContextSubscription) {
-      this.kubeContextSubscription.unsubscribe();
+      this.kubeContextSubscription.unsubscribe()
     }
   }
 
   contextClass(context: ContextDescription) {
-    const active = this.selected === context.name ? ['active'] : [];
-    return ['context-button', ...active];
+    const active = this.selected === context.name ? ['active'] : []
+    return ['context-button', ...active]
   }
 
   selectContext(context: ContextDescription) {
-    this.kubeContext.select(context);
+    this.kubeContext.select(context)
   }
 
   trackByFn(index, item) {
-    return index;
+    return index
   }
 }

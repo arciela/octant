@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
-import { WebsocketService } from '../../../../data/services/websocket/websocket.service';
+import { Injectable } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
+import { Router } from '@angular/router'
+import { WebsocketService } from '../../../../data/services/websocket/websocket.service'
 
 export interface Filter {
   key: string;
@@ -20,39 +20,39 @@ interface UpdateFilters {
   providedIn: 'root',
 })
 export class LabelFilterService {
-  public filters = new BehaviorSubject<Filter[]>([]);
+  public filters = new BehaviorSubject<Filter[]>([])
 
   constructor(
     private router: Router,
     private websocketService: WebsocketService
   ) {
     websocketService.registerHandler('event.octant.dev/filters', data => {
-      const update = data as UpdateFilters;
-      this.filters.next(update.filters);
-    });
+      const update = data as UpdateFilters
+      this.filters.next(update.filters)
+    })
   }
 
   add(filter: Filter): void {
     this.websocketService.sendMessage('action.octant.dev/addFilter', {
       filter,
-    });
+    })
   }
 
   remove(filter: Filter): void {
     this.websocketService.sendMessage('action.octant.dev/removeFilter', {
       filter,
-    });
+    })
   }
 
   clear(): void {
-    this.websocketService.sendMessage('action.octant.dev/clearFilters', {});
+    this.websocketService.sendMessage('action.octant.dev/clearFilters', {})
   }
 
   decodeFilter(filterSource: string): Filter | null {
-    const spl = filterSource.split(':');
+    const spl = filterSource.split(':')
     if (spl.length === 2) {
-      return { key: spl[0], value: spl[1] };
+      return { key: spl[0], value: spl[1] }
     }
-    return null;
+    return null
   }
 }

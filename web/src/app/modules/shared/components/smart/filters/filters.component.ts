@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import {
   Filter,
   LabelFilterService,
-} from 'src/app/modules/shared/services/label-filter/label-filter.service';
-import { Subscription } from 'rxjs';
+} from 'src/app/modules/shared/services/label-filter/label-filter.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-filters',
@@ -16,9 +16,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./filters.component.scss'],
 })
 export class FiltersComponent implements OnInit, OnDestroy {
-  filters: Filter[];
+  filters: Filter[]
 
-  private labelFilterSubscription: Subscription;
+  private labelFilterSubscription: Subscription
 
   constructor(
     private labelFilter: LabelFilterService,
@@ -29,32 +29,32 @@ export class FiltersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.labelFilterSubscription = this.labelFilter.filters.subscribe(
       filters => {
-        this.filters = filters;
+        this.filters = filters
         const filterParams = filters.map(filter =>
           encodeURIComponent(`${filter.key}:${filter.value}`)
-        );
+        )
         const queryParams: Params = {
           filter: filterParams,
-        };
+        }
 
         this.router.navigate([], {
           relativeTo: this.activatedRoute,
           queryParams,
           queryParamsHandling: 'merge',
-        });
+        })
       }
-    );
+    )
   }
 
   ngOnDestroy(): void {
-    this.labelFilterSubscription.unsubscribe();
+    this.labelFilterSubscription.unsubscribe()
   }
 
   identifyFilter(index: number, item: Filter): string {
-    return `${item.key}-${item.value}`;
+    return `${item.key}-${item.value}`
   }
 
   remove(filter: Filter) {
-    this.labelFilter.remove(filter);
+    this.labelFilter.remove(filter)
   }
 }

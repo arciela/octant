@@ -5,16 +5,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-} from '@angular/core';
+} from '@angular/core'
 import {
   LinkView,
   ListView,
   View,
-} from 'src/app/modules/shared/models/content';
+} from 'src/app/modules/shared/models/content'
 
-import { IconService } from '../../../services/icon/icon.service';
-import { ViewService } from '../../../services/view/view.service';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { IconService } from '../../../services/icon/icon.service'
+import { ViewService } from '../../../services/view/view.service'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-view-list',
@@ -23,38 +23,38 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent extends AbstractViewComponent<ListView> {
-  title: { title: string; url: string }[];
+  title: { title: string; url: string }[]
 
-  iconName: string;
+  iconName: string
 
-  items: View[];
+  items: View[]
 
-  private previous: string;
+  private previous: string
 
   constructor(
     private iconService: IconService,
     private viewService: ViewService,
     private cdr: ChangeDetectorRef
   ) {
-    super();
+    super()
   }
 
   identifyItem = (index: number, item: View): string => {
-    return this.viewService.titleAsText(item.metadata.title);
-  };
+    return this.viewService.titleAsText(item.metadata.title)
+  }
 
   update() {
-    const current = this.v;
+    const current = this.v
 
-    const cur = JSON.stringify(current);
+    const cur = JSON.stringify(current)
     if (current.config.items && cur !== this.previous) {
-      this.items = this.v.config.items;
-      this.initialChildCount = this.items.length;
+      this.items = this.v.config.items
+      this.initialChildCount = this.items.length
       this.items.forEach(item => {
-        item.totalItems = current.config.items.length;
-      });
-      this.previous = cur;
-      this.cdr.markForCheck();
+        item.totalItems = current.config.items.length
+      })
+      this.previous = cur
+      this.cdr.markForCheck()
     }
   }
 }

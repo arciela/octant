@@ -8,11 +8,11 @@ import {
   OnDestroy,
   Output,
   ViewEncapsulation,
-} from '@angular/core';
-import '@cds/core/button/register.js';
-import { ClarityIcons, linkIcon } from '@cds/core/icon';
-import { PortsView } from 'src/app/modules/shared/models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+} from '@angular/core'
+import '@cds/core/button/register.js'
+import { ClarityIcons, linkIcon } from '@cds/core/icon'
+import { PortsView } from 'src/app/modules/shared/models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-view-ports',
@@ -24,28 +24,28 @@ export class PortsComponent
   extends AbstractViewComponent<PortsView>
   implements OnDestroy
 {
-  private previousView: PortsView;
+  private previousView: PortsView
 
-  @Output() portLoad: EventEmitter<boolean> = new EventEmitter(true);
+  @Output() portLoad: EventEmitter<boolean> = new EventEmitter(true)
 
   constructor() {
-    super();
-    ClarityIcons.addIcons(linkIcon);
+    super()
+    ClarityIcons.addIcons(linkIcon)
   }
 
   update() {
     if (JSON.stringify(this.v) !== JSON.stringify(this.previousView)) {
-      this.portLoad.emit(false);
+      this.portLoad.emit(false)
     }
   }
 
   ngOnDestroy() {}
 
   load(_: Event) {
-    this.portLoad.emit(true);
+    this.portLoad.emit(true)
   }
 
   trackByFn(index, _) {
-    return index;
+    return index
   }
 }

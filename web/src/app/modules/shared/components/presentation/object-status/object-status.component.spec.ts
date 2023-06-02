@@ -2,37 +2,37 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ObjectStatusComponent } from './object-status.component';
-import { SharedModule } from '../../../shared.module';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { ObjectStatusComponent } from './object-status.component'
+import { SharedModule } from '../../../shared.module'
 import {
   OverlayScrollbarsComponent,
   OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx';
-import { View } from '../../../models/content';
+} from 'overlayscrollbars-ngx'
+import { View } from '../../../models/content'
 
 describe('ObjectStatusComponent', () => {
-  let component: ObjectStatusComponent;
-  let fixture: ComponentFixture<ObjectStatusComponent>;
+  let component: ObjectStatusComponent
+  let fixture: ComponentFixture<ObjectStatusComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [OverlayScrollbarsComponent],
         imports: [SharedModule, OverlayscrollbarsModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ObjectStatusComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ObjectStatusComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('should show properties table', () => {
     component.node = {
@@ -51,16 +51,16 @@ describe('ObjectStatusComponent', () => {
         },
       ],
       status: 'pod status',
-    };
-    fixture.detectChanges();
+    }
+    fixture.detectChanges()
 
-    const root: HTMLElement = fixture.nativeElement;
-    const el: SVGPathElement = root.querySelector('.properties');
+    const root: HTMLElement = fixture.nativeElement
+    const el: SVGPathElement = root.querySelector('.properties')
 
-    expect(component).toBeTruthy();
-    expect(el).not.toBeNull();
-    expect(el.innerHTML).toContain('Pod');
-    expect(el.innerHTML).toContain('v1');
-    expect(el.innerHTML).toContain('property text');
-  });
-});
+    expect(component).toBeTruthy()
+    expect(el).not.toBeNull()
+    expect(el.innerHTML).toContain('Pod')
+    expect(el.innerHTML).toContain('v1')
+    expect(el.innerHTML).toContain('property text')
+  })
+})

@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { MissingComponentComponent } from './missing-component.component';
-import { CommonModule } from '@angular/common';
-import { ApplyYAMLComponent } from 'src/app/modules/sugarloaf/components/smart/apply-yaml/apply-yaml.component';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
+import { MissingComponentComponent } from './missing-component.component'
+import { CommonModule } from '@angular/common'
+import { ApplyYAMLComponent } from 'src/app/modules/sugarloaf/components/smart/apply-yaml/apply-yaml.component'
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx'
 
 describe('MissingComponentComponent', () => {
-  let component: MissingComponentComponent;
-  let fixture: ComponentFixture<MissingComponentComponent>;
+  let component: MissingComponentComponent
+  let fixture: ComponentFixture<MissingComponentComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -18,17 +18,17 @@ describe('MissingComponentComponent', () => {
           OverlayScrollbarsComponent,
         ],
         imports: [CommonModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MissingComponentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(MissingComponentComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

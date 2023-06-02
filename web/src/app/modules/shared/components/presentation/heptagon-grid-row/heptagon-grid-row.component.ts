@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 
-import { PodStatus } from '../../../models/pod-status';
-import { Point } from '../../../models/point';
+import { PodStatus } from '../../../models/pod-status'
+import { Point } from '../../../models/point'
 
 export interface HoverStatus {
   row: number;
@@ -32,16 +32,16 @@ export interface HoverStatus {
 })
 export class HeptagonGridRowComponent implements OnInit {
   @Input()
-  statuses: PodStatus[];
+  statuses: PodStatus[]
 
   @Input()
-  edgeLength: number;
+  edgeLength: number
 
   @Input()
-  row: number;
+  row: number
 
   @Output()
-  hoverState = new EventEmitter<HoverStatus>();
+  hoverState = new EventEmitter<HoverStatus>()
 
   constructor() {}
 
@@ -52,38 +52,38 @@ export class HeptagonGridRowComponent implements OnInit {
       row: this.row,
       col: index,
       hovered,
-    });
+    })
   }
 
   centerPoint(index: number) {
-    const h = this.height();
+    const h = this.height()
 
-    let x = h * index + h / 2;
-    const y = h + (this.row * h + 3);
+    let x = h * index + h / 2
+    const y = h + (this.row * h + 3)
 
-    const angle = 180 - 90 - 900 / 7 / 2;
-    const translateX = (Math.PI / 180) * angle;
-    const adjustment = -this.edgeLength * Math.sin(translateX);
+    const angle = 180 - 90 - 900 / 7 / 2
+    const translateX = (Math.PI / 180) * angle
+    const adjustment = -this.edgeLength * Math.sin(translateX)
 
-    x += adjustment;
-    x += h / 2;
-    return new Point(x, y);
+    x += adjustment
+    x += h / 2
+    return new Point(x, y)
   }
 
   isFlipped(index: number) {
-    return index % 2 !== 0;
+    return index % 2 !== 0
   }
 
   trackByFn(index, item) {
-    return index;
+    return index
   }
 
   height() {
-    const x = Math.PI / 2 / 7;
-    return this.edgeLength / (2 * Math.tan(x));
+    const x = Math.PI / 2 / 7
+    return this.edgeLength / (2 * Math.tan(x))
   }
 
   name(status: PodStatus) {
-    return `heptagon-${status.name}`;
+    return `heptagon-${status.name}`
   }
 }

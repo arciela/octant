@@ -4,8 +4,8 @@
  *
  */
 
-import { Component, Input, OnInit } from '@angular/core';
-import { TitleView } from '../../../models/content';
+import { Component, Input, OnInit } from '@angular/core'
+import { TitleView } from '../../../models/content'
 
 @Component({
   selector: 'app-view-title',
@@ -13,13 +13,13 @@ import { TitleView } from '../../../models/content';
   styleUrls: ['./title.component.scss'],
 })
 export class TitleComponent implements OnInit {
-  @Input() views: TitleView[];
+  @Input() views: TitleView[]
 
   constructor() {}
 
   ngOnInit() {}
 
   trackBy(index, item) {
-    return index;
+    return index
   }
 }

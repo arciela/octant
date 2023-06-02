@@ -2,15 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TabsComponent } from './tabs.component';
-import { SharedModule } from '../../../shared.module';
-import { windowProvider, WindowToken } from '../../../../../window';
-import { OctantTooltipComponent } from '../octant-tooltip/octant-tooltip';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { TabsComponent } from './tabs.component'
+import { SharedModule } from '../../../shared.module'
+import { windowProvider, WindowToken } from '../../../../../window'
+import { OctantTooltipComponent } from '../octant-tooltip/octant-tooltip'
 
 describe('TabsComponent', () => {
-  let component: TabsComponent;
-  let fixture: ComponentFixture<TabsComponent>;
+  let component: TabsComponent
+  let fixture: ComponentFixture<TabsComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -18,17 +18,17 @@ describe('TabsComponent', () => {
         declarations: [OctantTooltipComponent],
         imports: [SharedModule],
         providers: [{ provide: WindowToken, useFactory: windowProvider }],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(TabsComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

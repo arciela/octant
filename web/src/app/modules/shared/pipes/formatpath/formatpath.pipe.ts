@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({
   name: 'formatpath',
@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FormatPathPipe implements PipeTransform {
   transform(path: string): string {
     if (!path.startsWith('/')) {
-      return '/' + path;
+      return '/' + path
     }
 
-    return path;
+    return path
   }
 }

@@ -1,7 +1,7 @@
 // Copyright (c) 2019 the Octant contributors. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 
 export interface IconAble {
   iconName?: string;
@@ -16,15 +16,15 @@ export class IconService {
 
   load(item: IconAble): string {
     if (!item.iconName || item.iconName === '') {
-      return '';
+      return ''
     }
 
-    const clarityIcons = window['ClarityIcons'];
+    const clarityIcons = window['ClarityIcons']
 
     if (!clarityIcons.has(item.iconName)) {
-      clarityIcons.add({ [item.iconName]: item.iconSource });
+      clarityIcons.add({ [item.iconName]: item.iconSource })
     }
 
-    return item.iconName;
+    return item.iconName
   }
 }

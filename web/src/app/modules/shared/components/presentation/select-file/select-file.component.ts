@@ -10,11 +10,11 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from '@angular/core';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
-import { SelectFileView } from '../../../models/content';
-import { ActionService } from '../../../services/action/action.service';
-import { ElectronService } from '../../../services/electron/electron.service';
+} from '@angular/core'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
+import { SelectFileView } from '../../../models/content'
+import { ActionService } from '../../../services/action/action.service'
+import { ElectronService } from '../../../services/electron/electron.service'
 
 type File = {
   name: string;
@@ -32,69 +32,69 @@ export class SelectFileComponent
   extends AbstractViewComponent<SelectFileView>
   implements OnInit
 {
-  label: string;
-  multiple: boolean;
-  layout: string;
-  status: string;
-  statusMessage: string;
-  action: string;
+  label: string
+  multiple: boolean
+  layout: string
+  status: string
+  statusMessage: string
+  action: string
 
-  @ViewChild('fileInput') fileInput: ElementRef;
-  @Output() fileChanged: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('fileInput') fileInput: ElementRef
+  @Output() fileChanged: EventEmitter<any> = new EventEmitter<any>()
 
   constructor(
     private actionService: ActionService,
     private electronService: ElectronService
   ) {
-    super();
+    super()
   }
 
   update() {
-    const view = this.v;
-    this.label = view.config.label;
-    this.layout = view.config.layout;
-    this.multiple = view.config.multiple;
-    this.status = view.config.status;
-    this.statusMessage = view.config.statusMessage;
-    this.action = view.config.action;
+    const view = this.v
+    this.label = view.config.label
+    this.layout = view.config.layout
+    this.multiple = view.config.multiple
+    this.status = view.config.status
+    this.statusMessage = view.config.statusMessage
+    this.action = view.config.action
   }
 
   inputFileChanged(event: Event) {
-    const files = (event.target as HTMLInputElement).files;
-    const fileList: File[] = [];
+    const files = (event.target as HTMLInputElement).files
+    const fileList: File[] = []
     if (files && files[0]) {
       if (this.fileChanged) {
-        this.fileChanged.emit(files);
+        this.fileChanged.emit(files)
       }
       if (isDevMode()) {
-        console.log('Selected file(s):', files);
+        console.log('Selected file(s):', files)
       }
       for (let i = 0; i < files.length; i++) {
-        const file = files.item(i);
+        const file = files.item(i)
         let fileMetadata = {
           name: file.name,
           type: file.type,
           lastModified: file.lastModified,
           size: file.size,
-        };
+        }
 
         if (this.electronService.isElectron()) {
-          fileMetadata = { ...fileMetadata, ...{ path: file.path } };
+          fileMetadata = { ...fileMetadata, ...{ path: file.path } }
         }
-        fileList.push(fileMetadata);
+        fileList.push(fileMetadata)
       }
 
       if (this.action) {
         this.actionService.perform({
           action: this.action,
           files: fileList,
-        });
+        })
       }
     }
   }
 
   reset() {
-    this.fileInput.nativeElement.value = '';
-    this.fileInput.nativeElement.dispatchEvent(new Event('change'));
+    this.fileInput.nativeElement.value = ''
+    this.fileInput.nativeElement.dispatchEvent(new Event('change'))
   }
 }

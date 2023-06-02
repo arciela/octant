@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { Node } from 'src/app/modules/shared/models/content';
+import { Component, Input, ViewEncapsulation } from '@angular/core'
+import { Node } from 'src/app/modules/shared/models/content'
 
 @Component({
   selector: 'app-view-object-status',
@@ -12,27 +12,27 @@ import { Node } from 'src/app/modules/shared/models/content';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class ObjectStatusComponent {
-  @Input() node: Node;
+  @Input() node: Node
 
   constructor() {}
 
   indicatorClass() {
     if (!this.node) {
-      return ['progress', 'top', 'success'];
+      return ['progress', 'top', 'success']
     }
 
     return [
       'progress',
       'top',
       this.node.status === 'ok' ? 'success' : 'danger',
-    ];
+    ]
   }
 
   detailsTrackBy(index, _) {
-    return index;
+    return index
   }
 
   propertiesTrackBy(index, _) {
-    return index;
+    return index
   }
 }

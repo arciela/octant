@@ -2,18 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DropdownComponent } from './dropdown.component';
-import { SharedModule } from '../../../shared.module';
-import { View, DropdownView } from '../../../models/content';
-import { By } from '@angular/platform-browser';
-import { WebsocketService } from '../../../../../data/services/websocket/websocket.service';
-import { instance, mock } from 'ts-mockito';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { DropdownComponent } from './dropdown.component'
+import { SharedModule } from '../../../shared.module'
+import { View, DropdownView } from '../../../models/content'
+import { By } from '@angular/platform-browser'
+import { WebsocketService } from '../../../../../data/services/websocket/websocket.service'
+import { instance, mock } from 'ts-mockito'
 
 describe('DropdownComponent', () => {
-  let component: DropdownComponent;
-  let fixture: ComponentFixture<DropdownComponent>;
-  const mockWebsocketService: WebsocketService = mock(WebsocketService);
+  let component: DropdownComponent
+  let fixture: ComponentFixture<DropdownComponent>
+  const mockWebsocketService: WebsocketService = mock(WebsocketService)
 
   beforeEach(
     waitForAsync(() => {
@@ -26,26 +26,26 @@ describe('DropdownComponent', () => {
           },
         ],
         imports: [SharedModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DropdownComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(DropdownComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    const root: HTMLElement = fixture.nativeElement;
-    const el: SVGPathElement = root.querySelector('.dropdown');
+    const root: HTMLElement = fixture.nativeElement
+    const el: SVGPathElement = root.querySelector('.dropdown')
 
-    expect(component).toBeTruthy();
-    expect(el).not.toBeNull();
-  });
+    expect(component).toBeTruthy()
+    expect(el).not.toBeNull()
+  })
 
   it('should be opened the button dropdown', () => {
-    const root: HTMLElement = fixture.nativeElement;
+    const root: HTMLElement = fixture.nativeElement
     const view: DropdownView = {
       config: {
         position: 'bottom-left',
@@ -90,30 +90,30 @@ describe('DropdownComponent', () => {
           } as View,
         ],
       },
-    };
-    component.view = view;
+    }
+    component.view = view
 
-    fixture.detectChanges();
+    fixture.detectChanges()
     const dropdown: SVGPathElement = root.querySelector(
       '.dropdown clr-dropdown'
-    );
+    )
     const dropdownButton: SVGPathElement = root.querySelector(
       '.dropdown clr-dropdown button'
-    );
-    expect(dropdownButton).not.toBeNull();
-    expect(component.position).toBe(view.config.position);
+    )
+    expect(dropdownButton).not.toBeNull()
+    expect(component.position).toBe(view.config.position)
 
     const dropDownToggle = fixture.debugElement.query(
       By.css('button.dropdown-toggle')
-    ).nativeElement;
-    dropDownToggle.click();
-    fixture.detectChanges();
+    ).nativeElement
+    dropDownToggle.click()
+    fixture.detectChanges()
 
-    expect(dropdown.classList.contains('open')).toBeTruthy();
-  });
+    expect(dropdown.classList.contains('open')).toBeTruthy()
+  })
 
   it('handles useSelection properly', () => {
-    const root: HTMLElement = fixture.nativeElement;
+    const root: HTMLElement = fixture.nativeElement
     const view: DropdownView = {
       config: {
         position: 'bottom-left',
@@ -144,38 +144,38 @@ describe('DropdownComponent', () => {
           } as View,
         ],
       },
-    };
-    component.view = view;
+    }
+    component.view = view
 
-    fixture.detectChanges();
+    fixture.detectChanges()
     const dropdown: SVGPathElement = root.querySelector(
       '.dropdown clr-dropdown'
-    );
+    )
     const dropDownToggle = fixture.debugElement.query(
       By.css('.dropdown .dropdown-toggle')
-    ).nativeElement;
+    ).nativeElement
 
-    expect(dropDownToggle).not.toBeNull();
-    dropDownToggle.click();
-    fixture.detectChanges();
+    expect(dropDownToggle).not.toBeNull()
+    dropDownToggle.click()
+    fixture.detectChanges()
 
-    expect(dropdown.classList.contains('open')).toBeTruthy();
+    expect(dropdown.classList.contains('open')).toBeTruthy()
     fixture.debugElement
       .query(By.css('clr-dropdown-menu .dropdown-list :first-child'))
-      .nativeElement.click();
+      .nativeElement.click()
 
-    fixture.detectChanges();
-    expect(dropDownToggle.innerHTML).toContain('Select any item');
+    fixture.detectChanges()
+    expect(dropDownToggle.innerHTML).toContain('Select any item')
 
-    view.config.useSelection = true;
-    component.view = view;
-    dropDownToggle.click();
-    fixture.detectChanges();
+    view.config.useSelection = true
+    component.view = view
+    dropDownToggle.click()
+    fixture.detectChanges()
 
     fixture.debugElement
       .query(By.css('clr-dropdown-menu .dropdown-list :first-child'))
-      .nativeElement.click();
-    fixture.detectChanges();
-    expect(dropDownToggle.innerHTML).toContain('First Item');
-  });
-});
+      .nativeElement.click()
+    fixture.detectChanges()
+    expect(dropDownToggle.innerHTML).toContain('First Item')
+  })
+})

@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({
   name: 'truncate',
@@ -8,8 +8,8 @@ export class TruncatePipe implements PipeTransform {
     if (name.length > 28) {
       return (
         name.substr(0, 10) + '...' + name.substr(name.length - 14, name.length)
-      );
+      )
     }
-    return name;
+    return name
   }
 }

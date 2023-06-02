@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform, SecurityContext } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Pipe, PipeTransform, SecurityContext } from '@angular/core'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
 @Pipe({
   name: 'escapepipe',
@@ -11,13 +11,13 @@ export class StringEscapePipe implements PipeTransform {
     return this.sanitizer.sanitize(
       SecurityContext.HTML,
       this.escapePipe(value)
-    );
+    )
   }
 
   escapePipe(str: string): string {
     return str
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/\n/g, '\\n');
+      .replace(/\n/g, '\\n')
   }
 }

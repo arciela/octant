@@ -2,31 +2,31 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DatagridComponent } from './datagrid.component';
-import { SharedModule } from '../../../shared.module';
-import { windowProvider, WindowToken } from '../../../../../window';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { DatagridComponent } from './datagrid.component'
+import { SharedModule } from '../../../shared.module'
+import { windowProvider, WindowToken } from '../../../../../window'
 
 describe('DatagridComponent', () => {
-  let component: DatagridComponent;
-  let fixture: ComponentFixture<DatagridComponent>;
+  let component: DatagridComponent
+  let fixture: ComponentFixture<DatagridComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [SharedModule],
         providers: [{ provide: WindowToken, useFactory: windowProvider }],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatagridComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(DatagridComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

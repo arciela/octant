@@ -10,9 +10,9 @@ import {
   ElementRef,
   Input,
   ViewChild,
-} from '@angular/core';
-import { PodStatus } from '../../../models/pod-status';
-import { Point } from '../../../models/point';
+} from '@angular/core'
+import { PodStatus } from '../../../models/pod-status'
+import { Point } from '../../../models/point'
 
 @Component({
   selector: '[app-heptagon-label]',
@@ -40,75 +40,75 @@ import { Point } from '../../../models/point';
 })
 export class HeptagonLabelComponent implements AfterViewChecked {
   @ViewChild('container', { static: true })
-  container: ElementRef;
+  container: ElementRef
 
   @ViewChild('label', { static: true })
-  labelText: ElementRef;
+  labelText: ElementRef
 
   @Input()
-  centerPoint: Point;
+  centerPoint: Point
 
   @Input()
-  height: number;
+  height: number
 
   @Input()
-  status: PodStatus;
+  status: PodStatus
 
   @Input()
   padding = {
     x: 15,
     y: 10,
-  };
+  }
 
   @Input()
-  name: string;
+  name: string
 
   constructor(private cd: ChangeDetectorRef) {}
 
   ngAfterViewChecked(): void {
-    this.cd.detectChanges();
+    this.cd.detectChanges()
   }
 
   x() {
-    return this.centerPoint.x - this.height / 2;
+    return this.centerPoint.x - this.height / 2
   }
 
   y() {
-    return this.centerPoint.y - this.height / 2 - 5;
+    return this.centerPoint.y - this.height / 2 - 5
   }
 
   containerX() {
-    return this.x() - this.width() - 5;
+    return this.x() - this.width() - 5
   }
 
   containerWidth() {
-    return `${this.width()}px`;
+    return `${this.width()}px`
   }
 
   containerHeight() {
-    return this.bBox().height + 2 * this.padding.y;
+    return this.bBox().height + 2 * this.padding.y
   }
 
   width() {
-    return this.bBox().width + 2 * this.padding.x;
+    return this.bBox().width + 2 * this.padding.x
   }
 
   bBox() {
-    return this.labelText.nativeElement.getBBox();
+    return this.labelText.nativeElement.getBBox()
   }
 
   fontSize() {
-    const el = this.labelText.nativeElement;
-    const style = window.getComputedStyle(el, null);
-    const fontSizeRaw = style.getPropertyValue('font-size');
-    return parseFloat(fontSizeRaw);
+    const el = this.labelText.nativeElement
+    const style = window.getComputedStyle(el, null)
+    const fontSizeRaw = style.getPropertyValue('font-size')
+    return parseFloat(fontSizeRaw)
   }
 
   textPaddingX() {
-    return `${this.padding.x}px`;
+    return `${this.padding.x}px`
   }
 
   textPaddingY() {
-    return `${this.bBox().height}px`;
+    return `${this.bBox().height}px`
   }
 }

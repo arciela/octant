@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { SingleStatView } from '../../../models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component } from '@angular/core'
+import { SingleStatView } from '../../../models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-single-stat',
@@ -9,7 +9,7 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
 })
 export class SingleStatComponent extends AbstractViewComponent<SingleStatView> {
   constructor() {
-    super();
+    super()
   }
 
   update() {}

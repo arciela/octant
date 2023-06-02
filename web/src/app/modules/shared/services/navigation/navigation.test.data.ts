@@ -2,7 +2,7 @@
  * Copyright (c) 2020 the Octant contributors. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { NavigationChild } from '../../../sugarloaf/models/navigation';
+import { NavigationChild } from '../../../sugarloaf/models/navigation'
 
 export const NAVIGATION_MOCK_DATA: NavigationChild[] = [
   {
@@ -347,7 +347,7 @@ export const NAVIGATION_MOCK_DATA: NavigationChild[] = [
     iconName: 'cloud',
     isLoading: false,
   },
-];
+]
 
 export const NAVIGATION_WITH_VALID_CUSTOM_SVG: NavigationChild[] = [
   {
@@ -358,7 +358,7 @@ export const NAVIGATION_WITH_VALID_CUSTOM_SVG: NavigationChild[] = [
     isLoading: false,
     customSvg: '<svg></svg>',
   },
-];
+]
 
 export const NAVIGATION_WITH_INVALID_CUSTOM_SVG: NavigationChild[] = [
   {
@@ -369,7 +369,7 @@ export const NAVIGATION_WITH_INVALID_CUSTOM_SVG: NavigationChild[] = [
     isLoading: false,
     customSvg: '<svg></sv>',
   },
-];
+]
 
 export const expectedSelection = {
   'workloads/namespace/default': { module: 0, index: 0 },
@@ -463,4 +463,4 @@ export const expectedSelection = {
   'plugin-name/nested-once': { module: 5, index: 1 },
   'plugin-name/nested-once/nested-twice': { module: 5, index: 1 },
   openstack: { module: 6, index: 0 },
-};
+}

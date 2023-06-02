@@ -8,26 +8,26 @@ import {
   ActivatedRouteSnapshot,
   DetachedRouteHandle,
   RouteReuseStrategy,
-} from '@angular/router';
-import { Injectable } from '@angular/core';
+} from '@angular/router'
+import { Injectable } from '@angular/core'
 
 const genKey = (r: ActivatedRouteSnapshot) => {
-  return `${r.url.join('/')}`;
-};
+  return `${r.url.join('/')}`
+}
 
 @Injectable()
 export class ComponentReuseStrategy implements RouteReuseStrategy {
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {}
 
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
-    return null;
+    return null
   }
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
-    return false;
+    return false
   }
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    return false;
+    return false
   }
 
   /**
@@ -40,6 +40,6 @@ export class ComponentReuseStrategy implements RouteReuseStrategy {
     future: ActivatedRouteSnapshot,
     curr: ActivatedRouteSnapshot
   ): boolean {
-    return genKey(future) === genKey(curr);
+    return genKey(future) === genKey(curr)
   }
 }

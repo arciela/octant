@@ -1,6 +1,6 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { ElectronService } from '../../../modules/shared/services/electron/electron.service';
-import { ThemeService } from '../../../modules/shared/services/theme/theme.service';
+import { Component, OnInit, Renderer2 } from '@angular/core'
+import { ElectronService } from '../../../modules/shared/services/electron/electron.service'
+import { ThemeService } from '../../../modules/shared/services/theme/theme.service'
 
 @Component({
   selector: 'app-home',
@@ -15,14 +15,14 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.themeService.loadTheme();
+    this.themeService.loadTheme()
 
     if (this.electronService.isElectron()) {
-      this.renderer.addClass(document.body, 'electron');
+      this.renderer.addClass(document.body, 'electron')
       this.renderer.addClass(
         document.body,
         `platform-${this.electronService.platform()}`
-      );
+      )
     }
   }
 }

@@ -1,35 +1,35 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { FormViewContainerComponent } from './form-view-container.component';
-import { Component } from '@angular/core';
+import { FormViewContainerComponent } from './form-view-container.component'
+import { Component } from '@angular/core'
 import {
   FormArray,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-} from '@angular/forms';
-import { ActionForm } from '../../models/content';
-import { FormHelper } from '../../models/form-helper';
-import { CdsModule } from '@cds/angular';
-import '@cds/core/radio/register.js';
+} from '@angular/forms'
+import { ActionForm } from '../../models/content'
+import { FormHelper } from '../../models/form-helper'
+import { CdsModule } from '@cds/angular'
+import '@cds/core/radio/register.js'
 
 @Component({
   template:
     '<app-form-view-container [form]="form" [formGroupContainer]="formGroup"></app-form-view-container>',
 })
 class TestWrapperComponent {
-  form: ActionForm;
-  formGroup: FormGroup;
+  form: ActionForm
+  formGroup: FormGroup
 }
 
 describe('FormViewContainerComponent', () => {
-  let component: TestWrapperComponent;
-  let fixture: ComponentFixture<TestWrapperComponent>;
-  let element: HTMLDivElement;
-  let formHelper;
+  let component: TestWrapperComponent
+  let fixture: ComponentFixture<TestWrapperComponent>
+  let element: HTMLDivElement
+  let formHelper
 
-  const formBuilder: FormBuilder = new FormBuilder();
+  const formBuilder: FormBuilder = new FormBuilder()
 
   beforeEach(
     waitForAsync(() => {
@@ -37,20 +37,20 @@ describe('FormViewContainerComponent', () => {
         declarations: [TestWrapperComponent, FormViewContainerComponent],
         imports: [CdsModule, ReactiveFormsModule, FormsModule],
         providers: [{ provide: FormBuilder, useValue: formBuilder }],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestWrapperComponent);
-    component = fixture.componentInstance;
-    element = fixture.nativeElement;
-    formHelper = new FormHelper();
-  });
+    fixture = TestBed.createComponent(TestWrapperComponent)
+    component = fixture.componentInstance
+    element = fixture.nativeElement
+    formHelper = new FormHelper()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   describe('form group', () => {
     it('creates radio', () => {
@@ -76,18 +76,18 @@ describe('FormViewContainerComponent', () => {
             metadata: { type: 'formField' },
           },
         ],
-      };
+      }
       component.formGroup = formHelper.createFromGroup(
         component.form,
         formBuilder
-      );
-      fixture.detectChanges();
-      expect(element.querySelector('cds-radio-group')).not.toBeNull();
-      expect(element.querySelector('cds-radio')).not.toBeNull();
-    });
+      )
+      fixture.detectChanges()
+      expect(element.querySelector('cds-radio-group')).not.toBeNull()
+      expect(element.querySelector('cds-radio')).not.toBeNull()
+    })
 
     it('should create a select and verify is selected', () => {
-      const name = 'name';
+      const name = 'name'
       component.form = {
         fields: [
           {
@@ -110,22 +110,22 @@ describe('FormViewContainerComponent', () => {
             metadata: { type: 'formField' },
           },
         ],
-      };
+      }
       component.formGroup = formHelper.createFromGroup(
         component.form,
         formBuilder
-      );
-      fixture.detectChanges();
+      )
+      fixture.detectChanges()
 
       const selected = (
         component.formGroup.get(name) as FormArray
-      ).getRawValue();
-      expect(selected[0]).toEqual('a');
-      expect(element.querySelector('cds-select')).not.toBeNull();
-    });
+      ).getRawValue()
+      expect(selected[0]).toEqual('a')
+      expect(element.querySelector('cds-select')).not.toBeNull()
+    })
 
     it('should create a select and verify is NOT selected', () => {
-      const name = 'name';
+      const name = 'name'
       component.form = {
         fields: [
           {
@@ -148,18 +148,18 @@ describe('FormViewContainerComponent', () => {
             metadata: { type: 'formField' },
           },
         ],
-      };
+      }
       component.formGroup = formHelper.createFromGroup(
         component.form,
         formBuilder
-      );
-      fixture.detectChanges();
+      )
+      fixture.detectChanges()
 
       const selected = (
         component.formGroup.get(name) as FormArray
-      ).getRawValue();
-      expect(selected[0]).toEqual(undefined);
-      expect(element.querySelector('cds-select')).not.toBeNull();
-    });
-  });
-});
+      ).getRawValue()
+      expect(selected[0]).toEqual(undefined)
+      expect(element.querySelector('cds-select')).not.toBeNull()
+    })
+  })
+})

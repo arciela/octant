@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component } from '@angular/core';
-import { LinkView, View } from 'src/app/modules/shared/models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component } from '@angular/core'
+import { LinkView, View } from 'src/app/modules/shared/models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 const isUrlExternal = url =>
-  url?.indexOf('://') > 0 || url?.indexOf('//') === 0;
+  url?.indexOf('://') > 0 || url?.indexOf('//') === 0
 
 @Component({
   selector: 'app-view-link',
@@ -15,28 +15,28 @@ const isUrlExternal = url =>
   styleUrls: ['./link.component.scss'],
 })
 export class LinkComponent extends AbstractViewComponent<LinkView> {
-  ref: string;
-  value: string;
-  isExternal: boolean;
-  hasStatus: boolean;
-  component: View;
+  ref: string
+  value: string
+  isExternal: boolean
+  hasStatus: boolean
+  component: View
 
   constructor() {
-    super();
+    super()
   }
 
   update() {
-    const view = this.v;
-    this.ref = view.config.ref;
-    this.value = view.config.value;
-    this.isExternal = isUrlExternal(this.ref);
+    const view = this.v
+    this.ref = view.config.ref
+    this.value = view.config.value
+    this.isExternal = isUrlExternal(this.ref)
 
     if (view.config.status) {
-      this.hasStatus = true;
+      this.hasStatus = true
     }
 
     if (view.config.component) {
-      this.component = this.v.config.component;
+      this.component = this.v.config.component
     }
   }
 }

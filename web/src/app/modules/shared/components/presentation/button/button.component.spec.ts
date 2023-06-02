@@ -1,34 +1,34 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { ButtonComponent } from './button.component';
-import { ButtonView } from '../../../models/content';
-import { windowProvider, WindowToken } from '../../../../../window';
+import { ButtonComponent } from './button.component'
+import { ButtonView } from '../../../models/content'
+import { windowProvider, WindowToken } from '../../../../../window'
 
 describe('ButtonComponent', () => {
-  let component: ButtonComponent;
-  let fixture: ComponentFixture<ButtonComponent>;
+  let component: ButtonComponent
+  let fixture: ComponentFixture<ButtonComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [ButtonComponent],
         providers: [{ provide: WindowToken, useFactory: windowProvider }],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(ButtonComponent)
+    component = fixture.componentInstance
 
     component.view = {
       config: {},
-    } as ButtonView;
+    } as ButtonView
 
-    fixture.detectChanges();
-  });
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

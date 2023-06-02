@@ -2,19 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HeptagonGridComponent } from './heptagon-grid.component';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { HeptagonGridComponent } from './heptagon-grid.component'
 import {
   HeptagonGridRowComponent,
   HoverStatus,
-} from '../heptagon-grid-row/heptagon-grid-row.component';
-import { HeptagonLabelComponent } from '../heptagon-label/heptagon-label.component';
-import { HeptagonComponent } from '../../smart/heptagon/heptagon.component';
-import { windowProvider, WindowToken } from '../../../../../window';
+} from '../heptagon-grid-row/heptagon-grid-row.component'
+import { HeptagonLabelComponent } from '../heptagon-label/heptagon-label.component'
+import { HeptagonComponent } from '../../smart/heptagon/heptagon.component'
+import { windowProvider, WindowToken } from '../../../../../window'
 
 describe('HeptagonGridComponent', () => {
-  let component: HeptagonGridComponent;
-  let fixture: ComponentFixture<HeptagonGridComponent>;
+  let component: HeptagonGridComponent
+  let fixture: ComponentFixture<HeptagonGridComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -26,13 +26,13 @@ describe('HeptagonGridComponent', () => {
           HeptagonComponent,
         ],
         providers: [{ provide: WindowToken, useFactory: windowProvider }],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeptagonGridComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(HeptagonGridComponent)
+    component = fixture.componentInstance
 
     component.podStatuses = [
       { name: 'pod-1', status: 'ok' },
@@ -40,38 +40,38 @@ describe('HeptagonGridComponent', () => {
       { name: 'pod-3', status: 'ok' },
       { name: 'pod-4', status: 'ok' },
       { name: 'pod-5', status: 'ok' },
-    ];
-    component.perRow = 2;
+    ]
+    component.perRow = 2
 
-    fixture.detectChanges();
-  });
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('updates hover states', () => {
     const status: HoverStatus = {
       col: 1,
       row: 1,
       hovered: true,
-    };
-    component.updateHover(status);
+    }
+    component.updateHover(status)
 
-    expect(component.hoverStates[1][1]).toBeTruthy();
-  });
+    expect(component.hoverStates[1][1]).toBeTruthy()
+  })
 
   describe('heptagon is hovered', () => {
     beforeEach(() => {
-      component.hoverStates[0][0] = true;
-    });
+      component.hoverStates[0][0] = true
+    })
 
     it('knows if a heptagon is activated', () => {
-      expect(component.isActivated(0)).toBeTruthy();
-    });
+      expect(component.isActivated(0)).toBeTruthy()
+    })
 
     it('know if a heptagon is not activated', () => {
-      expect(component.isActivated(1)).toBeFalsy();
-    });
-  });
-});
+      expect(component.isActivated(1)).toBeFalsy()
+    })
+  })
+})

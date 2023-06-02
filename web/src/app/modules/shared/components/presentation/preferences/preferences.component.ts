@@ -5,17 +5,17 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
-} from '@angular/core';
-import '@cds/core/modal/register.js';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+} from '@angular/core'
+import '@cds/core/modal/register.js'
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms'
 import {
   Condition,
   Operation,
   PreferenceElement,
   Preferences,
-} from '../../../models/preference';
-import trackByIdentity from 'src/app/util/trackBy/trackByIdentity';
-import { startWith } from 'rxjs/operators';
+} from '../../../models/preference'
+import trackByIdentity from 'src/app/util/trackBy/trackByIdentity'
+import { startWith } from 'rxjs/operators'
 
 interface StringDict {
   [key: string]: string;
@@ -33,12 +33,12 @@ const checkCondition = (
 ): boolean => {
   switch (condition.op) {
     case Operation.Equal:
-      return currentState[condition.lhs] !== condition.rhs;
+      return currentState[condition.lhs] !== condition.rhs
     default:
       // fail open
-      return true;
+      return true
   }
-};
+}
 
 /**
  * Returns a list of elements defined in preferences.
@@ -48,11 +48,11 @@ const checkCondition = (
 const elements = (preferences: Preferences): PreferenceElement[] => {
   return preferences.panels.reduce<PreferenceElement[]>((accum, panel) => {
     panel.sections.forEach(section => {
-      accum.push(...section.elements);
-    });
-    return accum;
-  }, []);
-};
+      accum.push(...section.elements)
+    })
+    return accum
+  }, [])
+}
 
 @Component({
   selector: 'app-preferences',
@@ -60,117 +60,117 @@ const elements = (preferences: Preferences): PreferenceElement[] => {
   styleUrls: ['./preferences.component.scss'],
 })
 export class PreferencesComponent implements OnChanges {
-  isOpenValue: boolean;
+  isOpenValue: boolean
 
   @Input()
   get isOpen() {
-    return this.isOpenValue;
+    return this.isOpenValue
   }
 
   set isOpen(v: boolean) {
-    this.isOpenValue = v;
-    this.isOpenChange.emit(this.isOpenValue);
+    this.isOpenValue = v
+    this.isOpenChange.emit(this.isOpenValue)
     if (this.isOpenValue) {
-      this.togglePreferences();
+      this.togglePreferences()
     }
   }
 
   @Input()
-  preferences: Preferences;
+  preferences: Preferences
 
   @Output()
-  preferencesChanged = new EventEmitter();
+  preferencesChanged = new EventEmitter()
 
   @Output()
-  isOpenChange = new EventEmitter<boolean>();
+  isOpenChange = new EventEmitter<boolean>()
 
   @Output()
-  reset = new EventEmitter<void>();
+  reset = new EventEmitter<void>()
 
-  form: FormGroup = new FormGroup({});
+  form: FormGroup = new FormGroup({})
 
-  controls: { [key: string]: AbstractControl } = {};
-  conditions: { [key: string]: Condition[] } = {};
+  controls: { [key: string]: AbstractControl } = {}
+  conditions: { [key: string]: Condition[] } = {}
 
-  activeTabs: { [key: string]: boolean } = {};
+  activeTabs: { [key: string]: boolean } = {}
 
-  trackByIdentity = trackByIdentity;
+  trackByIdentity = trackByIdentity
 
   constructor(private fb: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.preferences && !changes.preferences.currentValue) {
-      return;
+      return
     }
 
-    const preferences = this.preferences;
+    const preferences = this.preferences
 
     preferences.panels.forEach(
       (panel, i) => (this.activeTabs[panel.name] = i === 0)
-    );
+    )
 
     elements(preferences).forEach(element => {
       this.controls[element.name] = this.fb.control({
         value: element.value,
         disabled: false,
-      });
+      })
       if (element.disableConditions) {
-        this.conditions[element.name] = element.disableConditions;
+        this.conditions[element.name] = element.disableConditions
       }
-    });
+    })
 
-    this.form = this.fb.group(this.controls);
+    this.form = this.fb.group(this.controls)
 
     this.form.valueChanges
       .pipe(startWith(this.form.getRawValue()))
       .subscribe((update: StringDict) => {
-        this.onValueChanged(update);
-      });
+        this.onValueChanged(update)
+      })
   }
 
   onCancel() {
-    this.isOpen = false;
-    this.togglePreferences();
+    this.isOpen = false
+    this.togglePreferences()
   }
 
   onDropDownValueChange(event, name) {
-    this.form.value[name] = event;
+    this.form.value[name] = event
   }
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.preferencesChanged.emit(this.form.value);
-      this.isOpen = false;
-      this.togglePreferences();
+      this.preferencesChanged.emit(this.form.value)
+      this.isOpen = false
+      this.togglePreferences()
     }
   }
 
   onReset(): void {
-    this.reset.emit();
-    this.isOpen = false;
-    this.togglePreferences();
+    this.reset.emit()
+    this.isOpen = false
+    this.togglePreferences()
   }
 
   togglePreferences(): void {
-    const preferencesModal = document.getElementById('preferences-modal');
-    preferencesModal.hidden = !preferencesModal.hidden;
+    const preferencesModal = document.getElementById('preferences-modal')
+    preferencesModal.hidden = !preferencesModal.hidden
   }
 
   private onValueChanged(update: StringDict) {
     Object.keys(this.controls).forEach(key => {
       if (!this.conditions[key]) {
-        return;
+        return
       }
       if (this.checkConditions(this.conditions[key] as Condition[], update)) {
         if (this.controls[key].enabled) {
-          this.controls[key].disable({ emitEvent: false });
+          this.controls[key].disable({ emitEvent: false })
         }
       } else {
         if (this.controls[key].disabled) {
-          this.controls[key].enable({ emitEvent: false });
+          this.controls[key].enable({ emitEvent: false })
         }
       }
-    });
+    })
   }
 
   private checkConditions(
@@ -179,6 +179,6 @@ export class PreferencesComponent implements OnChanges {
   ): boolean {
     return conditions
       .map<boolean>(condition => checkCondition(condition, current))
-      .includes(true);
+      .includes(true)
   }
 }

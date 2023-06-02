@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { ViewService } from './view.service';
+import { ViewService } from './view.service'
 
 describe('ViewService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(() => TestBed.configureTestingModule({}))
 
   it('should be created', () => {
-    const service: ViewService = TestBed.inject(ViewService);
-    expect(service).toBeTruthy();
-  });
-});
+    const service: ViewService = TestBed.inject(ViewService)
+    expect(service).toBeTruthy()
+  })
+})

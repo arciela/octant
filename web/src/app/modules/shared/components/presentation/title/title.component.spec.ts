@@ -4,31 +4,31 @@
  *
  */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { TitleComponent } from './title.component';
-import { TextComponent } from '../text/text.component';
-import { LinkComponent } from '../link/link.component';
+import { TitleComponent } from './title.component'
+import { TextComponent } from '../text/text.component'
+import { LinkComponent } from '../link/link.component'
 
 describe('TitleComponent', () => {
-  let component: TitleComponent;
-  let fixture: ComponentFixture<TitleComponent>;
+  let component: TitleComponent
+  let fixture: ComponentFixture<TitleComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [TitleComponent, TextComponent, LinkComponent],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TitleComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(TitleComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

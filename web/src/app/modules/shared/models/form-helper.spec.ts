@@ -1,11 +1,11 @@
-import { FormHelper } from './form-helper';
+import { FormHelper } from './form-helper'
 
 describe('FormHelper', () => {
-  let formHelper: FormHelper;
+  let formHelper: FormHelper
 
   beforeEach(() => {
-    formHelper = new FormHelper();
-  });
+    formHelper = new FormHelper()
+  })
 
   it('converts number', () => {
     expect(
@@ -25,8 +25,8 @@ describe('FormHelper', () => {
           width: 0,
         },
       })
-    ).toEqual(3);
-  });
+    ).toEqual(3)
+  })
 
   it('converts stringed number', () => {
     expect(
@@ -46,8 +46,8 @@ describe('FormHelper', () => {
           width: 0,
         },
       })
-    ).toEqual(123);
-  });
+    ).toEqual(123)
+  })
 
   it('converts text', () => {
     expect(
@@ -66,8 +66,8 @@ describe('FormHelper', () => {
           validators: null,
         },
       })
-    ).toEqual('hello');
-  });
+    ).toEqual('hello')
+  })
 
   it('converts NaN', () => {
     expect(
@@ -86,20 +86,20 @@ describe('FormHelper', () => {
           validators: null,
         },
       })
-    ).toEqual(0);
-  });
-});
+    ).toEqual(0)
+  })
+})
 
 describe('FormHelper:createControls', () => {
-  let formHelper: FormHelper;
+  let formHelper: FormHelper
 
   beforeEach(() => {
-    formHelper = new FormHelper();
-  });
+    formHelper = new FormHelper()
+  })
 
   it('should create a form array', () => {
-    const control = {};
-    const name = 'test';
+    const control = {}
+    const name = 'test'
     formHelper.createControls(control, {
       metadata: {
         type: 'form',
@@ -121,15 +121,15 @@ describe('FormHelper:createControls', () => {
         validators: null,
         width: 0,
       },
-    });
+    })
 
-    expect(control[name]).not.toBeNull();
-    expect(control[name].pristine).toBeTruthy();
-  });
+    expect(control[name]).not.toBeNull()
+    expect(control[name].pristine).toBeTruthy()
+  })
 
   it('should create an array', () => {
-    const control = {};
-    const name = 'test';
+    const control = {}
+    const name = 'test'
     formHelper.createControls(control, {
       metadata: {
         type: 'form',
@@ -151,9 +151,9 @@ describe('FormHelper:createControls', () => {
         validators: null,
         width: 0,
       },
-    });
+    })
 
-    expect(control[name]).not.toBeNull();
-    expect(control[name].pristine).toBe(undefined);
-  });
-});
+    expect(control[name]).not.toBeNull()
+    expect(control[name].pristine).toBe(undefined)
+  })
+})

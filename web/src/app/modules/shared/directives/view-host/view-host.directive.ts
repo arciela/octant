@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Directive, ViewContainerRef } from '@angular/core';
+import { Directive, ViewContainerRef } from '@angular/core'
 
 @Directive({
   selector: '[appView]',

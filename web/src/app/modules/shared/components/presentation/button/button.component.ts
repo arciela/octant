@@ -3,20 +3,20 @@ import {
   EventEmitter,
   Output,
   SecurityContext,
-} from '@angular/core';
+} from '@angular/core'
 import {
   ButtonView,
   Confirmation,
   View,
   ModalView,
-} from '../../../models/content';
-import '@cds/core/button/register';
-import '@cds/core/modal/register';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
-import { parse } from 'marked';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActionService } from '../../../services/action/action.service';
-import { ModalService } from '../../../services/modal/modal.service';
+} from '../../../models/content'
+import '@cds/core/button/register'
+import '@cds/core/modal/register'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
+import { parse } from 'marked'
+import { DomSanitizer } from '@angular/platform-browser'
+import { ActionService } from '../../../services/action/action.service'
+import { ModalService } from '../../../services/modal/modal.service'
 
 @Component({
   selector: 'app-button',
@@ -24,53 +24,53 @@ import { ModalService } from '../../../services/modal/modal.service';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent extends AbstractViewComponent<ButtonView> {
-  @Output() buttonLoad: EventEmitter<boolean> = new EventEmitter(true);
+  @Output() buttonLoad: EventEmitter<boolean> = new EventEmitter(true)
 
-  modalTitle = '';
-  modalBody = '';
-  payload = {};
-  style = 'outline';
-  status = '';
-  size = 'sm';
-  disabled = null;
-  block = null;
+  modalTitle = ''
+  modalBody = ''
+  payload = {}
+  style = 'outline'
+  status = ''
+  size = 'sm'
+  disabled = null
+  block = null
 
-  modalView: View;
+  modalView: View
 
   constructor(
     private actionService: ActionService,
     private modalService: ModalService,
     private sanitize: DomSanitizer
   ) {
-    super();
+    super()
   }
 
   update() {
-    const button = this.v?.config;
+    const button = this.v?.config
     if (button) {
       if (button.modal) {
-        this.modalView = button.modal;
-        const modal = this.modalView as ModalView;
-        this.modalService.setState(modal.config.opened);
+        this.modalView = button.modal
+        const modal = this.modalView as ModalView
+        this.modalService.setState(modal.config.opened)
       }
       if (button.confirmation) {
-        this.status = 'danger';
+        this.status = 'danger'
       } else {
         if (button.style) {
-          this.style = button.style;
+          this.style = button.style
         }
         if (button.status) {
           if (button.status === 'disabled') {
-            this.disabled = true;
+            this.disabled = true
           } else {
-            this.status = button.status;
+            this.status = button.status
           }
         }
         if (button.size) {
           if (button.size === 'block') {
-            this.block = true;
+            this.block = true
           } else {
-            this.size = button.size;
+            this.size = button.size
           }
         }
       }
@@ -79,49 +79,49 @@ export class ButtonComponent extends AbstractViewComponent<ButtonView> {
 
   onClick(payload: {}, confirmation?: Confirmation, modal?: View) {
     if (modal) {
-      this.modalService.openModal();
+      this.modalService.openModal()
     }
     if (confirmation) {
-      this.activateModal(payload, confirmation);
+      this.activateModal(payload, confirmation)
     } else {
-      this.buttonLoad.emit(true);
-      this.doAction(payload);
+      this.buttonLoad.emit(true)
+      this.doAction(payload)
     }
   }
 
   acceptModal() {
-    const payload = this.payload;
-    this.resetModal();
-    this.doAction(payload);
+    const payload = this.payload
+    this.resetModal()
+    this.doAction(payload)
   }
 
   trackByFn(index, item) {
-    return index;
+    return index
   }
 
   private doAction(payload: {}) {
-    this.actionService.perform(payload);
+    this.actionService.perform(payload)
   }
 
   private activateModal(payload: {}, confirmation: Confirmation) {
-    this.modalTitle = confirmation.title;
+    this.modalTitle = confirmation.title
     this.modalBody = this.sanitize.sanitize(
       SecurityContext.HTML,
       parse(confirmation.body)
-    );
-    this.toggleModal();
-    this.payload = payload;
+    )
+    this.toggleModal()
+    this.payload = payload
   }
 
   private resetModal() {
-    this.toggleModal();
-    this.modalBody = '';
-    this.modalTitle = '';
-    this.payload = {};
+    this.toggleModal()
+    this.modalBody = ''
+    this.modalTitle = ''
+    this.payload = {}
   }
 
   toggleModal(): void {
-    const modal = document.getElementById('confirmation-modal');
-    modal.hidden = !modal.hidden;
+    const modal = document.getElementById('confirmation-modal')
+    modal.hidden = !modal.hidden
   }
 }

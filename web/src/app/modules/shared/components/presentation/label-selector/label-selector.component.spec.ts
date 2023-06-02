@@ -2,18 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import {
   OverlayScrollbarsComponent,
   OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx';
-import { EditorComponent } from '../../smart/editor/editor.component';
+} from 'overlayscrollbars-ngx'
+import { EditorComponent } from '../../smart/editor/editor.component'
 
-import { LabelSelectorComponent } from './label-selector.component';
+import { LabelSelectorComponent } from './label-selector.component'
 
 describe('LabelSelectorComponent', () => {
-  let component: LabelSelectorComponent;
-  let fixture: ComponentFixture<LabelSelectorComponent>;
+  let component: LabelSelectorComponent
+  let fixture: ComponentFixture<LabelSelectorComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -24,17 +24,17 @@ describe('LabelSelectorComponent', () => {
           OverlayScrollbarsComponent,
         ],
         imports: [OverlayscrollbarsModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LabelSelectorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(LabelSelectorComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

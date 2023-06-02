@@ -2,14 +2,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EditorComponent } from './editor.component';
-import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
-import { windowProvider, WindowToken } from '../../../../../window';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { EditorComponent } from './editor.component'
+import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor'
+import { windowProvider, WindowToken } from '../../../../../window'
 
 describe('EditorComponent', () => {
-  let component: EditorComponent;
-  let fixture: ComponentFixture<EditorComponent>;
+  let component: EditorComponent
+  let fixture: ComponentFixture<EditorComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -17,25 +17,25 @@ describe('EditorComponent', () => {
         providers: [{ provide: WindowToken, useFactory: windowProvider }],
         imports: [MonacoEditorModule],
         declarations: [EditorComponent],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditorComponent);
-    component = fixture.componentInstance;
-  });
+    fixture = TestBed.createComponent(EditorComponent)
+    component = fixture.componentInstance
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('should display the editor', () => {
-    const root: HTMLElement = fixture.nativeElement;
+    const root: HTMLElement = fixture.nativeElement
     const editorElement: SVGPathElement = root.querySelector(
       '.editor-container .editor'
-    );
-    expect(editorElement).not.toBeNull();
-    expect(editorElement.classList.contains('editor')).toBeTruthy();
-  });
-});
+    )
+    expect(editorElement).not.toBeNull()
+    expect(editorElement.classList.contains('editor')).toBeTruthy()
+  })
+})

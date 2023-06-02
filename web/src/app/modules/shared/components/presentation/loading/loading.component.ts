@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, Input } from '@angular/core';
-import { LoadingView, View } from 'src/app/modules/shared/models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component, Input } from '@angular/core'
+import { LoadingView, View } from 'src/app/modules/shared/models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-view-loading',
@@ -12,13 +12,13 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   styleUrls: ['./loading.component.scss'],
 })
 export class LoadingComponent extends AbstractViewComponent<LoadingView> {
-  value: string;
+  value: string
 
   constructor() {
-    super();
+    super()
   }
 
   update() {
-    this.value = this.v.config.value;
+    this.value = this.v.config.value
   }
 }

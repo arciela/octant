@@ -3,31 +3,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, merge, Observable, timer } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { BehaviorSubject, combineLatest, merge, Observable, timer } from 'rxjs'
 import {
   distinctUntilChanged,
   map,
   startWith,
   takeUntil,
-} from 'rxjs/operators';
+} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoadingService {
-  public requestComplete = new BehaviorSubject<boolean>(false);
+  public requestComplete = new BehaviorSubject<boolean>(false)
 
   withDelay(
     watch: Observable<boolean>,
     after: number,
     atLeast: number
   ): Observable<boolean> {
-    const loadingTimer = timer(after).pipe(takeUntil(watch));
-    const holdTimer = timer(after + atLeast);
+    const loadingTimer = timer(after).pipe(takeUntil(watch))
+    const holdTimer = timer(after + atLeast)
     return merge(
       loadingTimer.pipe(map(() => true)),
       combineLatest([watch, holdTimer]).pipe(map(() => false))
-    ).pipe(startWith(false), distinctUntilChanged());
+    ).pipe(startWith(false), distinctUntilChanged())
   }
 }

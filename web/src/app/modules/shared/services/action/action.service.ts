@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { WebsocketService } from '../../../../data/services/websocket/websocket.service';
+import { Injectable } from '@angular/core'
+import { WebsocketService } from '../../../../data/services/websocket/websocket.service'
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,6 @@ export class ActionService {
     this.websocketService.sendMessage(
       'action.octant.dev/performAction',
       update
-    );
+    )
   }
 }

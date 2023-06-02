@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, Input, OnInit } from '@angular/core';
-import { ActionForm } from '../../../models/content';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormHelper } from '../../../models/form-helper';
+import { Component, Input, OnInit } from '@angular/core'
+import { ActionForm } from '../../../models/content'
+import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormHelper } from '../../../models/form-helper'
 
 @Component({
   selector: 'app-form',
@@ -14,14 +14,14 @@ import { FormHelper } from '../../../models/form-helper';
 })
 export class FormComponent implements OnInit {
   @Input()
-  form: ActionForm;
+  form: ActionForm
 
-  formGroup: FormGroup;
+  formGroup: FormGroup
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    const formHelper = new FormHelper();
-    this.formGroup = formHelper.createFromGroup(this.form, this.formBuilder);
+    const formHelper = new FormHelper()
+    this.formGroup = formHelper.createFromGroup(this.form, this.formBuilder)
   }
 }

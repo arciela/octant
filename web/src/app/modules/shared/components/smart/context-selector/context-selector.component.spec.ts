@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { ContextSelectorComponent } from './context-selector.component';
-import { KubeContextService } from '../../../services/kube-context/kube-context.service';
-import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { TruncatePipe } from '../../../pipes/truncate/truncate.pipe';
-import { OctantTooltipComponent } from '../../presentation/octant-tooltip/octant-tooltip';
+import { ContextSelectorComponent } from './context-selector.component'
+import { KubeContextService } from '../../../services/kube-context/kube-context.service'
+import { of } from 'rxjs'
+import { By } from '@angular/platform-browser'
+import { TruncatePipe } from '../../../pipes/truncate/truncate.pipe'
+import { OctantTooltipComponent } from '../../presentation/octant-tooltip/octant-tooltip'
 
 const contexts = [
   {
@@ -18,21 +18,21 @@ const contexts = [
   {
     name: 'kubernetes-admin@workload-test',
   },
-];
+]
 
 class MockKubeContextService {
   contexts() {
-    return of(contexts);
+    return of(contexts)
   }
 
   selected() {
-    return of(contexts[0].name);
+    return of(contexts[0].name)
   }
 }
 
 describe('ContextSelectorComponent', () => {
-  let component: ContextSelectorComponent;
-  let fixture: ComponentFixture<ContextSelectorComponent>;
+  let component: ContextSelectorComponent
+  let fixture: ComponentFixture<ContextSelectorComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -45,64 +45,64 @@ describe('ContextSelectorComponent', () => {
         providers: [
           { provide: KubeContextService, useClass: MockKubeContextService },
         ],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContextSelectorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ContextSelectorComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('selects the context when the button is clicked', () => {
-    const onClickMock = spyOn(component, 'selectContext');
+    const onClickMock = spyOn(component, 'selectContext')
 
     const dropDownToggle = fixture.debugElement.query(
       By.css('button.dropdown-toggle')
-    ).nativeElement;
-    dropDownToggle.click();
+    ).nativeElement
+    dropDownToggle.click()
 
-    fixture.detectChanges();
+    fixture.detectChanges()
 
     fixture.debugElement
       .query(By.css('button.context-button:last-child'))
-      .nativeElement.click();
+      .nativeElement.click()
 
-    fixture.detectChanges();
+    fixture.detectChanges()
 
-    expect(onClickMock).toHaveBeenCalledWith(contexts[1]);
-  });
+    expect(onClickMock).toHaveBeenCalledWith(contexts[1])
+  })
 
   it('makes the currently selected context active', () => {
-    component.selected = contexts[1].name;
+    component.selected = contexts[1].name
 
     const dropDownToggle = fixture.debugElement.query(
       By.css('button.dropdown-toggle')
-    ).nativeElement;
-    dropDownToggle.click();
+    ).nativeElement
+    dropDownToggle.click()
 
-    fixture.detectChanges();
+    fixture.detectChanges()
 
     const contextButton = fixture.debugElement.query(
       By.css('button.context-button:last-child')
-    );
+    )
 
-    expect(contextButton.classes.active).toBeTruthy();
-  });
+    expect(contextButton.classes.active).toBeTruthy()
+  })
 
   it('shows the currently active context name', () => {
-    const pipe = new TruncatePipe();
+    const pipe = new TruncatePipe()
     const dropDownToggle: HTMLButtonElement = fixture.debugElement.query(
       By.css('button.dropdown-toggle')
-    ).nativeElement;
+    ).nativeElement
 
     expect(dropDownToggle.textContent.trim()).toBe(
       pipe.transform(contexts[0].name)
-    );
-  });
-});
+    )
+  })
+})

@@ -8,16 +8,16 @@ import {
   Input,
   isDevMode,
   Output,
-} from '@angular/core';
+} from '@angular/core'
 import {
   DropdownItem,
   DropdownView,
   LinkView,
-} from 'src/app/modules/shared/models/content';
-import { ViewService } from '../../../services/view/view.service';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
-import { Router } from '@angular/router';
-import { WebsocketService } from '../../../../../data/services/websocket/websocket.service';
+} from 'src/app/modules/shared/models/content'
+import { ViewService } from '../../../services/view/view.service'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
+import { Router } from '@angular/router'
+import { WebsocketService } from '../../../../../data/services/websocket/websocket.service'
 
 @Component({
   selector: 'app-view-dropdown',
@@ -25,92 +25,92 @@ import { WebsocketService } from '../../../../../data/services/websocket/websock
   styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent extends AbstractViewComponent<DropdownView> {
-  readonly defaultItemLimit = 10;
-  useSelection = false;
-  showToggleIcon = true;
-  selectedItem = '';
-  url: string;
-  position: string;
-  action: string;
-  itemLimit = this.defaultItemLimit;
-  isOpen = false;
-  dropdownMenuStyle: object = {};
+  readonly defaultItemLimit = 10
+  useSelection = false
+  showToggleIcon = true
+  selectedItem = ''
+  url: string
+  position: string
+  action: string
+  itemLimit = this.defaultItemLimit
+  isOpen = false
+  dropdownMenuStyle: object = {}
 
-  @Input() public title: string;
+  @Input() public title: string
 
-  @Input() public type: string;
+  @Input() public type: string
 
-  @Input() public items: DropdownItem[];
+  @Input() public items: DropdownItem[]
 
-  @Output() public selectedValue = new EventEmitter<string>();
+  @Output() public selectedValue = new EventEmitter<string>()
 
   constructor(
     private viewService: ViewService,
     private websocketService: WebsocketService,
     private router: Router
   ) {
-    super();
+    super()
   }
 
   update() {
-    const view = this.v;
-    this.title = this.viewService.viewTitleAsText(view);
-    this.position = view.config.position;
-    this.type = view.config.type;
-    this.action = view.config.action;
-    this.items = view.config.items;
-    this.showToggleIcon = view.config.showToggleIcon;
+    const view = this.v
+    this.title = this.viewService.viewTitleAsText(view)
+    this.position = view.config.position
+    this.type = view.config.type
+    this.action = view.config.action
+    this.items = view.config.items
+    this.showToggleIcon = view.config.showToggleIcon
 
     this.items.forEach(item => {
       if (item.name === view.config.selection) {
-        this.selectedItem = item.name;
+        this.selectedItem = item.name
       }
-    });
+    })
 
-    this.useSelection = view.config.useSelection;
+    this.useSelection = view.config.useSelection
     if (this.type === 'link') {
-      this.url = (view.metadata.title[0] as LinkView).config.ref;
+      this.url = (view.metadata.title[0] as LinkView).config.ref
     }
 
     this.dropdownMenuStyle =
-      this.items.length > this.defaultItemLimit ? { 'padding-bottom': 0 } : {};
+      this.items.length > this.defaultItemLimit ? { 'padding-bottom': 0 } : {}
   }
 
   identifyItem(index: number, item: DropdownItem): string {
-    return item.name;
+    return item.name
   }
 
   toggleShowMore(): void {
     this.itemLimit =
       this.itemLimit === this.items.length
         ? this.defaultItemLimit
-        : this.items.length;
+        : this.items.length
   }
 
   openLink(index): void {
-    const item = this.items[index];
-    this.selectedItem = item.name;
-    this.selectedValue.emit(item.name);
+    const item = this.items[index]
+    this.selectedItem = item.name
+    this.selectedValue.emit(item.name)
     if (this.useSelection && this.type !== 'icon') {
-      this.title = item.label;
+      this.title = item.label
     }
 
     if (this.action) {
       this.websocketService.sendMessage('action.octant.dev/performAction', {
         action: this.action,
         selection: this.selectedItem,
-      });
+      })
     }
 
     if (item.url && item.type === 'link') {
       setTimeout(() => {
-        this.router.navigateByUrl(item.url);
-      }, 0);
+        this.router.navigateByUrl(item.url)
+      }, 0)
     }
-    this.isOpen = false;
+    this.isOpen = false
 
     if (isDevMode()) {
-      console.log('Selected', item.name);
+      console.log('Selected', item.name)
     }
   }
 }

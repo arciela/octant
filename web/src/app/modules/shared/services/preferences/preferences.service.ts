@@ -3,32 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
 import {
   Operation,
   PreferencePanel,
   Preferences,
-} from '../../models/preference';
-import { ThemeService } from '../theme/theme.service';
-import { PreferencesEntry } from './preferences.entry';
+} from '../../models/preference'
+import { ThemeService } from '../theme/theme.service'
+import { PreferencesEntry } from './preferences.entry'
 
 @Injectable({
   providedIn: 'root',
 })
 export class PreferencesService implements OnDestroy {
-  private electronStore: any;
-  private kubeConfigPathText: string;
-  private kubeConfigFullPath: string;
+  private electronStore: any
+  private kubeConfigPathText: string
+  private kubeConfigFullPath: string
 
-  public preferences: Map<string, PreferencesEntry<any>> = new Map();
+  public preferences: Map<string, PreferencesEntry<any>> = new Map()
   public preferencesOpened: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
+    new BehaviorSubject<boolean>(false)
 
   constructor(private themeService: ThemeService) {
     if (this.isElectron()) {
-      const Store = window.require('electron-store');
-      this.electronStore = new Store();
+      const Store = window.require('electron-store')
+      this.electronStore = new Store()
     }
 
     this.preferences.set(
@@ -39,17 +39,17 @@ export class PreferencesService implements OnDestroy {
         false,
         'collapsed'
       )
-    );
+    )
 
     this.preferences.set(
       'navigation.labels',
       new PreferencesEntry<boolean>(this, 'navigation.labels', true, 'show')
-    );
+    )
 
     this.preferences.set(
       'general.pageSize',
       new PreferencesEntry<number>(this, 'general.pageSize', 10, '')
-    );
+    )
 
     this.preferences.set(
       'development.frontendUrl',
@@ -60,7 +60,7 @@ export class PreferencesService implements OnDestroy {
         '',
         true
       )
-    );
+    )
 
     this.preferences.set(
       'development.embedded',
@@ -71,12 +71,12 @@ export class PreferencesService implements OnDestroy {
         'embedded',
         true
       )
-    );
+    )
 
     this.preferences.set(
       'development.verbose',
       new PreferencesEntry<boolean>(this, 'development.verbose', false, 'debug')
-    );
+    )
 
     this.preferences.set(
       'theme',
@@ -86,57 +86,57 @@ export class PreferencesService implements OnDestroy {
         this.themeService.themeType.value,
         ''
       )
-    );
+    )
 
-    this.updateTheme();
+    this.updateTheme()
   }
 
   ngOnDestroy(): void {
     for (const pref of this.preferences.values()) {
-      pref.destroy();
+      pref.destroy()
     }
   }
 
   setStoredValue(key: string, value: any) {
     if (this.isElectron()) {
-      this.electronStore.set(key, value);
+      this.electronStore.set(key, value)
     } else {
-      localStorage.setItem(key, value);
+      localStorage.setItem(key, value)
     }
   }
 
   getStoredValue(key: string, defaultValue: any) {
     if (this.isElectron()) {
-      return this.electronStore.get(key, defaultValue);
+      return this.electronStore.get(key, defaultValue)
     } else {
-      return localStorage.getItem(key) || defaultValue;
+      return localStorage.getItem(key) || defaultValue
     }
   }
 
   isElectron(): boolean {
     if (typeof process === 'undefined') {
-      return false;
+      return false
     }
     return (
       process && process.versions && process.versions.electron !== undefined
-    );
+    )
   }
 
   public preferencesChanged(update: Preferences) {
-    let notificationRequired = false;
+    let notificationRequired = false
 
     for (const pref of this.preferences.values()) {
-      const changed = pref.preferencesChanged(update);
+      const changed = pref.preferencesChanged(update)
       if (changed && pref.updatesElectron) {
-        notificationRequired = true;
+        notificationRequired = true
       }
     }
 
-    this.updateTheme();
+    this.updateTheme()
 
     if (this.isElectron() && notificationRequired) {
-      const ipcRenderer = window.require('electron').ipcRenderer;
-      ipcRenderer.send('preferences', 'changed');
+      const ipcRenderer = window.require('electron').ipcRenderer
+      ipcRenderer.send('preferences', 'changed')
     }
   }
 
@@ -147,22 +147,22 @@ export class PreferencesService implements OnDestroy {
           this.getNavigationPanels(),
           this.getDeveloperPanels(),
         ]
-      : [this.getGeneralPanels(), this.getNavigationPanels()];
+      : [this.getGeneralPanels(), this.getNavigationPanels()]
 
     return {
       updateName: 'generalPreferences',
       panels,
-    };
+    }
   }
 
   public setKubeConfigPath(path: string) {
-    this.kubeConfigFullPath = path;
-    this.kubeConfigPathText = path;
+    this.kubeConfigFullPath = path
+    this.kubeConfigPathText = path
     if (path.length > 35) {
       this.kubeConfigPathText = `${path.substring(0, 17)}...${path.substring(
         path.length - 17,
         path.length
-      )}`;
+      )}`
     }
   }
 
@@ -171,15 +171,15 @@ export class PreferencesService implements OnDestroy {
       this.themeService.themeType.value !==
       this.preferences.get('theme').subject.value
     ) {
-      this.themeService.switchTheme();
+      this.themeService.switchTheme()
     }
   }
 
   reset() {
     for (const pref of this.preferences.values()) {
-      pref.setDefaultValue();
+      pref.setDefaultValue()
     }
-    this.updateTheme();
+    this.updateTheme()
   }
 
   private getDeveloperPanels(): PreferencePanel {
@@ -252,11 +252,11 @@ export class PreferencesService implements OnDestroy {
           ],
         },
       ],
-    };
+    }
   }
 
   private getGeneralPanels(): PreferencePanel {
-    const pageSize = this.preferences.get('general.pageSize').subject.value;
+    const pageSize = this.preferences.get('general.pageSize').subject.value
 
     return {
       name: 'General',
@@ -351,7 +351,7 @@ export class PreferencesService implements OnDestroy {
           ],
         },
       ],
-    };
+    }
   }
 
   private getNavigationPanels(): PreferencePanel {
@@ -407,6 +407,6 @@ export class PreferencesService implements OnDestroy {
           ],
         },
       ],
-    };
+    }
   }
 }

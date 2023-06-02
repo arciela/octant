@@ -2,35 +2,35 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { FormComponent } from './form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormComponent } from './form.component'
+import { ReactiveFormsModule } from '@angular/forms'
 
 describe('FormComponent', () => {
-  let component: FormComponent;
-  let fixture: ComponentFixture<FormComponent>;
+  let component: FormComponent
+  let fixture: ComponentFixture<FormComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [FormComponent],
         imports: [ReactiveFormsModule],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(FormComponent)
+    component = fixture.componentInstance
 
     component.form = {
       fields: [],
-    };
-    fixture.detectChanges();
-  });
+    }
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

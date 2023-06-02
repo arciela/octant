@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component } from '@angular/core';
-import { YAMLView } from 'src/app/modules/shared/models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component } from '@angular/core'
+import { YAMLView } from 'src/app/modules/shared/models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-view-yaml',
@@ -12,13 +12,13 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   styleUrls: ['./yaml.component.scss'],
 })
 export class YamlComponent extends AbstractViewComponent<YAMLView> {
-  source: string;
+  source: string
 
   constructor() {
-    super();
+    super()
   }
 
   update() {
-    this.source = this.v.config.data;
+    this.source = this.v.config.data
   }
 }

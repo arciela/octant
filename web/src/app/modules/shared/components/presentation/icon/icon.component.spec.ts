@@ -1,27 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IconView } from '../../../models/content';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { IconView } from '../../../models/content'
 
-import { IconComponent } from './icon.component';
+import { IconComponent } from './icon.component'
 
 describe('IconComponent', () => {
-  let component: IconComponent;
-  let fixture: ComponentFixture<IconComponent>;
+  let component: IconComponent
+  let fixture: ComponentFixture<IconComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [IconComponent],
-    }).compileComponents();
-  });
+    }).compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IconComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(IconComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('uses custom icon when customIcon svg is valid', () => {
     component.view = {
@@ -33,12 +33,12 @@ describe('IconComponent', () => {
         solid: true,
         customSvg: '<svg></svg>',
       },
-    } as IconView;
-    fixture.detectChanges();
+    } as IconView
+    fixture.detectChanges()
 
-    let view = component.view as IconView;
-    expect(view.config.shape).toEqual('custom');
-  });
+    let view = component.view as IconView
+    expect(view.config.shape).toEqual('custom')
+  })
 
   it('uses placeholder icon when customIcon svg is invalid', () => {
     component.view = {
@@ -50,10 +50,10 @@ describe('IconComponent', () => {
         solid: true,
         customSvg: '<svg><circle><foo>',
       },
-    } as IconView;
-    fixture.detectChanges();
+    } as IconView
+    fixture.detectChanges()
 
-    let view = component.view as IconView;
-    expect(view.config.shape).toEqual('times');
-  });
-});
+    let view = component.view as IconView
+    expect(view.config.shape).toEqual('times')
+  })
+})

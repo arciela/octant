@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { IFrameView } from 'src/app/modules/shared/models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component } from '@angular/core'
+import { IFrameView } from 'src/app/modules/shared/models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 @Component({
   selector: 'app-iframe',
@@ -8,15 +8,15 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   styleUrls: ['./iframe.component.scss'],
 })
 export class IFrameComponent extends AbstractViewComponent<IFrameView> {
-  url: string;
-  title: string;
+  url: string
+  title: string
 
   constructor() {
-    super();
+    super()
   }
 
   update() {
-    this.url = this.v.config.url;
-    this.title = this.v.config.title;
+    this.url = this.v.config.url
+    this.title = this.v.config.title
   }
 }

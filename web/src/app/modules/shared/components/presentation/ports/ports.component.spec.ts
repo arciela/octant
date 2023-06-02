@@ -2,30 +2,30 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { PortsComponent } from './ports.component';
-import { ButtonGroupComponent } from '../button-group/button-group.component';
+import { PortsComponent } from './ports.component'
+import { ButtonGroupComponent } from '../button-group/button-group.component'
 
 describe('PortsComponent', () => {
-  let component: PortsComponent;
-  let fixture: ComponentFixture<PortsComponent>;
+  let component: PortsComponent
+  let fixture: ComponentFixture<PortsComponent>
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [PortsComponent, ButtonGroupComponent],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PortsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PortsComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

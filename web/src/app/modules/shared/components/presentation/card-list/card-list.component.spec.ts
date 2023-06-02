@@ -1,42 +1,36 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { CardListComponent } from './card-list.component';
-import { CardListView } from '../../../models/content';
-import { SharedModule } from '../../../shared.module';
-import {
-  OverlayScrollbarsComponent,
-  OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx';
-import { IndicatorComponent } from '../indicator/indicator.component';
+import { CardListComponent } from './card-list.component'
+import { CardListView } from '../../../models/content'
+import { SharedModule } from '../../../shared.module'
+import { IndicatorComponent } from '../indicator/indicator.component'
 
 describe('CardListComponent', () => {
-  let component: CardListComponent;
-  let fixture: ComponentFixture<CardListComponent>;
+  let component: CardListComponent
+  let fixture: ComponentFixture<CardListComponent>
 
   beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [OverlayScrollbarsComponent, IndicatorComponent],
-        imports: [SharedModule, OverlayscrollbarsModule],
-      }).compileComponents();
-    })
-  );
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          declarations: [IndicatorComponent],
+          imports: [SharedModule]
+        }).compileComponents()
+      })
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CardListComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(CardListComponent)
+    component = fixture.componentInstance
 
-    const view: CardListView = {
+    component.view = {
       config: { cards: [] },
-      metadata: { type: 'cardsList' },
-    };
+      metadata: { type: 'cardsList' }
+    } as CardListView
 
-    component.view = view;
-
-    fixture.detectChanges();
-  });
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

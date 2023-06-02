@@ -8,13 +8,13 @@ import {
   HostListener,
   OnDestroy,
   OnInit,
-} from '@angular/core';
+} from '@angular/core'
 import {
   Filter,
   LabelFilterService,
-} from '../../../../shared/services/label-filter/label-filter.service';
-import { ClarityIcons, angleIcon, timesIcon } from '@cds/core/icon';
-import { Subscription } from 'rxjs';
+} from '../../../../shared/services/label-filter/label-filter.service'
+import { ClarityIcons, angleIcon, timesIcon } from '@cds/core/icon'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-input-filter',
@@ -22,66 +22,66 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./input-filter.component.scss'],
 })
 export class InputFilterComponent implements OnInit, OnDestroy {
-  inputValue = '';
-  showTagList = false;
-  filters: Filter[] = [];
+  inputValue = ''
+  showTagList = false
+  filters: Filter[] = []
 
-  private labelFilterSubscription: Subscription;
+  private labelFilterSubscription: Subscription
 
   constructor(
     private eRef: ElementRef,
     private labelFilterService: LabelFilterService
   ) {
-    ClarityIcons.addIcons(angleIcon);
-    ClarityIcons.addIcons(timesIcon);
+    ClarityIcons.addIcons(angleIcon)
+    ClarityIcons.addIcons(timesIcon)
   }
 
   ngOnInit() {
     this.labelFilterSubscription = this.labelFilterService.filters.subscribe(
       filters => {
-        this.filters = filters;
+        this.filters = filters
       }
-    );
+    )
   }
 
   ngOnDestroy(): void {
     if (this.labelFilterSubscription) {
-      this.labelFilterSubscription.unsubscribe();
+      this.labelFilterSubscription.unsubscribe()
     }
   }
 
   @HostListener('document:click', ['$event'])
   outsideClick(event) {
     if (!this.eRef.nativeElement.contains(event.target)) {
-      this.showTagList = false;
+      this.showTagList = false
     }
   }
 
   toggleTagList() {
-    this.showTagList = !this.showTagList;
+    this.showTagList = !this.showTagList
   }
 
   identifyFilter(index: number, item: Filter): string {
-    return `${item.key}-${item.value}`;
+    return `${item.key}-${item.value}`
   }
 
   remove(filter: Filter) {
-    this.labelFilterService.remove(filter);
+    this.labelFilterService.remove(filter)
   }
 
   onEnter() {
-    const filter = this.labelFilterService.decodeFilter(this.inputValue);
+    const filter = this.labelFilterService.decodeFilter(this.inputValue)
     if (filter) {
-      this.labelFilterService.add(filter);
-      this.inputValue = '';
-      this.showTagList = true;
+      this.labelFilterService.add(filter)
+      this.inputValue = ''
+      this.showTagList = true
     } else {
       // TODO: user input value not a valid filter (GH#505);
     }
   }
 
   clearAllFilters() {
-    this.labelFilterService.clear();
-    this.showTagList = false;
+    this.labelFilterService.clear()
+    this.showTagList = false
   }
 }

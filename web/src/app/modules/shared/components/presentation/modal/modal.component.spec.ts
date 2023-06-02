@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ModalComponent } from './modal.component';
-import { SharedModule } from '../../../shared.module';
-import { ModalService } from '../../../services/modal/modal.service';
-import { windowProvider, WindowToken } from '../../../../../window';
-import { OctantTooltipComponent } from '../octant-tooltip/octant-tooltip';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { ModalComponent } from './modal.component'
+import { SharedModule } from '../../../shared.module'
+import { ModalService } from '../../../services/modal/modal.service'
+import { windowProvider, WindowToken } from '../../../../../window'
+import { OctantTooltipComponent } from '../octant-tooltip/octant-tooltip'
 
 describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+  let component: ModalComponent
+  let fixture: ComponentFixture<ModalComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -22,17 +22,17 @@ describe('ModalComponent', () => {
           { provide: ModalService },
           { provide: WindowToken, useFactory: windowProvider },
         ],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ModalComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

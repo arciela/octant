@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { Component, EventEmitter, Output } from '@angular/core';
-import { TabsView, View } from '../../../models/content';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+import { Component, EventEmitter, Output } from '@angular/core'
+import { TabsView, View } from '../../../models/content'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 
 interface Tab {
   name: string;
@@ -18,27 +18,27 @@ interface Tab {
   styleUrls: ['./tabs-view.component.scss'],
 })
 export class TabsViewComponent extends AbstractViewComponent<TabsView> {
-  activeTab: string;
-  tabs: View[] = [];
-  orientation: string;
+  activeTab: string
+  tabs: View[] = []
+  orientation: string
 
   constructor() {
-    super();
+    super()
   }
 
   update() {
-    this.tabs = this.v.config.tabs;
-    this.orientation = this.v.config?.orientation || 'horizontal';
+    this.tabs = this.v.config.tabs
+    this.orientation = this.v.config?.orientation || 'horizontal'
   }
 
   clickTab(tabAccessor: string) {
     if (this.activeTab === tabAccessor) {
-      return;
+      return
     }
-    this.activeTab = tabAccessor;
+    this.activeTab = tabAccessor
   }
 
   identifyTab(index: number, item: Tab): string {
-    return item.name;
+    return item.name
   }
 }

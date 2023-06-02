@@ -2,15 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TimestampComponent } from './timestamp.component';
-import { SharedModule } from '../../../shared.module';
-import { windowProvider, WindowToken } from '../../../../../window';
-import { EditorComponent } from '../../smart/editor/editor.component';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { TimestampComponent } from './timestamp.component'
+import { SharedModule } from '../../../shared.module'
+import { windowProvider, WindowToken } from '../../../../../window'
+import { EditorComponent } from '../../smart/editor/editor.component'
 
 describe('TimestampComponent', () => {
-  let component: TimestampComponent;
-  let fixture: ComponentFixture<TimestampComponent>;
+  let component: TimestampComponent
+  let fixture: ComponentFixture<TimestampComponent>
 
   beforeEach(
     waitForAsync(() => {
@@ -18,17 +18,17 @@ describe('TimestampComponent', () => {
         imports: [SharedModule],
         declarations: [EditorComponent],
         providers: [{ provide: WindowToken, useFactory: windowProvider }],
-      }).compileComponents();
+      }).compileComponents()
     })
-  );
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimestampComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(TimestampComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

@@ -2,8 +2,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-} from '@angular/core';
-import { AbstractViewComponent } from '../../abstract-view/abstract-view.component';
+} from '@angular/core'
+import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 import {
   loadCoreIconSet,
   loadEssentialIconSet,
@@ -15,9 +15,9 @@ import {
   loadTechnologyIconSet,
   loadChartIconSet,
   ClarityIcons,
-} from '@cds/core/icon';
-import { IconView, Tooltip } from '../../../models/content';
-import { isSvg } from '../../../../../util/isSvg';
+} from '@cds/core/icon'
+import { IconView, Tooltip } from '../../../models/content'
+import { isSvg } from '../../../../../util/isSvg'
 
 @Component({
   selector: 'app-view-icon',
@@ -26,78 +26,78 @@ import { isSvg } from '../../../../../util/isSvg';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent extends AbstractViewComponent<IconView> {
-  direction: string;
-  shape: string;
-  flip: string;
-  size: string;
-  isInverse: boolean;
-  isSolid: boolean;
-  badge: string;
-  status: string;
-  iconStyle: string;
-  label: string;
-  tooltip: Tooltip;
-  tooltipClass: string;
+  direction: string
+  shape: string
+  flip: string
+  size: string
+  isInverse: boolean
+  isSolid: boolean
+  badge: string
+  status: string
+  iconStyle: string
+  label: string
+  tooltip: Tooltip
+  tooltipClass: string
 
   constructor(private cdr: ChangeDetectorRef) {
-    super();
-    loadCoreIconSet();
-    loadEssentialIconSet();
-    loadCommerceIconSet();
-    loadMediaIconSet();
-    loadSocialIconSet();
-    loadTravelIconSet();
-    loadTextEditIconSet();
-    loadTechnologyIconSet();
-    loadChartIconSet();
+    super()
+    loadCoreIconSet()
+    loadEssentialIconSet()
+    loadCommerceIconSet()
+    loadMediaIconSet()
+    loadSocialIconSet()
+    loadTravelIconSet()
+    loadTextEditIconSet()
+    loadTechnologyIconSet()
+    loadChartIconSet()
   }
 
   protected update(): void {
-    const view = this.v;
-    this.tooltip = view.config.tooltip;
+    const view = this.v
+    this.tooltip = view.config.tooltip
 
     if (this.tooltip) {
-      this.generateTooltipClassStyles();
+      this.generateTooltipClassStyles()
     }
 
     if (view.config.customSvg) {
       if (isSvg(view.config.customSvg)) {
-        ClarityIcons.addIcons([view.config.shape, view.config.customSvg]);
+        ClarityIcons.addIcons([view.config.shape, view.config.customSvg])
       } else {
-        console.error(`Invalid SVG for icon '${view.config.shape}'`);
-        view.config.shape = 'times';
+        console.error(`Invalid SVG for icon '${view.config.shape}'`)
+        view.config.shape = 'times'
       }
     }
 
-    this.shape = view.config.shape;
-    this.flip = view.config.flip;
-    this.size = view.config.size;
-    this.direction = view.config.direction;
-    this.status = view.config.status;
-    this.badge = view.config.badge;
+    this.shape = view.config.shape
+    this.flip = view.config.flip
+    this.size = view.config.size
+    this.direction = view.config.direction
+    this.status = view.config.status
+    this.badge = view.config.badge
 
-    this.isInverse = view.config.inverse;
-    this.isSolid = view.config.solid;
+    this.isInverse = view.config.inverse
+    this.isSolid = view.config.solid
 
-    this.iconStyle = '';
+    this.iconStyle = ''
     if (view.config.color !== '') {
-      this.iconStyle += `--color: ${view.config.color};`;
+      this.iconStyle += `--color: ${view.config.color};`
     }
     if (view.config.badgeColor !== '') {
-      this.iconStyle += `--badge-color: ${view.config.badgeColor};`;
+      this.iconStyle += `--badge-color: ${view.config.badgeColor};`
     }
-    this.label = view.config.label;
-    this.cdr.markForCheck();
+    this.label = view.config.label
+    this.cdr.markForCheck()
   }
 
   generateTooltipClassStyles() {
-    this.tooltipClass = 'tooltip';
+    this.tooltipClass = 'tooltip'
     if (this.tooltip.size !== '') {
-      this.tooltipClass += ' tooltip-' + this.tooltip.size;
+      this.tooltipClass += ' tooltip-' + this.tooltip.size
     }
     if (this.tooltip.position !== '') {
-      this.tooltipClass += ' tooltip-' + this.tooltip.position;
+      this.tooltipClass += ' tooltip-' + this.tooltip.position
     }
-    return this.tooltipClass;
+    return this.tooltipClass
   }
 }

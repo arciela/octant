@@ -9,18 +9,18 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-} from '@angular/core';
-import { Params, Router, UrlSegment } from '@angular/router';
+} from '@angular/core'
+import { Params, Router, UrlSegment } from '@angular/router'
 import {
   ContentResponse,
   ExtensionView,
   View,
-} from 'src/app/modules/shared/models/content';
-import { IconService } from '../../../../shared/services/icon/icon.service';
-import { ContentService } from '../../../../shared/services/content/content.service';
-import { isEqual } from 'lodash';
-import { Subscription } from 'rxjs';
-import { LoadingService } from 'src/app/modules/shared/services/loading/loading.service';
+} from 'src/app/modules/shared/models/content'
+import { IconService } from '../../../../shared/services/icon/icon.service'
+import { ContentService } from '../../../../shared/services/content/content.service'
+import { isEqual } from 'lodash'
+import { Subscription } from 'rxjs'
+import { LoadingService } from 'src/app/modules/shared/services/loading/loading.service'
 
 @Component({
   selector: 'app-overview',
@@ -29,18 +29,18 @@ import { LoadingService } from 'src/app/modules/shared/services/loading/loading.
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ContentComponent implements OnInit, OnDestroy {
-  hasReceivedContent = false;
-  title: View[] = null;
-  views: View[] = null;
-  titleComponents: View[] = null;
-  extView: ExtensionView = null;
-  private contentSubscription: Subscription;
-  private previousUrl = '';
-  private defaultPath: string;
-  private previousParams: Params;
-  private loadingSubscription: Subscription;
-  public showSpinner = false;
-  currentPath = '';
+  hasReceivedContent = false
+  title: View[] = null
+  views: View[] = null
+  titleComponents: View[] = null
+  extView: ExtensionView = null
+  private contentSubscription: Subscription
+  private previousUrl = ''
+  private defaultPath: string
+  private previousParams: Params
+  private loadingSubscription: Subscription
+  public showSpinner = false
+  currentPath = ''
 
   constructor(
     private router: Router,
@@ -50,41 +50,41 @@ export class ContentComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.updatePath(this.router.routerState.snapshot.url);
+    this.updatePath(this.router.routerState.snapshot.url)
 
     this.contentSubscription = this.contentService.current.subscribe(
       contentResponse => {
-        this.setContent(contentResponse);
+        this.setContent(contentResponse)
       }
-    );
+    )
 
     this.loadingService
       .withDelay(this.loadingService.requestComplete, 650, 1000)
       .subscribe(v => {
-        this.showSpinner = v;
-      });
+        this.showSpinner = v
+      })
   }
 
   ngOnDestroy() {
-    this.resetView();
+    this.resetView()
     if (this.contentSubscription) {
-      this.contentSubscription.unsubscribe();
+      this.contentSubscription.unsubscribe()
     }
     if (this.loadingSubscription) {
-      this.loadingSubscription.unsubscribe();
+      this.loadingSubscription.unsubscribe()
     }
   }
 
   updatePath(url: string) {
-    const tree = this.router.parseUrl(url);
+    const tree = this.router.parseUrl(url)
 
-    const primary = tree.root.children.primary;
-    let segments = [];
+    const primary = tree.root.children.primary
+    let segments = []
     if (primary) {
-      segments = primary.segments;
+      segments = primary.segments
     }
 
-    this.handlePathChange(segments, tree.queryParams, false);
+    this.handlePathChange(segments, tree.queryParams, false)
   }
 
   private handlePathChange(
@@ -92,28 +92,28 @@ export class ContentComponent implements OnInit, OnDestroy {
     queryParams: Params,
     force: boolean
   ) {
-    const urlPath = segments.map(u => u.path).join('/');
-    this.currentPath = urlPath;
-    const currentPath = urlPath || this.defaultPath;
+    const urlPath = segments.map(u => u.path).join('/')
+    this.currentPath = urlPath
+    const currentPath = urlPath || this.defaultPath
     if (
       force ||
       (currentPath && currentPath !== this.previousUrl) ||
       !isEqual(queryParams, this.previousParams)
     ) {
       if (this.previousUrl === currentPath) {
-        return;
+        return
       }
 
-      this.previousParams = queryParams;
-      this.resetView();
-      this.contentService.setContentPath(currentPath, queryParams);
+      this.previousParams = queryParams
+      this.resetView()
+      this.contentService.setContentPath(currentPath, queryParams)
     }
   }
 
   private resetView() {
-    this.title = null;
-    this.views = null;
-    this.titleComponents = null;
+    this.title = null
+    this.views = null
+    this.titleComponents = null
   }
 
   private setContent = (contentResponse: ContentResponse) => {
@@ -121,20 +121,20 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.currentPath.length > 0 &&
       contentResponse.currentPath !== this.currentPath
     ) {
-      return; // ignore premature updates
+      return // ignore premature updates
     }
 
-    const views = contentResponse.content.viewComponents;
+    const views = contentResponse.content.viewComponents
     if (!views || views.length === 0) {
-      this.hasReceivedContent = false;
-      return;
+      this.hasReceivedContent = false
+      return
     }
 
-    this.extView = contentResponse.content.extensionComponent;
-    this.views = views;
-    this.title = contentResponse.content.title;
-    this.titleComponents = contentResponse.content.titleComponents;
+    this.extView = contentResponse.content.extensionComponent
+    this.views = views
+    this.title = contentResponse.content.title
+    this.titleComponents = contentResponse.content.titleComponents
 
-    this.hasReceivedContent = true;
-  };
+    this.hasReceivedContent = true
+  }
 }

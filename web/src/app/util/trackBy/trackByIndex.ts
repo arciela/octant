@@ -3,5 +3,5 @@
 //
 
 export default function (index: number) {
-  return index;
+  return index
 }

@@ -1,38 +1,38 @@
 // Copyright (c) 2021 the Octant contributors. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-import { Component } from '@angular/core';
-import { TimelineView } from '../../../models/content';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TimelineComponent } from './timeline.component';
+import { Component } from '@angular/core'
+import { TimelineView } from '../../../models/content'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { TimelineComponent } from './timeline.component'
 @Component({
   template: '<app-view-timeline [view]="view"></app-view-timeline>',
 })
 class TestWrapperComponent {
-  view: TimelineView;
+  view: TimelineView
 }
 
 describe('TimelineComponent', () => {
   describe('handle changes', () => {
-    let component: TestWrapperComponent;
-    let fixture: ComponentFixture<TestWrapperComponent>;
+    let component: TestWrapperComponent
+    let fixture: ComponentFixture<TestWrapperComponent>
 
     beforeEach(
       waitForAsync(() => {
         TestBed.configureTestingModule({
           providers: [],
           declarations: [TestWrapperComponent, TimelineComponent],
-        }).compileComponents();
+        }).compileComponents()
       })
-    );
+    )
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(TestWrapperComponent);
-      component = fixture.componentInstance;
-    });
+      fixture = TestBed.createComponent(TestWrapperComponent)
+      component = fixture.componentInstance
+    })
 
     it('should show step', () => {
-      const element: HTMLDivElement = fixture.nativeElement;
+      const element: HTMLDivElement = fixture.nativeElement
       component.view = {
         config: {
           steps: [
@@ -46,12 +46,12 @@ describe('TimelineComponent', () => {
           vertical: false,
         },
         metadata: { type: 'timeline', title: [], accessor: 'accessor' },
-      };
-      fixture.detectChanges();
+      }
+      fixture.detectChanges()
 
       expect(element.querySelector('app-view-timeline').innerHTML).toContain(
         'description'
-      );
-    });
-  });
-});
+      )
+    })
+  })
+})

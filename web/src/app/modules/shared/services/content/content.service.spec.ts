@@ -3,28 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
 import {
   ContentService,
   ContentUpdate,
   ContentUpdateMessage,
-} from './content.service';
-import { WebsocketServiceMock } from '../../../../data/services/websocket/mock';
+} from './content.service'
+import { WebsocketServiceMock } from '../../../../data/services/websocket/mock'
 import {
   BackendService,
   WebsocketService,
-} from '../../../../data/services/websocket/websocket.service';
-import { Router } from '@angular/router';
+} from '../../../../data/services/websocket/websocket.service'
+import { Router } from '@angular/router'
 import {
   Filter,
   LabelFilterService,
-} from '../label-filter/label-filter.service';
-import { Title } from '@angular/platform-browser';
+} from '../label-filter/label-filter.service'
+import { Title } from '@angular/platform-browser'
 
 describe('ContentService', () => {
-  let service: ContentService;
-  const mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+  let service: ContentService
+  const mockRouter = jasmine.createSpyObj('Router', ['navigate'])
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,14 +44,14 @@ describe('ContentService', () => {
           useValue: jasmine.createSpyObj('Title', ['getTitle', 'setTitle']),
         },
       ],
-    });
+    })
 
-    service = TestBed.inject(ContentService);
-  });
+    service = TestBed.inject(ContentService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    expect(service).toBeTruthy()
+  })
 
   describe('content update', () => {
     const update: ContentUpdate = {
@@ -59,12 +59,12 @@ describe('ContentService', () => {
       namespace: 'default',
       contentPath: '/path',
       queryParams: {},
-    };
+    }
 
     beforeEach(() => {
-      const backendService = TestBed.inject(WebsocketService);
-      backendService.triggerHandler(ContentUpdateMessage, update);
-    });
+      const backendService = TestBed.inject(WebsocketService)
+      backendService.triggerHandler(ContentUpdateMessage, update)
+    })
 
     it('triggers a content change', () => {
       service.current.subscribe(current =>
@@ -72,62 +72,62 @@ describe('ContentService', () => {
           content: update.content,
           currentPath: '/path',
         })
-      );
-    });
-  });
+      )
+    })
+  })
 
   describe('label filters updated', () => {
-    let labelFilterService: LabelFilterService;
+    let labelFilterService: LabelFilterService
 
-    const filters = [{ key: 'foo', value: 'bar' }];
+    const filters = [{ key: 'foo', value: 'bar' }]
 
     beforeEach(() => {
-      labelFilterService = TestBed.inject(LabelFilterService);
-      labelFilterService.filters.next(filters);
-    });
+      labelFilterService = TestBed.inject(LabelFilterService)
+      labelFilterService.filters.next(filters)
+    })
 
     it('updates local filters', () => {
-      expect(service.currentFilters).toEqual(filters);
-    });
-  });
+      expect(service.currentFilters).toEqual(filters)
+    })
+  })
 
   describe('set content path', () => {
-    let backendService: BackendService;
-    let filters: Filter[];
+    let backendService: BackendService
+    let filters: Filter[]
 
     beforeEach(() => {
-      backendService = TestBed.inject(WebsocketService);
-      spyOn(backendService, 'sendMessage');
-    });
+      backendService = TestBed.inject(WebsocketService)
+      spyOn(backendService, 'sendMessage')
+    })
 
     it('sends a setContentPath message to the server', () => {
-      service.setContentPath('path', {});
+      service.setContentPath('path', {})
       expect(backendService.sendMessage).toHaveBeenCalledWith(
         'action.octant.dev/setContentPath',
         {
           contentPath: 'path',
           params: {},
         }
-      );
-    });
+      )
+    })
 
     describe('with filters defined', () => {
       beforeEach(() => {
-        filters = [{ key: 'foo', value: 'bar' }];
-        const labelFilterService = TestBed.inject(LabelFilterService);
-        labelFilterService.filters.next(filters);
-      });
+        filters = [{ key: 'foo', value: 'bar' }]
+        const labelFilterService = TestBed.inject(LabelFilterService)
+        labelFilterService.filters.next(filters)
+      })
 
       it('sends a setContentPath message to the server', () => {
-        service.setContentPath('path', { filters });
+        service.setContentPath('path', { filters })
         expect(backendService.sendMessage).toHaveBeenCalledWith(
           'action.octant.dev/setContentPath',
           {
             contentPath: 'path',
             params: { filters },
           }
-        );
-      });
-    });
-  });
-});
+        )
+      })
+    })
+  })
+})

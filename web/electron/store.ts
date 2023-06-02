@@ -4,7 +4,7 @@
 *
 */
 
-import ElectronStore = require('electron-store');
+import ElectronStore from 'electron-store';
 
 interface OctantStore {
   minimizeToTray: boolean;
@@ -13,13 +13,13 @@ interface OctantStore {
   navigation: {
     collapsed: boolean;
     labels: boolean;
-  }
+  };
   development: {
     embedded: boolean;
     frontendUrl: string;
     verbose: boolean;
-  }
-  windowBounds: Electron.Rectangle
+  };
+  windowBounds: Electron.Rectangle;
 }
 
 
@@ -37,7 +37,7 @@ export const electronStore = new ElectronStore<OctantStore>({
       embedded: true,
       frontendUrl: 'http://localhost:4200',
       verbose: false,
-    }
-  }
+    },
+  },
 });
 
