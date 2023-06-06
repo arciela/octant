@@ -113,7 +113,6 @@
     "@typescript-eslint/eslint-plugin-tslint": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
     "babel-loader": "^9.1.2",
-    "codelyzer": "^6.0.2",
     "dayjs": "^1.11.7",
     "electron": "^25.0.0",
     "electron-builder": "^23.6.0",
