@@ -9,12 +9,11 @@ import { WebsocketService } from './websocket.service'
 import {
   NotifierService,
   NotifierSession,
-  NotifierSignal,
+  NotifierSignal
 } from '../../../modules/shared/notifier/notifier.service'
 import uniqueId from 'lodash/uniqueId'
 import { BehaviorSubject } from 'rxjs'
 import { WindowToken } from '../../../window'
-import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx'
 
 class NotifierServiceMock {
   private signalsStream: BehaviorSubject<NotifierSignal[]>
@@ -34,26 +33,25 @@ describe('WebsocketService', () => {
   const location: Location = {
     protocol: 'http',
     host: 'example.com',
-    pathname: '/path/',
+    pathname: '/path/'
   }
   let service: WebsocketService
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [OverlayscrollbarsModule],
       providers: [
         WebsocketService,
         {
           provide: NotifierService,
-          useClass: NotifierServiceMock,
+          useClass: NotifierServiceMock
         },
         {
           provide: WindowToken,
           useValue: {
-            location,
-          },
-        },
-      ],
+            location
+          }
+        }
+      ]
     })
 
     service = TestBed.inject(WebsocketService)
@@ -67,7 +65,7 @@ describe('WebsocketService', () => {
 
       it('returns a http websocket uri', () => {
         expect(service.websocketURI()).toEqual(
-          'ws://example.com/path/api/v1/stream'
+            'ws://example.com/path/api/v1/stream'
         )
       })
     })
@@ -78,7 +76,7 @@ describe('WebsocketService', () => {
 
       it('returns a https websocket uri', () => {
         expect(service.websocketURI()).toEqual(
-          'wss://example.com/path/api/v1/stream'
+            'wss://example.com/path/api/v1/stream'
         )
       })
     })

@@ -3,10 +3,6 @@
 //
 
 import { TestBed, waitForAsync } from '@angular/core/testing'
-import {
-  OverlayScrollbarsComponent,
-  OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx'
 import { EditorComponent } from '../components/smart/editor/editor.component'
 import { SliderService } from './slider.service'
 
@@ -14,13 +10,12 @@ describe('SliderService', () => {
   let service: SliderService
 
   beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [OverlayScrollbarsComponent, EditorComponent],
-        providers: [OverlayscrollbarsModule],
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          declarations: [EditorComponent]
+        })
+        service = TestBed.inject(SliderService)
       })
-      service = TestBed.inject(SliderService)
-    })
   )
 
   it('should be created', () => {
@@ -28,18 +23,18 @@ describe('SliderService', () => {
   })
 
   it(
-    'set value',
-    waitForAsync(() => {
-      service.setHeight(100)
-      service.setHeight$.subscribe(current => expect(current).toEqual(100))
-    })
+      'set value',
+      waitForAsync(() => {
+        service.setHeight(100)
+        service.setHeight$.subscribe(current => expect(current).toEqual(100))
+      })
   )
 
   it(
-    'reset to default',
-    waitForAsync(() => {
-      service.resetDefault()
-      service.setHeight$.subscribe(current => expect(current).toEqual(36))
-    })
+      'reset to default',
+      waitForAsync(() => {
+        service.resetDefault()
+        service.setHeight$.subscribe(current => expect(current).toEqual(36))
+      })
   )
 })

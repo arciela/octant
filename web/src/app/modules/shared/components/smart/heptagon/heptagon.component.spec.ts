@@ -8,23 +8,21 @@ import { HeptagonComponent } from './heptagon.component'
 import { Point } from '../../../models/point'
 import { windowProvider, WindowToken } from '../../../../../window'
 import { OctantTooltipComponent } from '../../presentation/octant-tooltip/octant-tooltip'
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx'
 
 describe('HeptagonComponent', () => {
   let component: HeptagonComponent
   let fixture: ComponentFixture<HeptagonComponent>
 
   beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          HeptagonComponent,
-          OctantTooltipComponent,
-          OverlayScrollbarsComponent,
-        ],
-        providers: [{ provide: WindowToken, useFactory: windowProvider }],
-      }).compileComponents()
-    })
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          declarations: [
+            HeptagonComponent,
+            OctantTooltipComponent
+          ],
+          providers: [{provide: WindowToken, useFactory: windowProvider}]
+        }).compileComponents()
+      })
   )
 
   beforeEach(() => {
@@ -33,7 +31,7 @@ describe('HeptagonComponent', () => {
 
     component.status = {
       status: 'OK',
-      name: 'name',
+      name: 'name'
     }
     component.centerPoint = new Point(10, 10)
     component.edgeLength = 7
@@ -56,7 +54,7 @@ describe('HeptagonComponent', () => {
       'L2.1355713869888646,11.79500451072697',
       'L3.6932179246830676,4.9705091254542015',
       'L9.999999999999998,1.9333229516312969',
-      'L16.306782075316928,4.970509125454197',
+      'L16.306782075316928,4.970509125454197'
     ]
 
     expect(el.getAttribute('d')).toEqual(expectedPoints.join(' '))

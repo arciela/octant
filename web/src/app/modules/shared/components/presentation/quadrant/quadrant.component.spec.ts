@@ -5,22 +5,17 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { QuadrantComponent } from './quadrant.component'
 import { SharedModule } from '../../../shared.module'
-import {
-  OverlayScrollbarsComponent,
-  OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx'
 
 describe('QuadrantComponent', () => {
   let component: QuadrantComponent
   let fixture: ComponentFixture<QuadrantComponent>
 
   beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [OverlayScrollbarsComponent],
-        imports: [SharedModule, OverlayscrollbarsModule],
-      }).compileComponents()
-    })
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [SharedModule]
+        }).compileComponents()
+      })
   )
 
   beforeEach(() => {

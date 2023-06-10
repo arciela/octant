@@ -5,10 +5,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { ObjectStatusComponent } from './object-status.component'
 import { SharedModule } from '../../../shared.module'
-import {
-  OverlayScrollbarsComponent,
-  OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx'
 import { View } from '../../../models/content'
 
 describe('ObjectStatusComponent', () => {
@@ -16,12 +12,11 @@ describe('ObjectStatusComponent', () => {
   let fixture: ComponentFixture<ObjectStatusComponent>
 
   beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [OverlayScrollbarsComponent],
-        imports: [SharedModule, OverlayscrollbarsModule],
-      }).compileComponents()
-    })
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [SharedModule]
+        }).compileComponents()
+      })
   )
 
   beforeEach(() => {
@@ -45,12 +40,12 @@ describe('ObjectStatusComponent', () => {
         {
           label: 'test',
           value: {
-            metadata: { type: 'text' },
-            config: { value: 'property text' },
-          } as View,
-        },
+            metadata: {type: 'text'},
+            config: {value: 'property text'}
+          } as View
+        }
       ],
-      status: 'pod status',
+      status: 'pod status'
     }
     fixture.detectChanges()
 

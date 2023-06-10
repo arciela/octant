@@ -3,10 +3,6 @@
 //
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-import {
-  OverlayScrollbarsComponent,
-  OverlayscrollbarsModule,
-} from 'overlayscrollbars-ngx'
 import { EditorComponent } from '../../smart/editor/editor.component'
 
 import { LabelSelectorComponent } from './label-selector.component'
@@ -16,16 +12,14 @@ describe('LabelSelectorComponent', () => {
   let fixture: ComponentFixture<LabelSelectorComponent>
 
   beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          LabelSelectorComponent,
-          EditorComponent,
-          OverlayScrollbarsComponent,
-        ],
-        imports: [OverlayscrollbarsModule],
-      }).compileComponents()
-    })
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          declarations: [
+            LabelSelectorComponent,
+            EditorComponent
+          ]
+        }).compileComponents()
+      })
   )
 
   beforeEach(() => {
