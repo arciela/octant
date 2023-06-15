@@ -73,8 +73,6 @@ export class ApplicationMenu {
         ],
       },
     ]
-
-    const menu = Menu.buildFromTemplate(template)
-    return menu
+    return Menu.buildFromTemplate(template)
   }
 }

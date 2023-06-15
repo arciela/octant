@@ -123,7 +123,7 @@ function createWindow(): BrowserWindow {
   }
 )
 
-  win.webContents.on('new-window', (event, url: string) => {
+  win.on('new-window-for-tab', (event, url: string) => {
     event.preventDefault()
     shell.openExternal(url)
   })

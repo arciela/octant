@@ -3,8 +3,7 @@
 *  SPDX-License-Identifier: Apache-2.0
 *
 */
-
-import ElectronStore from 'electron-store';
+const ElectronStore = require('electron-store');
 
 interface OctantStore {
   minimizeToTray: boolean;
@@ -21,23 +20,21 @@ interface OctantStore {
   };
   windowBounds: Electron.Rectangle;
 }
-
-
-export const electronStore = new ElectronStore<OctantStore>({
-  defaults: {
-    minimizeToTray: true,
-    showDialogue: true,
-    theme: 'light',
-    windowBounds: undefined,
-    navigation: {
-      collapsed: false,
-      labels: true,
-    },
-    development: {
-      embedded: true,
-      frontendUrl: 'http://localhost:4200',
-      verbose: false,
-    },
+const store = new ElectronStore
+store.store = {
+  minimizeToTray: true,
+  showDialogue: true,
+  theme: 'light',
+  windowBounds: undefined,
+  navigation: {
+    collapsed: false,
+    labels: true,
   },
-});
+  development: {
+    embedded: true,
+    frontendUrl: 'http://localhost:4200',
+    verbose: false,
+  },
+}
+export const electronStore = store
 
