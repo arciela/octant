@@ -4,8 +4,8 @@
  *
  */
 
-import { app, BrowserWindow, Menu, Tray, nativeImage, shell, MenuItem } from 'electron'
-import { errLogPath, iconPath, greyIconPath } from './paths'
+import { app, BrowserWindow, Menu, MenuItem, nativeImage, shell, Tray } from 'electron'
+import { errLogPath, greyIconPath, iconPath } from './paths'
 import * as WebSocket from 'ws'
 import open from 'open'
 
@@ -23,7 +23,7 @@ export class TrayMenu {
     this.tray = new Tray(this.createNativeImage())
     this.menuState = {
       contexts: [], namespaces: [], currentContext: null,
-      buildInfo: {version: '', commit: '', time: ''}
+      buildInfo: { version: '', commit: '', time: '' },
     }
 
     this.setMenu()
@@ -36,7 +36,7 @@ export class TrayMenu {
   createNativeImage(): Electron.NativeImage {
     const image = nativeImage.createFromPath(greyIconPath)
     image.setTemplateImage(true)
-    return image.resize({width: 16, height: 16})
+    return image.resize({ width: 16, height: 16 })
   }
 
   startOctantEventListener() {
@@ -61,15 +61,15 @@ export class TrayMenu {
 
   setMenu() {
     let menu = new Menu()
-    menu.append(new MenuItem({label: 'Open Octant', type: 'normal', click: () => this.window.show()}))
-    menu.append(new MenuItem({label: 'View Logs', type: 'normal', click: () => shell.showItemInFolder(errLogPath)}))
+    menu.append(new MenuItem({ label: 'Open Octant', type: 'normal', click: () => this.window.show() }))
+    menu.append(new MenuItem({ label: 'View Logs', type: 'normal', click: () => shell.showItemInFolder(errLogPath) }))
 
     menu.append(this.contextSubMenu())
     menu.append(this.aboutOctantSubMenu())
     menu.append(this.openIssueMenuItem())
     menu.append(this.octantDocsMenuItem())
 
-    menu.append(new MenuItem({label: 'Quit', type: 'normal', click: () => app.quit()}))
+    menu.append(new MenuItem({ label: 'Quit', type: 'normal', click: () => app.quit() }))
     this.tray.setContextMenu(menu)
   }
 
@@ -83,28 +83,28 @@ export class TrayMenu {
         click: () => {
           this.wsConn.send(JSON.stringify({
             type: 'action.octant.dev/setContext',
-            payload: {requestedContext: context}
+            payload: { requestedContext: context },
           }))
-        }
+        },
       }))
     })
 
 
-    return new MenuItem({label: 'Contexts', type: 'submenu', submenu: contextMenu})
+    return new MenuItem({ label: 'Contexts', type: 'submenu', submenu: contextMenu })
   }
 
   aboutOctantSubMenu(): MenuItem {
-    return new MenuItem({label: 'About Octant', role: 'about'})
+    return new MenuItem({ label: 'About Octant', role: 'about' })
   }
 
   openIssueMenuItem(): MenuItem {
     const newIssueLink = 'https://github.com/vmware-tanzu/octant/issues/new/choose'
-    return new MenuItem({label: 'Open an Issue/Provide Feedback', type: 'normal', click: () => open(newIssueLink)})
+    return new MenuItem({ label: 'Open an Issue/Provide Feedback', type: 'normal', click: () => open(newIssueLink) })
   }
 
   octantDocsMenuItem(): MenuItem {
     const docsLink = 'https://octant.dev/'
-    return new MenuItem({label: 'Octant Documentation', type: 'normal', click: () => open(docsLink)})
+    return new MenuItem({ label: 'Octant Documentation', type: 'normal', click: () => open(docsLink) })
   }
 
   setAboutOptions(): void {

@@ -3,7 +3,7 @@
 *  SPDX-License-Identifier: Apache-2.0
 *
 */
-const ElectronStore = require('electron-store');
+const ElectronStore = require('electron-store')
 
 interface OctantStore {
   minimizeToTray: boolean;
@@ -20,6 +20,7 @@ interface OctantStore {
   };
   windowBounds: Electron.Rectangle;
 }
+
 const store = new ElectronStore
 store.store = {
   minimizeToTray: true,
