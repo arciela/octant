@@ -4,5 +4,5 @@ serve:
 	export OCTANT_PROXY_FRONTEND="http://localhost:4200" && \
 	go run cmd/octant/main.go
 
-build-electron:
-	go run build.go build-electron
+build-binary:
+	go run build.go ci-quick
