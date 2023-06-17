@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { ActionField, ActionForm } from '../../models/content'
 import { FormArray, FormControl, FormGroup } from '@angular/forms'
 import trackByIndex from 'src/app/util/trackBy/trackByIndex'
@@ -16,7 +16,7 @@ import { Choice } from '../../models/form-helper'
   templateUrl: './form-view-container.component.html',
   styleUrls: ['./form-view-container.component.scss'],
 })
-export class FormViewContainerComponent implements OnInit {
+export class FormViewContainerComponent {
   @Input()
   form: ActionForm
   @Input()
@@ -25,8 +25,6 @@ export class FormViewContainerComponent implements OnInit {
   formArray: FormArray
 
   trackByFn = trackByIndex
-
-  ngOnInit(): void {}
 
   onCheck(event, field: string) {
     this.formArray = this.formGroupContainer.get(field) as FormArray

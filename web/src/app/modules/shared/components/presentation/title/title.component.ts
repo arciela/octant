@@ -4,7 +4,7 @@
  *
  */
 
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { TitleView } from '../../../models/content'
 
 @Component({
@@ -12,12 +12,8 @@ import { TitleView } from '../../../models/content'
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.scss'],
 })
-export class TitleComponent implements OnInit {
+export class TitleComponent {
   @Input() views: TitleView[]
-
-  constructor() {}
-
-  ngOnInit() {}
 
   trackBy(index, item) {
     return index

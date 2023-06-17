@@ -2,13 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core'
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core'
 import '@cds/core/button/register.js'
 import { ClarityIcons, linkIcon } from '@cds/core/icon'
 import { PortsView } from 'src/app/modules/shared/models/content'
@@ -20,10 +14,7 @@ import { AbstractViewComponent } from '../../abstract-view/abstract-view.compone
   styleUrls: ['./ports.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PortsComponent
-  extends AbstractViewComponent<PortsView>
-  implements OnDestroy
-{
+export class PortsComponent extends AbstractViewComponent<PortsView> {
   private previousView: PortsView
 
   @Output() portLoad: EventEmitter<boolean> = new EventEmitter(true)
@@ -38,8 +29,6 @@ export class PortsComponent
       this.portLoad.emit(false)
     }
   }
-
-  ngOnDestroy() {}
 
   load(_: Event) {
     this.portLoad.emit(true)

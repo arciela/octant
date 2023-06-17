@@ -3,17 +3,17 @@ Copyright (c) 2020 the Octant contributors. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-import { Component, HostListener, OnInit } from '@angular/core'
-import '@cds/core/modal/register'
-import { ClarityIcons, uploadIcon } from '@cds/core/icon'
-import { EditorView } from 'src/app/modules/shared/models/content'
+import { Component, HostListener } from '@angular/core';
+import '@cds/core/modal/register';
+import { ClarityIcons, uploadIcon } from '@cds/core/icon';
+import { EditorView } from 'src/app/modules/shared/models/content';
 
 @Component({
   selector: 'app-apply-yaml',
   templateUrl: './apply-yaml.component.html',
   styleUrls: ['./apply-yaml.component.scss'],
 })
-export class ApplyYAMLComponent implements OnInit {
+export class ApplyYAMLComponent {
   editorView: EditorView = {
     config: {
       value: '',
@@ -32,8 +32,6 @@ export class ApplyYAMLComponent implements OnInit {
   constructor() {
     ClarityIcons.addIcons(uploadIcon)
   }
-
-  ngOnInit() {}
 
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
