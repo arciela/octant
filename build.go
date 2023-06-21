@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 /*
@@ -25,12 +26,12 @@ import (
 )
 
 var (
-	VERSION    = "v0.25.1"
-	GOPATH     = os.Getenv("GOPATH")
-	GIT_COMMIT = gitCommit()
-	BUILD_TIME = time.Now().UTC().Format(time.RFC3339)
-	LD_FLAGS   = fmt.Sprintf("-X \"main.buildTime=%s\" -X main.gitCommit=%s", BUILD_TIME, GIT_COMMIT)
-	GO_FLAGS   = fmt.Sprintf("-ldflags=%s", LD_FLAGS)
+	VERSION     = "v0.25.1"
+	GOPATH      = os.Getenv("GOPATH")
+	GIT_COMMIT  = gitCommit()
+	BUILD_TIME  = time.Now().UTC().Format(time.RFC3339)
+	LD_FLAGS    = fmt.Sprintf("-X \"main.buildTime=%s\" -X main.gitCommit=%s", BUILD_TIME, GIT_COMMIT)
+	GO_FLAGS    = fmt.Sprintf("-ldflags=%s", LD_FLAGS)
 	IMAGE_FLAGS = "exclude_graphdriver_devicemapper exclude_graphdriver_btrfs containers_image_openpgp"
 )
 
@@ -153,15 +154,6 @@ func main() {
 			},
 		},
 		&cobra.Command{
-			Use:   "build-electron",
-			Short: "server build to extraResources, skipping tests",
-			Run: func(cmd *cobra.Command, args []string) {
-				webDeps("--prefer-offline", "--no-audit")
-				buildElectron()
-				webBuildElectron()
-			},
-		},
-		&cobra.Command{
 			Use:   "run-dev",
 			Short: "run ci produced build",
 			Run: func(cmd *cobra.Command, args []string) {
@@ -275,28 +267,7 @@ func build() {
 	if runtime.GOOS == "windows" {
 		artifact = "octant.exe"
 	}
-	runCmd("go", nil, "build", "-tags", "embedded " + IMAGE_FLAGS, "-mod=vendor", "-o", "build/"+artifact, GO_FLAGS, "-v", "./cmd/octant")
-}
-
-// buildElectron builds an Octant binary without web assets
-func buildElectron() {
-	cleanCmd := newCmd("npm", nil, "run", "clean")
-	cleanCmd.Stdout = os.Stdout
-	cleanCmd.Stderr = os.Stderr
-	cleanCmd.Stdin = os.Stdin
-	cleanCmd.Dir = "./web"
-	if err := cleanCmd.Run(); err != nil {
-		log.Fatalf("web-build-electron: create dist/octant/ : %s", err)
-	}
-
-	newPath := filepath.Join(".", "build")
-	os.MkdirAll(newPath, 0755)
-
-	artifact := "octant"
-	if runtime.GOOS == "windows" {
-		artifact = "octant.exe"
-	}
-	runCmd("go", nil, "build", "-tags", IMAGE_FLAGS, "-mod=vendor", "-o", "web/extraResources/"+artifact, GO_FLAGS, "-v", "./cmd/octant")
+	runCmd("go", nil, "build", "-tags", "embedded "+IMAGE_FLAGS, "-mod=vendor", "-o", "build/"+artifact, GO_FLAGS, "-v", "./cmd/octant")
 }
 
 func runDev() {
@@ -368,17 +339,6 @@ func webBuild() {
 	cmd.Dir = "./web"
 	if err := cmd.Run(); err != nil {
 		log.Fatalf("web-build: %s", err)
-	}
-}
-
-func webBuildElectron() {
-	cmd := newCmd("npm", nil, "run", "electron:build")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Stdin = os.Stdin
-	cmd.Dir = "./web"
-	if err := cmd.Run(); err != nil {
-		log.Fatalf("web-build-electron: build : %s", err)
 	}
 }
 

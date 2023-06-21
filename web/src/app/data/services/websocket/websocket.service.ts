@@ -5,21 +5,11 @@
 
 import { Inject, Injectable } from '@angular/core'
 import { Router } from '@angular/router'
-import {
-  BehaviorSubject,
-  ObjectUnsubscribedError,
-  Observable,
-  Subject,
-} from 'rxjs'
-import {
-  NotifierService,
-  NotifierSession,
-  NotifierSignalType,
-} from '../../../modules/shared/notifier/notifier.service'
+import { BehaviorSubject, ObjectUnsubscribedError, Observable, Subject } from 'rxjs'
+import { NotifierService, NotifierSession, NotifierSignalType } from '../../../modules/shared/notifier/notifier.service'
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
 import { delay, retryWhen, take, tap } from 'rxjs/operators'
 import { WindowToken } from '../../../window'
-import { ElectronService } from 'src/app/modules/shared/services/electron/electron.service'
 
 interface WebsocketPayload {
   type: string;
@@ -30,9 +20,13 @@ export type HandlerFunc = (data: {}) => void;
 
 export interface BackendService {
   open();
+
   close();
+
   registerHandler(name: string, handler: HandlerFunc);
+
   sendMessage(messageType: string, payload: {});
+
   triggerHandler(name: string, payload: {});
 }
 
@@ -43,7 +37,7 @@ interface Alert {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class WebsocketService implements BackendService {
   handlers: { [key: string]: ({}) => void } = {}
@@ -56,12 +50,9 @@ export class WebsocketService implements BackendService {
 
   private router: Router
 
-  constructor(
-    private electronService: ElectronService,
-    notifierService: NotifierService,
-    router: Router,
-    @Inject(WindowToken) private window: Window
-  ) {
+  constructor(notifierService: NotifierService,
+              router: Router,
+              @Inject(WindowToken) private window: Window) {
     this.notifierSession = notifierService.createSession()
     this.router = router
 
@@ -152,7 +143,7 @@ export class WebsocketService implements BackendService {
         const subject = webSocket({
           url: uri,
           deserializer: ({ data }) => JSON.parse(data),
-          openObserver: this.reconnected,
+          openObserver: this.reconnected
         })
 
         const subscription = subject.asObservable().subscribe(
@@ -177,7 +168,7 @@ export class WebsocketService implements BackendService {
     if (this.subject) {
       const data = {
         type: messageType,
-        payload,
+        payload
       }
       this.subject.next(data)
     }
@@ -203,11 +194,6 @@ export class WebsocketService implements BackendService {
   }
 
   websocketURI(): string {
-    if (this.electronService.isElectron()) {
-      const port = this.electronService.port()
-      return 'ws://localhost:' + port + '/api/v1/stream'
-    }
-
     const loc = this.window.location
     let newURI = 'ws:'
     if (loc.protocol === 'https:') {

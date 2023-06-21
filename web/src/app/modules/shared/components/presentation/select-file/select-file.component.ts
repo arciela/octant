@@ -6,7 +6,6 @@ import { Component, ElementRef, EventEmitter, isDevMode, Output, ViewChild } fro
 import { AbstractViewComponent } from '../../abstract-view/abstract-view.component'
 import { SelectFileView } from '../../../models/content'
 import { ActionService } from '../../../services/action/action.service'
-import { ElectronService } from '../../../services/electron/electron.service'
 
 type File = {
   name: string;
@@ -31,10 +30,7 @@ export class SelectFileComponent extends AbstractViewComponent<SelectFileView> {
   @ViewChild('fileInput') fileInput: ElementRef
   @Output() fileChanged: EventEmitter<any> = new EventEmitter<any>()
 
-  constructor(
-      private actionService: ActionService,
-      private electronService: ElectronService
-  ) {
+  constructor(private actionService: ActionService) {
     super()
   }
 
@@ -65,10 +61,6 @@ export class SelectFileComponent extends AbstractViewComponent<SelectFileView> {
           type: file.type,
           lastModified: file.lastModified,
           size: file.size
-        }
-
-        if (this.electronService.isElectron()) {
-          fileMetadata = {...fileMetadata, ...{path: file.path}}
         }
         fileList.push(fileMetadata)
       }

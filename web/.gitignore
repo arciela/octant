@@ -56,7 +56,6 @@ Thumbs.db
 
 /main.js
 /main.js.map
-/electron/*.js
 /src/coverage/*
 
 #compodoc documentation file

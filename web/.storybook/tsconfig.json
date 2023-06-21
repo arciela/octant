@@ -17,6 +17,5 @@
   ],
   "files": [
     "./typings.d.ts",
-    "../node_modules/electron/electron.d.ts"
   ]
 }

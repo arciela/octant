@@ -5,19 +5,14 @@
 
 import { Injectable, OnDestroy } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
-import {
-  Operation,
-  PreferencePanel,
-  Preferences,
-} from '../../models/preference'
+import { Operation, PreferencePanel, Preferences } from '../../models/preference'
 import { ThemeService } from '../theme/theme.service'
 import { PreferencesEntry } from './preferences.entry'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PreferencesService implements OnDestroy {
-  private electronStore: any
   private kubeConfigPathText: string
   private kubeConfigFullPath: string
 
@@ -26,11 +21,6 @@ export class PreferencesService implements OnDestroy {
     new BehaviorSubject<boolean>(false)
 
   constructor(private themeService: ThemeService) {
-    if (this.isElectron()) {
-      const Store = window.require('electron-store')
-      this.electronStore = new Store()
-    }
-
     this.preferences.set(
       'navigation.collapsed',
       new PreferencesEntry<boolean>(
@@ -57,8 +47,7 @@ export class PreferencesService implements OnDestroy {
         this,
         'development.frontendUrl',
         'http://localhost:4200',
-        '',
-        true
+        ''
       )
     )
 
@@ -68,8 +57,7 @@ export class PreferencesService implements OnDestroy {
         this,
         'development.embedded',
         true,
-        'embedded',
-        true
+        'embedded'
       )
     )
 
@@ -98,28 +86,11 @@ export class PreferencesService implements OnDestroy {
   }
 
   setStoredValue(key: string, value: any) {
-    if (this.isElectron()) {
-      this.electronStore.set(key, value)
-    } else {
-      localStorage.setItem(key, value)
-    }
+    localStorage.setItem(key, value)
   }
 
   getStoredValue(key: string, defaultValue: any) {
-    if (this.isElectron()) {
-      return this.electronStore.get(key, defaultValue)
-    } else {
-      return localStorage.getItem(key) || defaultValue
-    }
-  }
-
-  isElectron(): boolean {
-    if (typeof process === 'undefined') {
-      return false
-    }
-    return (
-      process && process.versions && process.versions.electron !== undefined
-    )
+    return localStorage.getItem(key) || defaultValue
   }
 
   public preferencesChanged(update: Preferences) {
@@ -127,31 +98,19 @@ export class PreferencesService implements OnDestroy {
 
     for (const pref of this.preferences.values()) {
       const changed = pref.preferencesChanged(update)
-      if (changed && pref.updatesElectron) {
+      if (changed) {
         notificationRequired = true
       }
     }
 
     this.updateTheme()
-
-    if (this.isElectron() && notificationRequired) {
-      const ipcRenderer = window.require('electron').ipcRenderer
-      ipcRenderer.send('preferences', 'changed')
-    }
   }
 
   public getPreferences(): Preferences {
-    const panels: PreferencePanel[] = this.isElectron()
-      ? [
-          this.getGeneralPanels(),
-          this.getNavigationPanels(),
-          this.getDeveloperPanels(),
-        ]
-      : [this.getGeneralPanels(), this.getNavigationPanels()]
-
+    const panels: PreferencePanel[] = [this.getGeneralPanels(), this.getNavigationPanels()]
     return {
       updateName: 'generalPreferences',
-      panels,
+      panels
     }
   }
 
@@ -199,14 +158,14 @@ export class PreferencesService implements OnDestroy {
                 values: [
                   {
                     label: 'Embedded',
-                    value: 'embedded',
+                    value: 'embedded'
                   },
                   {
                     label: 'Proxied',
-                    value: 'proxied',
-                  },
-                ],
-              },
+                    value: 'proxied'
+                  }
+                ]
+              }
             },
             {
               name: 'development.frontendUrl',
@@ -217,15 +176,15 @@ export class PreferencesService implements OnDestroy {
                 {
                   lhs: 'development.embedded',
                   op: Operation.Equal,
-                  rhs: 'proxied',
-                },
+                  rhs: 'proxied'
+                }
               ],
               config: {
                 label: 'Frontend Proxy Url',
-                placeholder: 'http://example.com',
-              },
-            },
-          ],
+                placeholder: 'http://example.com'
+              }
+            }
+          ]
         },
         {
           name: 'Logging verbosity (requires restart)',
@@ -240,18 +199,18 @@ export class PreferencesService implements OnDestroy {
                 values: [
                   {
                     label: 'Debug',
-                    value: 'debug',
+                    value: 'debug'
                   },
                   {
                     label: 'Normal',
-                    value: 'normal',
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      ],
+                    value: 'normal'
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
     }
   }
 
@@ -272,16 +231,16 @@ export class PreferencesService implements OnDestroy {
                 values: [
                   {
                     label: 'Dark',
-                    value: 'dark',
+                    value: 'dark'
                   },
                   {
                     label: 'Light',
-                    value: 'light',
-                  },
-                ],
-              },
-            },
-          ],
+                    value: 'light'
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           name: 'Table Pagination',
@@ -296,13 +255,13 @@ export class PreferencesService implements OnDestroy {
                 title: [
                   {
                     metadata: {
-                      type: 'input',
+                      type: 'input'
                     },
                     config: {
-                      value: pageSize,
-                    },
-                  },
-                ],
+                      value: pageSize
+                    }
+                  }
+                ]
               },
               config: {
                 type: 'label',
@@ -312,27 +271,27 @@ export class PreferencesService implements OnDestroy {
                   {
                     name: '10',
                     type: 'text',
-                    label: '10',
+                    label: '10'
                   },
                   {
                     name: '20',
                     type: 'text',
-                    label: '20',
+                    label: '20'
                   },
                   {
                     name: '50',
                     type: 'text',
-                    label: '50',
+                    label: '50'
                   },
                   {
                     name: '100',
                     type: 'text',
-                    label: '100',
-                  },
-                ],
-              },
-            },
-          ],
+                    label: '100'
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           name: 'Current Kube Config Path',
@@ -344,13 +303,13 @@ export class PreferencesService implements OnDestroy {
               textConfig: {
                 config: {
                   value: this.kubeConfigPathText || 'unknown',
-                  clipboardValue: this.kubeConfigFullPath || 'unknown',
-                },
-              },
-            },
-          ],
-        },
-      ],
+                  clipboardValue: this.kubeConfigFullPath || 'unknown'
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   }
 
@@ -371,16 +330,16 @@ export class PreferencesService implements OnDestroy {
                 values: [
                   {
                     label: 'Expanded',
-                    value: 'expanded',
+                    value: 'expanded'
                   },
                   {
                     label: 'Collapsed',
-                    value: 'collapsed',
-                  },
-                ],
-              },
-            },
-          ],
+                    value: 'collapsed'
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           name: 'Navigation labels',
@@ -395,18 +354,18 @@ export class PreferencesService implements OnDestroy {
                 values: [
                   {
                     label: 'Show Labels',
-                    value: 'show',
+                    value: 'show'
                   },
                   {
                     label: 'Hide Labels',
-                    value: 'hide',
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      ],
+                    value: 'hide'
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
     }
   }
 }
